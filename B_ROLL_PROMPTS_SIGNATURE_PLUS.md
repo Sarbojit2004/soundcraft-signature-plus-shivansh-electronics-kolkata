@@ -1,9 +1,10 @@
-# SOUNDCRAFT SIGNATURE PLUS — 12 B-ROLL PROMPTS
+# SOUNDCRAFT SIGNATURE PLUS — 20 B-ROLL PROMPTS
 ## Image-to-video shot list for Google Gemini
 
 **Client:** Shivansh Electronics, Kolkata
-**Purpose:** generate twelve B-roll clips from the product photography already in this
-repository, for the Signature Plus vertical reel.
+**Purpose:** generate twenty B-roll clips from the product photography already in this
+repository, for the Signature Plus vertical reel. Twenty distinct stills, twenty distinct
+clips — no still is used twice.
 
 ---
 
@@ -14,7 +15,7 @@ the channel count wrong, garble the brand name, and print legends that are not w
 That is not a cosmetic failure — a reel whose hero product is subtly wrong is worse than
 no reel at all.
 
-So none of the twelve prompts below describe the product. Every one of them describes a
+So not one of the twenty prompts below describes the product. Every one of them describes a
 **camera moving over a photograph** of it, and then forbids, explicitly and at length,
 each way the model might be tempted to redraw what it sees.
 
@@ -37,7 +38,7 @@ following:
 | | |
 |---|---|
 | **Mode** | Image to video. Attach the still first, then paste the prompt. The attached image becomes frame one — this is the entire reason the product survives. |
-| **Never** | Never use text-to-video for these. A text-to-video model has no obligation to the real product and will invent a mixing console that looks approximately Soundcraft-ish: wrong channel count, invented legends, a garbled logo. Every one of the twelve prompts below assumes an attached still. |
+| **Never** | Never use text-to-video for these. A text-to-video model has no obligation to the real product and will invent a mixing console that looks approximately Soundcraft-ish: wrong channel count, invented legends, a garbled logo. Every one of the twenty prompts below assumes an attached still. |
 | **Length** | Ask for the longest clip the tool offers (usually 8 s). I will use 2–4 s of each in the cut, so a long take gives me a choice of where to take the slice. |
 | **Aspect** | 16:9, highest resolution offered. Not 9:16 — the product stills are 4:3 landscape, and forcing them into a vertical frame crops the console in half. The reel is 9:16 and composites these as a full-width band over a wash derived from the clip itself, exactly the way the MOTU M-Series reel handled its stills. |
 | **Takes** | Run each prompt 2–3 times and keep the best take. These models are stochastic — the same prompt gives a clean take and a drifting one. |
@@ -78,6 +79,19 @@ its own voice):
 
 ---
 
+## Two matched pairs
+
+Four of the twenty are written to be cut directly against each other, which only works if
+the takes match. Generate each pair back to back in the same sitting, and do not let the
+second one drift toward something more interesting.
+
+| Shots | Pair | Why it has to match |
+|---|---|---|
+| 16 + 17 | **Thirty-two against twelve** | Identical lens, identical descent, identical rotation, identical lighting behaviour — only the console underneath changes. Hard-cut in the edit, the pair states the range in about one second without a word of narration. |
+| 02 + 20 | **Flagship against sweet spot** | The same four percent creep and the same left-to-right key sweep on the 32 and the 22, so the two models are introduced in the same grammar and the size difference is the only variable. |
+
+---
+
 ## Model coverage
 
 Every model in the range gets a shot of its own, so the reel can give each one an
@@ -85,14 +99,16 @@ identity rather than treating the series as one undifferentiated product.
 
 | Model | Shots |
 |---|---|
-| Signature Plus 12 | 09 |
-| Signature Plus 16 | 05 |
-| Signature Plus 22 | 03, 11 |
-| Signature Plus 32 | 02, 10, and the family frame in 12 |
+| Signature Plus 12 | 09 hero · 17 plan |
+| Signature Plus 16 | 05 plan · 13 band room · 14 duo |
+| Signature Plus 22 | 20 hero · 03 profile · 11 daylight · 15 setup |
+| Signature Plus 32 | 02 hero · 16 plan · 18 rear · 10 front of house |
+| Series / features | 01 · 04 · 06 · 07 · 08 · 19 · 12 family |
 
-**Known gap.** The dbx compressor row and the Sapphyre EQ row get no dedicated shot —
-there is no macro of either in the supplied photography. Shots 01 and 05 carry those
-lines instead. If two more clips are wanted later, that is where the hole is.
+**Still a gap.** The dbx compressor row and the Sapphyre EQ row have no close-up of
+their own, because no macro of either exists in the supplied photography. Shots 01, 05,
+16 and 17 carry those lines instead — the plan views push in far enough for the strips to
+read. This is the one thing a new photograph, rather than a new prompt, would fix.
 
 ---
 
@@ -108,7 +124,7 @@ lines instead. If two more clips are wanted later, that is where the hole is.
 
 ---
 
-## THE TWELVE
+## THE TWENTY
 
 ### 01 · The knob field
 
@@ -710,6 +726,428 @@ MOTION BUDGET. This is a premium hardware film, not a music video. The move is c
 AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
 
 NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in, extra console, missing console, resized console, reordered lineup, redrawn diagram lines
+```
+
+</details>
+
+---
+
+### 13 · The band room
+
+| | |
+|---|---|
+| **Role in the cut** | In use |
+| **Model** | Signature Plus 16 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 16 (7).webp` |
+| **Save the clip as** | `broll-13-band-room.mp4` |
+
+Four musicians tracking in a dark room with the console lit in the foreground. This is the shot that says “a session”, not “a product”, and it is the warmest frame in the entire asset set — the reel needs at least one moment that is about people rather than hardware.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the primary move. A cinema camera on a dolly. 35 mm at f/2.0, positioned at the console, looking past it toward the musicians.
+
+Over the full duration, push in slowly toward the group by about 5 percent, so the console stays anchored across the lower foreground while the room comes fractionally closer. Keep the move level — no tilt up, no crane, no rotation.
+
+LIGHT AND ATMOSPHERE. The room is dark and lit by warm practicals, and it is allowed to breathe: the warm sources may drift very slightly in intensity, and any haze in the air may move. Nothing changes colour. No new light source appears, and nothing new spills onto the console surface.
+
+PERMITTED HUMAN MOTION — micro-motion only. The musicians may breathe, blink, and shift their weight or head angle by no more than a few degrees inside the pose they are already holding.
+
+Nobody stands, walks, turns around, leaves frame, or changes identity, face, hair or clothing. No mouths open, no singing, no speech, no lip movement. Microphones, stands and the headphones resting on the desk stay exactly where and what they are.
+
+The console in the foreground is held under the full subject lock above — it is hardware, and it does not move at all.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in, face morphing, changing faces, identity change, new people appearing, people leaving frame, extra limbs, extra fingers, distorted hands, lip sync, mouth movement, talking, instruments changing shape
+```
+
+</details>
+
+---
+
+### 14 · Two players, one desk
+
+| | |
+|---|---|
+| **Role in the cut** | In use |
+| **Model** | Signature Plus 16 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 16 (8).webp` |
+| **Save the clip as** | `broll-14-two-players.mp4` |
+
+An acoustic duo against a magenta-washed brick wall, console in the near foreground. It is the most colour-forward frame available and it cuts hard against the dark studio and the daylight room — three completely different rooms, one desk, which is the argument the reel is making.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the primary move. A cinema camera on a slider. 40 mm at f/2.2.
+
+Over the full duration, track laterally from right to left across roughly 6 percent of the frame width, keeping the console anchored in the lower foreground. A lateral move rather than a push, so real parallax opens between the players and the brick wall behind them. Keep the camera height fixed. No rotation, no tilt.
+
+LIGHT AND ATMOSPHERE. The coloured wall wash behind the players may pulse very slowly in intensity, the way a practical on a dimmer breathes. Daylight in the frame stays exactly as it is. No new lights, no flare, no spill onto the console.
+
+PERMITTED HUMAN MOTION — micro-motion only, and less than you would think.
+
+The two players may breathe and shift their weight by a few degrees inside the pose they are already holding. That is all.
+
+CRITICALLY: their hands and fingers must not move at all. Treat both instruments as held, not played. Do not move a hand along a fretboard, do not change a chord shape, do not strum, do not animate a playing motion. Hands on instruments are where this kind of shot fails, and a held pose is always safer than a performed one.
+
+Nobody turns, stands, leaves frame, or changes identity, face, hair, clothing or instrument. No mouths open, no singing, no lip movement.
+
+The console in the foreground is held under the full subject lock above.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in, face morphing, changing faces, identity change, new people appearing, people leaving frame, extra limbs, extra fingers, distorted hands, lip sync, mouth movement, talking, instruments changing shape, fingers changing position, strumming, playing motion, changing chord shape, moving along fretboard, instrument deforming
+```
+
+</details>
+
+---
+
+### 15 · Reaching for the back
+
+| | |
+|---|---|
+| **Role in the cut** | In use |
+| **Model** | Signature Plus 22 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 22 (11).webp` |
+| **Save the clip as** | `broll-15-reaching-back.mp4` |
+
+A home studio mid-setup: one hand out across the console toward the rear, a loom of coloured patch cables running off the back, a guitarist working behind. It is the only frame in the set that shows the desk being used rather than operated, and the cable run does more to explain the I/O than any spec line could.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the primary move. A cinema camera on a dolly. 35 mm at f/2.5.
+
+Over the full duration, push in slowly by about 5 percent along an axis that keeps the console and its cable loom anchored across the lower foreground. Level throughout. No rotation, no tilt, no arc.
+
+LIGHT AND ATMOSPHERE. Daylight from the window may change fractionally, as cloud passes. The monitor screens in frame keep exactly the image they already show — do not animate, scroll, refresh or re-render anything on a screen. No other light changes.
+
+PERMITTED HUMAN MOTION — micro-motion only.
+
+The person at the console may breathe and blink. The reaching arm must stay exactly where it is: do not complete the reach, do not move the hand onto a different control, do not curl or extend the fingers. It is a held pose, not an action.
+
+The person behind may breathe and shift weight by a few degrees, with hands held still on the instrument.
+
+Nobody stands, walks, turns around, leaves frame, or changes identity, face, hair or clothing. No mouths open, no speech, no lip movement.
+
+The cables must not move, uncoil, sway or change colour. The console is held under the full subject lock above.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in, face morphing, changing faces, identity change, new people appearing, people leaving frame, extra limbs, extra fingers, distorted hands, lip sync, mouth movement, talking, instruments changing shape, hand moving to a different control, arm completing a reach, cables moving, cables uncoiling, screen content changing, scrolling display
+```
+
+</details>
+
+---
+
+### 16 · Thirty-two, from above
+
+| | |
+|---|---|
+| **Role in the cut** | Scale |
+| **Model** | Signature Plus 32 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 32 (1).webp` |
+| **Save the clip as** | `broll-16-plan-32.mp4` |
+
+One half of a matched pair. Shot 16 and shot 17 use an identical camera move on an identical framing, so the two can be hard-cut against each other in the edit — thirty-two channel strips, then twelve, in the same frame, with nothing else changing. That single cut carries the whole range in about one second. Run this prompt and shot 17's back to back so the takes match.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the only thing that moves. A cinema camera mounted directly overhead on a motion-control crane. 35 mm lens at f/8, sensor plane exactly parallel to the top surface of the console.
+
+Over the full duration, descend slowly straight down the vertical axis, ending roughly 6 percent closer, so the channel strips grow toward the edges of frame. Add one single, almost imperceptible rotation about the lens axis of no more than 0.6 degrees clockwise across the whole move.
+
+Do not translate sideways. Do not tilt off perpendicular. Do not let the console crop at any edge. This move must be repeatable — it is one half of a matched pair.
+
+LIGHT AND ATMOSPHERE. A soft overhead source drifts very slightly, so the broad sheen across the panel migrates from one side toward the other. No new shadows, no new reflections, no change of colour temperature.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in
+```
+
+</details>
+
+---
+
+### 17 · Twelve, from above
+
+| | |
+|---|---|
+| **Role in the cut** | Scale |
+| **Model** | Signature Plus 12 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 12 (2).webp` |
+| **Save the clip as** | `broll-17-plan-12.mp4` |
+
+The other half of the pair. Same lens, same descent, same rotation as shot 16 — deliberately identical, because the cut between them is the shot. Generate it immediately after 16 so the two takes are as close as the model will give you.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the only thing that moves. A cinema camera mounted directly overhead on a motion-control crane. 35 mm lens at f/8, sensor plane exactly parallel to the top surface of the console.
+
+Over the full duration, descend slowly straight down the vertical axis, ending roughly 6 percent closer, so the channel strips grow toward the edges of frame. Add one single, almost imperceptible rotation about the lens axis of no more than 0.6 degrees clockwise across the whole move.
+
+Do not translate sideways. Do not tilt off perpendicular. Do not let the console crop at any edge. This move is deliberately identical to its matched pair — do not vary it, do not improvise on it, do not make it more interesting.
+
+LIGHT AND ATMOSPHERE. A soft overhead source drifts very slightly, so the broad sheen across the panel migrates from one side toward the other. Match the previous shot's lighting behaviour exactly. No new shadows, no new reflections, no change of colour temperature.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in
+```
+
+</details>
+
+---
+
+### 18 · The back of the 32
+
+| | |
+|---|---|
+| **Role in the cut** | Feature |
+| **Model** | Signature Plus 32 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 32 (5).webp` |
+| **Save the clip as** | `broll-18-rear-panel-32.mp4` |
+
+The I/O beat. A metre of connectors in a single straight row is the most honest statement a console can make about what it will and will not do, and the source still is wide enough that a long lateral track never runs out of frame.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the only thing that moves. A cinema camera on a long slider. 85 mm at f/5.6, sensor plane exactly parallel to the rear panel.
+
+Over the full duration, track laterally from left to right across roughly 14 percent of the frame width, travelling along the row of connectors. This is the longest move in the set and it must stay perfectly linear and perfectly level — no drift toward or away from the panel, no rotation, no tilt, no arc that would begin to show the top surface.
+
+LIGHT AND ATMOSPHERE. A soft specular highlight travels along the top edge of the chassis as the camera moves, the way a real light rakes a long metal extrusion. The background stays clean and unchanged.
+
+LEGEND LOCK — specific to this shot. The rear panel carries the brand name, the model name and printed legends beside the connectors. Every one of those characters must survive the move exactly as printed. Do not re-letter, re-space or re-render any of them. Do not add, remove or resize a single connector, and do not change the spacing of the connector row.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in
+```
+
+</details>
+
+---
+
+### 19 · Aux and talkback
+
+| | |
+|---|---|
+| **Role in the cut** | Feature |
+| **Model** | Series |
+| **Attach this still** | `SOUNDCRAFT SIGNATURE PLUS OVERVIEW (5).webp` |
+| **Save the clip as** | `broll-19-aux-talkback.mp4` |
+
+Fills the workflow gap the first twelve left open. Four aux rows, each with its own pre/post switch and its own talkback button, is the feature that decides whether a desk can actually run monitors from the same position as front of house — and it is otherwise invisible in a wide shot.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the only thing that moves. A cinema camera on a dolly. 65 mm at f/4.
+
+Over the full duration, push in slowly along the lens axis by about 5 percent, centred on the tall callout panel showing the repeated aux rows. Every row and every button legend must stay pin-sharp and legible from the first frame to the last. No rotation, no lateral drift, no focus change.
+
+LIGHT AND ATMOSPHERE. The coloured haze filling the background drifts and blooms slowly behind the console. The console and the callout panel in front of it stay completely fixed.
+
+PANEL LOCK — specific to this shot. The callout shows four identical repeated rows. Each row carries one knob, one mute control, and two labelled buttons reading POST and T/B.
+
+Keep exactly four rows — do not add a fifth, do not drop one. Keep the legends POST and T/B on every row, character-for-character. Keep every button in the colour it already is.
+
+Do not illuminate any button, do not animate a button being pressed, do not move a knob, do not add an LED. Nothing on this panel is switched on and nothing is being operated — it is a printed callout, and it holds still.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in, buttons pressing themselves, illuminated buttons, changed button colours, added rows, removed rows, rotating knobs, animated controls
+```
+
+</details>
+
+---
+
+### 20 · The 22, in the round
+
+| | |
+|---|---|
+| **Role in the cut** | Model |
+| **Model** | Signature Plus 22 |
+| **Attach this still** | `SOUNDCRAFT Signature Plus 22 (6).webp` |
+| **Save the clip as** | `broll-20-hero-22.mp4` |
+
+The 22 is the range's sweet spot — the largest desk that still lands on an ordinary table — and until now it only had a side elevation and two lifestyle frames. This gives it the clean beauty shot the 12 and the 32 already have, so all four models can be introduced the same way.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Animate the attached photograph as one continuous piece of live-action cinematography. 16:9. Use the longest duration available.
+
+SUBJECT LOCK — highest priority. This instruction overrides anything below it that appears to conflict with it.
+
+The attached image is frame one, and it is the complete visual truth of the hardware for every frame that follows. The object in it is a real, manufactured, rigid piece of professional audio equipment that was photographed in a studio. It is not an illustration, not a concept sketch, and not a starting point to reinterpret. It is fixed in place: it does not move, rotate, tilt, bend, flex, breathe, ripple, wobble or change its own proportions.
+
+Every knob, fader, fader cap, button, switch, socket, jack, connector, meter, LED, printed label, scale marking, numeral, arrow, icon and logo must remain in exactly the position, size, shape, colour, quantity and spelling shown in the attached image, in every single frame.
+
+• Do not add any control that is not already in the image.
+• Do not remove, merge, hide or relocate any control that is in the image.
+• Do not change the number of channel strips, faders, knobs, sockets or connectors.
+• Do not re-letter, re-spell, re-space, re-font or re-render any printed text — including the brand name, the model name and every panel legend. If text becomes too small to resolve at any point in the move, let it go softly out of focus. Never invent replacement characters.
+• Do not redesign, re-colour, re-texture or re-light the panel itself.
+• Do not generate any part of the object that the attached image does not already show.
+
+You are filming an existing photograph with a moving camera. You are not re-imagining the product.
+
+CAMERA — the only thing that moves. A cinema camera on a motorised dolly. 50 mm at f/5.6, locked off horizontally.
+
+Over the full duration, push straight in along the lens axis by roughly 4 percent — the same restrained creep used on the flagship, so the two shots feel like they came from the same session. Keep the front edge of the console exactly level throughout. No rotation, no arc around the object, no drift up or down.
+
+LIGHT AND ATMOSPHERE. A soft, wide key light travels slowly from the left of frame to the right across the fader bank and the knob field, so highlights migrate along the metal edges and across the coloured caps. The background stays exactly as it is — no new shadows, no new reflections.
+
+MOTION BUDGET. This is a premium hardware film, not a music video. The move is continuous, slow, in one direction, with a gentle ease in and ease out. It never reverses, snaps, whips, stutters, cuts or jumps. No speed ramp, no zoom punch, no shutter stutter, no handheld shake. If in doubt, move less.
+
+AUDIO: none. Generate no speech, no narration, no music and no sound effects. Silence, or faint neutral room tone at most.
+
+NEGATIVE PROMPT: distorted product, warped hardware, morphing panel, melting controls, extra knobs, missing knobs, extra faders, duplicated channel strips, changed channel count, re-rendered text, gibberish text, garbled lettering, misspelled logo, fake brand name, altered logo, invented labels, changed numerals, added screen, added display, added indicator lights, self-moving faders, self-moving knobs, reflections that alter the panel, lens flare across the panel, heavy bloom, rolling shutter, warp artefacts, camera shake, handheld wobble, whip pan, fast zoom, orbit revealing unseen sides, invented geometry, AI smoothing, plastic sheen, oversharpening, watermark, caption, subtitle, text overlay, UI overlay, border, letterbox, vignette burn-in
 ```
 
 </details>
