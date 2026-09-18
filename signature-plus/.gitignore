@@ -1,0 +1,11 @@
+node_modules/
+.remotion/
+
+# Derived, and fully rebuilt by `npm run assets` from the sources already in
+# this repository. Committing them would double ~600 MB of video for no benefit.
+public/img/
+public/clip/
+
+# Silent narration placeholders: 73 MB of zeroes, regenerated in a second by
+# `npm run audio`. The recorded read replaces them at the same paths.
+public/audio/vo-*.wav

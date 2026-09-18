@@ -141,3 +141,14 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Derived: rebuilt by signature-plus/scripts/prep_broll.py and prep_wf.py, which
+# remove the generator's watermark from the delivered assets. The sources they
+# read are in gemini-creations/ and are committed.
+gemini-creations/clean/
+
+# The Node template above ignores any directory called `out` (it means Next.js's
+# build output). The finished renders live in signature-plus/out, so they are
+# put back.
+!signature-plus/out/
+!signature-plus/out/**
