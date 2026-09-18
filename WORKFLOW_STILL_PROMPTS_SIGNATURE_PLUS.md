@@ -1,8 +1,8 @@
-# SOUNDCRAFT SIGNATURE PLUS — 10 WORKFLOW STILL PROMPTS
+# SOUNDCRAFT SIGNATURE PLUS — 20 WORKFLOW STILL PROMPTS
 ## Multi-reference image generation for Google Gemini
 
 **Client:** Shivansh Electronics, Kolkata
-**Purpose:** generate ten photorealistic workflow stills that put the Signature Plus
+**Purpose:** generate twenty photorealistic workflow stills that put the Signature Plus
 consoles into real working environments, built from the clean studio photography already
 in this repository.
 
@@ -19,8 +19,8 @@ Every prompt applies all five. They explain why the prompts are shaped the way t
 | Rule | Why |
 |---|---|
 | **Match the angle** | Every scene is built around the viewpoint of its reference 1. That is not a stylistic preference — asking for a rear-three-quarter console in a front-on scene forces the model to re-project the product, and re-projection is where the fader count goes wrong. |
-| **Three references, one console** | Each prompt attaches an angle anchor, a plan view for control layout, and a rear panel for connector positions. All three are the same console. The prompt explicitly forbids composing them as separate objects, which is the failure mode that produces a collage. |
-| **No people at the controls** | Eight of the ten frames have no people in them at all, and the two that do keep hands well away from the surface. Hands on faders is where image models reliably produce six fingers, and an empty working room reads as calm competence rather than as a stock photo. |
+| **Three references, one console** | Each prompt attaches an angle anchor, a plan view for control layout, and a rear panel for connector positions — all three the same console. Every prompt explicitly forbids composing them as separate objects, which is the failure mode that produces a collage. Workflow 16 is the single exception and says so loudly: it is two different models in one frame, deliberately. |
+| **No people at the controls** | Not one of the twenty frames puts a person at the console. Hands on faders is where image models reliably produce six fingers, and an empty working room reads as calm competence rather than as a stock photo — it also lets the hardware be the only thing the eye lands on. |
 | **No text, anywhere** | Every prompt forbids invented signage, screen text, posters and badges. Screens show abstract shapes. All typography for this campaign is set in the reel, where it is editable and correctly kerned. |
 | **Cables enter the back** | The most common tell in a fake gear photograph is a cable plugged into the wrong face of the device. Every prompt states where each cable enters, and the negative prompt lists front-panel cable entry explicitly. |
 
@@ -54,20 +54,31 @@ Every prompt applies all five. They explain why the prompts are shaped the way t
 | 08 · Mix position, project studio | Signature Plus 22 | Sapphyre EQ and dbx compression in the mix · DC-coupled outputs |
 | 09 · Between sets | Signature Plus 16 | USB returns override the mix for break music and DJ sets |
 | 10 · The teaching room | Signature Plus 12 | Portability · a surface a student can learn on · QR code to training |
+| 11 · Conference panel, hotel ballroom | Signature Plus 32 | Listen bus · talkback · many open microphones at once |
+| 12 · Streaming the room | Signature Plus 22 | 4 × 4 USB-C feeding a live stream while the PA runs |
+| 13 · Load-out | Signature Plus 16 | Portability · a desk that travels |
+| 14 · The black box theatre | Signature Plus 22 | Talkback to any output · cueing backstage from the desk |
+| 15 · The on-air booth | Signature Plus 12 | Compact footprint · one desk running a live broadcast |
+| 16 · Two desks, one system | Signature Plus 12 + 32 | The range working together — a small desk on monitors, a large one at FOH |
+| 17 · The reception | Signature Plus 32 | High input count · event work at scale |
+| 18 · Overhead, the mix position | Signature Plus 32 | The whole surface in its working context |
+| 19 · It fits the table | Signature Plus 22 | Chassis depth · a full console on an ordinary desk |
+| 20 · The trolley | Signature Plus 12 | One person moves the whole system |
 
-Ten workflows, **18 distinct source stills**, 30 reference slots.
+Twenty workflows, **28 distinct source stills**, 62 reference slots, and 20 unique angle anchors — no two frames share a viewpoint.
 
-**Two frames are set in India on purpose.** Workflow 02 is a community hall and workflow
-03 is an outdoor event ground, both written for eastern India, because those are the
-rooms these customers actually run and neither appears anywhere in Soundcraft's own
-photography. To keep the set geographically neutral, delete the phrase naming the region
-from each and they read as any hall and any event ground anywhere.
+**Three frames are set in India on purpose.** Workflow 02 is a community hall, 03 an
+outdoor event ground and 17 a banquet reception — all written for eastern India, because
+those are the rooms these customers actually run and none of them appears anywhere in
+Soundcraft's own photography. To keep the set geographically neutral, delete the phrase
+naming the region from each and they read as any hall, any event ground and any banquet
+room anywhere.
 
 ---
 
 ## What to send back
 
-1. Pick one frame per workflow. Ten files, not forty.
+1. Pick one frame per workflow. Twenty files, not eighty.
 2. Name each file exactly as listed on its workflow below, e.g. `wf-01-foh-club.jpg`.
 3. Put them in a `workflow-stills/` folder at the root of this repository, alongside
    `b-roll/`, and push.
@@ -76,7 +87,7 @@ from each and they read as any hall and any event ground anywhere.
 
 ---
 
-## THE TEN
+## THE TWENTY
 
 ### 01 · Front of house, live club
 
@@ -790,6 +801,746 @@ PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by
 NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
 
 NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, children, students, teacher, hands, faces, readable sheet music, readable whiteboard, text on walls
+```
+
+</details>
+
+---
+
+### 11 · Conference panel, hotel ballroom
+
+| | |
+|---|---|
+| **Model** | Signature Plus 32 |
+| **Demonstrates** | Listen bus · talkback · many open microphones at once |
+| **Save the image as** | `wf-11-conference-panel.jpg` |
+
+Corporate and conference work is steady, unglamorous, high-margin, and it is the one application where a large channel count is obviously necessary rather than aspirational — a six-person panel plus two lecterns plus playback fills a desk fast.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 32 (6).webp`
+   — PRIMARY — front-left three-quarter from a high angle. Sets the angle: standing beside the mix table looking down and across the desk.
+2. `SOUNDCRAFT Signature Plus 32 (1).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 32 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — front-left three-quarter from a high angle. Sets the angle: standing beside the mix table looking down and across the desk.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A hotel ballroom set for a conference session, half an hour before doors. A patterned carpet, a low modular stage at the far end with a plain dark backdrop and a long table set for six with white cloth, six gooseneck microphones on low bases and six bottles of water. A lectern with its own gooseneck stands to one side. Rows of banquet chairs face the stage, straight and empty. Two loudspeakers on tall poles flank the stage; two more stand halfway down the room as delays.
+
+The mix position is a draped trestle table at the rear of the room. On it beside the console: a laptop, a small talkback microphone on a desk base, a pair of headphones, a coiled spare cable, and a printed running order lying face down so nothing on it can be read.
+
+No people anywhere in the room.
+
+CAMERA. Full-frame digital, 35 mm lens at f/4, ISO 1600, 1/100 s. Camera height about 1.9 metres, standing at the left end of the mix table looking down at roughly 35 degrees and across the console toward the stage. The console occupies the lower-left half of the frame and reads clearly; the empty chair rows and the lit stage recede to the upper right. Focus on the console; the stage soft but legible.
+
+LIGHT. Warm tungsten chandeliers and recessed ceiling downlights, plus a cooler white stage wash on the panel table at the far end. The mix position sits in a dimmer pocket at the back, lit mostly by a small task lamp and by spill from the room. Believable hotel-ballroom lighting — slightly yellow, slightly uneven, never theatrical.
+
+TECHNICAL TRUTH.
+
+A multicore leaves the BACK of the console, drops behind the trestle table and runs to the stage under a taped cable mat down the centre aisle.
+Four speaker feeds leave the rear and run to the four loudspeaker poles by separate routes along the walls.
+The talkback microphone's cable runs a short distance into the rear panel.
+One USB-C cable runs from the rear to the laptop.
+Each gooseneck microphone on the panel table has a visible cable dropping through a grommet in the table and running to the back of the stage.
+No cable enters the front or top of the console.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, delegates, speakers, hands, readable signage, readable name cards, corporate logos, projector screen with content
+```
+
+</details>
+
+---
+
+### 12 · Streaming the room
+
+| | |
+|---|---|
+| **Model** | Signature Plus 22 |
+| **Demonstrates** | 4 × 4 USB-C feeding a live stream while the PA runs |
+| **Save the image as** | `wf-12-streaming-the-room.jpg` |
+
+Almost every venue now streams, and almost every venue does it by pointing a phone at the room and getting terrible sound. One cable from the desk to the encoder fixes that, and this frame shows the whole chain in a single picture.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 22 (3).webp`
+   — PRIMARY — front-left three-quarter, elevated, brand badge visible. Sets the angle: standing at the front-left of the mix table looking down at the desk.
+2. `SOUNDCRAFT Signature Plus 22 (2).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 22 (7).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — front-left three-quarter, elevated, brand badge visible. Sets the angle: standing at the front-left of the mix table looking down at the desk.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A small live room at a music venue during soundcheck, set up to stream. The stage is eight metres away, lit and empty, with two microphone stands, a guitar amplifier and a drum kit ready.
+
+The mix position is a folding table at the side of the room. On it: the console, a laptop open beside it, and a small video camera on a short tripod pointed at the stage, its screen flipped out showing an abstract unreadable preview. A second, taller tripod stands behind with a camera aimed down the room. A coil of cable and a roll of tape sit at the table edge.
+
+No people in frame.
+
+CAMERA. Full-frame digital, 35 mm lens at f/3.2, ISO 1600, 1/100 s. Camera height about 1.75 metres, standing at the front left of the mix table, looking down at roughly 30 degrees across the console with the stage visible beyond at the upper right. The console occupies the lower-left two-thirds of the frame; the camera on its tripod sits in the mid-ground at the right; the lit stage lies beyond, softly out of focus.
+
+LIGHT. Stage lighting on at working level — warm front wash with a little blue from behind — plus one small cool practical over the mix table. The room between is dim. The console is lit from above and slightly left so the knob caps read clearly.
+
+TECHNICAL TRUTH — the cable chain is the picture.
+
+ONE USB-C cable leaves the BACK of the console and runs to the laptop. That single cable is the audio path to the stream.
+A separate short cable runs from the video camera to the laptop — visibly a different cable of a different colour, so the two paths read as distinct.
+The microphone multicore leaves the back of the console and runs toward the stage, taped down.
+Two speaker feeds leave the back and run to the sides of the stage out of frame.
+The camera screen shows soft abstract shapes — no interface, no words, no menus, no recording indicator.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, performers, hands, readable camera interface, readable software, screen text, recognisable camera brand, phone
+```
+
+</details>
+
+---
+
+### 13 · Load-out
+
+| | |
+|---|---|
+| **Model** | Signature Plus 16 |
+| **Demonstrates** | Portability · a desk that travels |
+| **Save the image as** | `wf-13-load-out.jpg` |
+
+The set needs one frame about the end of the night rather than the middle of it. A desk sitting in its case on a loading bay says “this thing lives in a van” more directly than any specification, and it is what separates a working console from a studio ornament.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 16 (3).webp`
+   — PRIMARY — rear-right three-quarter, elevated. Sets the angle: standing over the open case looking down into it.
+2. `SOUNDCRAFT Signature Plus 16 (4).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 16 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — rear-right three-quarter, elevated. Sets the angle: standing over the open case looking down into it.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A venue loading bay at night, after the show. A roller shutter is half raised behind, with the tail of a plain white van just visible beyond, doors open. The floor is scuffed concrete, slightly damp, catching reflections.
+
+The console sits seated in an open black flight case on a low wheeled dolly, its foam-lined lid propped back. Around it: two coiled multicore looms on the floor, a stack of two more flight cases, a folded microphone stand, and a roll of tape. A single caged work light on a stand throws hard light across the scene from the left.
+
+No people in frame.
+
+CAMERA. Full-frame digital, 28 mm lens at f/2.8, ISO 3200, 1/60 s. Camera height about 1.6 metres, standing over the case looking down at roughly 40 degrees, so the console is seen seated in the case from behind and to the right. Case and console fill the lower two-thirds of the frame; the shutter, the van and the night beyond fill the upper third.
+
+LIGHT. One hard work light from the left throwing strong directional light and long shadows across the concrete; cool sodium spill from outside the shutter; deep shadow everywhere else. High contrast, slightly gritty, unglamorous. Highlights rake the top edges of the faders and the case hardware.
+
+TECHNICAL TRUTH.
+
+The console is UNPLUGGED. No cable is connected to it at all — this is the end of the night.
+The case interior is black foam cut to the console's shape; the console sits down into it with only its top surface proud.
+The coiled looms on the floor are separate from the case, wrapped over-under with a hook-and-loop tie.
+Do not fit the console with rack ears or handles, and do not close a lid on top of it — the lid is propped open behind.
+The case is a flight case with recessed butterfly catches and corner protection, standing on a dolly with castors.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, hands, connected cables, cables running into the case, rack ears, closed lid, rain, heavy wet reflections on the console
+```
+
+</details>
+
+---
+
+### 14 · The black box theatre
+
+| | |
+|---|---|
+| **Model** | Signature Plus 22 |
+| **Demonstrates** | Talkback to any output · cueing backstage from the desk |
+| **Save the image as** | `wf-14-black-box-theatre.jpg` |
+
+Theatre is a distinct market with a distinct need: the operator has to talk to backstage without the audience hearing it. A sound desk beside a lighting desk in a dark control position is instantly legible to anyone who has ever worked a show.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 22 (1).webp`
+   — PRIMARY — front-left three-quarter from a low angle. Sets the angle: seated at the control counter, eye almost level with the surface.
+2. `SOUNDCRAFT Signature Plus 22 (2).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 22 (7).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — front-left three-quarter from a low angle. Sets the angle: seated at the control counter, eye almost level with the surface.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. The control position of a small black-box theatre during a technical rehearsal. Matt black walls, a black floor, a low counter running along the back of the seating bank, and a clear view forward over empty raked seats to the stage.
+
+On the stage beyond: a simple set of two rostra and a chair, lit by one warm special from above, the rest of the stage in shadow. A lighting bar with lanterns hangs overhead, partly visible at the top of frame.
+
+On the counter beside the console: a lighting control desk with its faders down, a gooseneck lamp with a small blue-filtered bulb, a printed cue sheet turned so its text cannot be read, a headset with a boom microphone resting on the counter, and a bottle of water.
+
+No people in frame.
+
+CAMERA. Full-frame digital, 35 mm lens at f/2.5, ISO 3200, 1/50 s. Camera height about 1.1 metres — seated at the counter — looking at the console from the front and slightly left, almost level with its surface so the fader bank reads in strong perspective. The console fills the left and centre of the lower frame; the lit stage sits small and bright at the upper right beyond the dark seating.
+
+LIGHT. Very dark. The only local light is the small blue-filtered gooseneck lamp over the counter, putting a cool pool across part of the console and leaving the rest in shadow. The warm stage special in the distance is the one warm element in frame. The blue-and-amber split between foreground and background is the whole colour story.
+
+TECHNICAL TRUTH.
+
+Cables leave the BACK of the console and disappear immediately into a cable tray under the counter — this is an installed control position.
+A separate cable runs from the headset's connector along the counter and into the rear of the console; the headset itself lies unplugged for the moment with its lead coiled.
+The lighting desk is a separate piece of equipment with its own cable run and is not connected to the sound console.
+No cable enters the front or top of the console.
+Nothing on the counter is illuminated by its own screen except the gooseneck lamp's bulb.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, actors, audience, hands, readable cue sheet, readable lighting desk display, illuminated screens, coloured stage haze
+```
+
+</details>
+
+---
+
+### 15 · The on-air booth
+
+| | |
+|---|---|
+| **Model** | Signature Plus 12 |
+| **Demonstrates** | Compact footprint · one desk running a live broadcast |
+| **Save the image as** | `wf-15-on-air-booth.jpg` |
+
+Community and campus radio buys small desks constantly and replaces them on a cycle. A booth is also the tightest space any of these consoles will ever live in, which makes the twelve's footprint the argument without having to state it.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 12 (7).webp`
+   — PRIMARY — front-left three-quarter from a low angle. Sets the angle: seated across the booth table, close to the surface.
+2. `SOUNDCRAFT Signature Plus 12 (2).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 12 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — front-left three-quarter from a low angle. Sets the angle: seated across the booth table, close to the surface.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A small community radio on-air booth, daytime. The room is barely three metres across: acoustic foam on two walls, a heavy door with a small window, and a desk along one side under a wall-mounted monitor loudspeaker.
+
+On the desk: the console, a large broadcast microphone on a heavy articulated arm swung over the seat position, a pair of over-ear headphones hanging from the arm, a computer monitor pushed to the back showing abstract colour blocks, a wired desk lamp, a mug, and a small stack of index cards.
+
+A single empty office chair is pushed back from the desk. No people.
+
+CAMERA. Full-frame digital, 40 mm lens at f/2.2, ISO 800, 1/125 s. Camera height about 0.95 metres, sitting low across the desk looking at the console from the front and slightly left, close enough that the twelve channel strips fill a good part of the frame. The microphone arm crosses the upper left; the monitor and the foam wall sit behind, soft.
+
+LIGHT. Soft, slightly cool daylight leaking through the door window from a corridor, plus the warm desk lamp on the right, plus a faint glow from the monitor. Small room, mixed colour temperature, low contrast. It should feel enclosed and quiet.
+
+TECHNICAL TRUTH.
+
+The microphone cable runs along the inside of the articulated arm, down to the desk, and into the BACK of the console.
+One USB-C cable leaves the back of the console and runs to the computer behind the monitor.
+One cable leaves the back and runs up the wall to the monitor loudspeaker.
+The headphones are unplugged, hanging from the microphone arm with their lead coiled.
+The computer monitor shows soft abstract colour blocks — no interface, no words, no waveform that reads as a specific application.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, presenter, hands, faces, readable screen, software interface, on-air sign, readable index cards, station branding
+```
+
+</details>
+
+---
+
+### 16 · Two desks, one system
+
+| | |
+|---|---|
+| **Model** | Signature Plus 12 + 32 |
+| **Demonstrates** | The range working together — a small desk on monitors, a large one at FOH |
+| **Save the image as** | `wf-16-two-desks.jpg` |
+
+The only frame in the set that argues for the range rather than for a product. A small desk running monitors at the side of the stage and a large one at front of house is a real, common rig, and seeing both in one picture is the cleanest way to say these consoles are a family that scales. It is also the hardest prompt here — expect to run more variants.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 12 (3).webp`
+   — PRIMARY — the NEAR console, rear-right three-quarter elevated. Sets the angle for the whole picture.
+2. `SOUNDCRAFT Signature Plus 32 (2).webp`
+   — The SECOND, SEPARATE console in the background — rear-left three-quarter elevated. A different and much larger model.
+3. `SOUNDCRAFT Signature Plus 12 (2).webp`
+   — Layout reference for the near console.
+4. `SOUNDCRAFT Signature Plus 32 (1).webp`
+   — Layout reference for the far console.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — the NEAR console, rear-right three-quarter elevated. Sets the angle for the whole picture.
+  [2] The SECOND, SEPARATE console in the background — rear-left three-quarter elevated. A different and much larger model.
+  [3] Layout reference for the near console.
+  [4] Layout reference for the far console.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A mid-size venue during soundcheck, viewed from the side of the stage. Two separate mix positions are visible in one frame.
+
+In the near foreground, at stage level on a small trestle table draped in black: the SMALLER console, set up as a monitor position, with two floor wedges just visible beyond it angled back toward the stage.
+
+Twenty metres away down the room, raised slightly on a platform and clearly much wider: the LARGER console at the front-of-house position, with a laptop beside it.
+
+The stage itself is lit at working level with a drum kit and microphone stands set. The room is empty of people.
+
+CAMERA. Full-frame digital, 35 mm lens at f/2.8, ISO 2000, 1/80 s. Camera height about 1.6 metres, standing at the side of the stage looking down the room, so the near console is large in the lower-left foreground and the far console is small and clearly wider in the middle distance at the right. Focus on the near console; the far console soft but unmistakably a bigger desk of the same family.
+
+LIGHT. Working lights on — even, warm-white, unglamorous. A small clip lamp at each mix position adds a local warm pool. No stage colour, no haze. The two consoles are the two brightest things in the frame.
+
+TWO DIFFERENT CONSOLES, NOT ONE REPEATED. Read this twice.
+
+These are two distinct products. The near console is the smaller model from reference 1, with its own exact channel count. The far console is the larger model from reference 2, with its own, visibly greater, channel count.
+
+Do not duplicate one console twice. Do not average them into a single design. Do not give the near desk the far desk's width or the far desk the near desk's width — the size difference between them is the entire point of the picture.
+
+TECHNICAL TRUTH.
+
+A multicore leaves the BACK of the near console and runs a short distance onto the stage.
+Two cables leave the back of the near console and run to the two floor wedges.
+A separate, longer multicore runs the length of the room from the stage toward the far console.
+Both consoles stand on their own tables. Nothing connects the two consoles directly to each other.
+No cable enters the front or top of either console.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, musicians, hands, identical consoles, duplicated console, same size desks, merged console designs, three consoles
+```
+
+</details>
+
+---
+
+### 17 · The reception
+
+| | |
+|---|---|
+| **Model** | Signature Plus 32 |
+| **Demonstrates** | High input count · event work at scale |
+| **Save the image as** | `wf-17-the-reception.jpg` |
+
+Wedding and reception work is the single largest revenue line for event companies in eastern India, and it is completely invisible in Soundcraft's own photography. A thirty-two channel desk at a banquet, before anyone arrives, is a picture this distributor's customers will recognise as their own Saturday.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 32 (4).webp`
+   — PRIMARY — front-right three-quarter from a low angle, brand badge visible on the front fascia. Sets the angle: standing close to the front-right corner of the mix table.
+2. `SOUNDCRAFT Signature Plus 32 (1).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 32 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — front-right three-quarter from a low angle, brand badge visible on the front fascia. Sets the angle: standing close to the front-right corner of the mix table.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A banquet hall in eastern India, set for a reception and empty about an hour before guests arrive. Round tables with white cloths and folded napkins, chairs in fabric covers, small floral centrepieces. A low stage at the far end with a decorated backdrop and a keyboard, a drum kit and several microphone stands set for a live band. Warm decorative uplighters wash the side walls; a chandelier hangs overhead.
+
+The mix position is a long draped table at the side of the room, halfway down. On it: the console, a laptop, a small task lamp, a plastic water bottle, and a clipboard lying face down. Two loudspeakers on tall stands stand near the stage and a second pair further down the room.
+
+No people.
+
+CAMERA. Full-frame digital, 35 mm lens at f/2.8, ISO 1600, 1/80 s. Camera height about 1.25 metres, standing close to the front-right corner of the mix table so the console is seen from the front and right and feels substantial and wide in frame. The console runs across the lower half; the dressed tables and lit stage recede behind into soft focus.
+
+LIGHT. Warm and decorative — amber uplighters on the walls, a warm chandelier overhead, and a cooler white wash on the stage at the far end. The console is lit mostly by the task lamp and warm ambient spill, so its coloured knob caps sit against a gold room. Rich, inviting, slightly golden, no hard shadows.
+
+TECHNICAL TRUTH.
+
+A heavy multicore leaves the BACK of the console, drops behind the draped table, and runs along the base of the wall toward the stage, taped at crossing points.
+Four speaker feeds leave the rear and run separately to the four loudspeaker stands.
+One USB-C cable runs from the rear to the laptop.
+The drape on the table hangs with real creases and does not reach the floor evenly.
+No cable enters the front or top of the console, and no cable crosses an open walkway untaped.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, guests, wedding party, hands, religious iconography, readable signage, food on tables, confetti, fireworks
+```
+
+</details>
+
+---
+
+### 18 · Overhead, the mix position
+
+| | |
+|---|---|
+| **Model** | Signature Plus 32 |
+| **Demonstrates** | The whole surface in its working context |
+| **Save the image as** | `wf-18-overhead-mix-position.jpg` |
+
+The one composition in the set that is graphic rather than atmospheric — straight down on the desk with the working clutter of a real mix position around it. It cuts hardest against everything else and it is the frame most likely to be screenshotted.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 32 (1).webp`
+   — PRIMARY — the full control surface from directly above. Sets the angle: the camera is straight overhead.
+2. `SOUNDCRAFT Signature Plus 32 (2).webp`
+   — Geometry reference — the same console in three-quarter, for chassis proportions.
+3. `SOUNDCRAFT Signature Plus 32 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — the full control surface from directly above. Sets the angle: the camera is straight overhead.
+  [2] Geometry reference — the same console in three-quarter, for chassis proportions.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. Directly overhead a front-of-house mix position in a venue, during a break in soundcheck.
+
+The console sits centred on a black-draped table. Arranged around it on the table, as they would really fall: an open laptop at the top edge angled slightly; a pair of over-ear headphones lying with their lead in a loose curl; a marked-up paper input list with its writing too oblique and small to read; a pen; a roll of gaffer tape; a phone lying face down; a paper cup; a small torch. At the bottom edge of frame, the operator's empty chair back intrudes slightly.
+
+The floor is just visible around the table edges — scuffed dark venue flooring with a taped cable run crossing it.
+
+CAMERA. Full-frame digital, 35 mm lens at f/5.6, ISO 1600, 1/80 s. Camera mounted directly overhead, sensor exactly parallel to the table, roughly 2.2 metres above it. The console sits centred and occupies about seventy percent of the frame width, running left to right. Everything is in focus. This is a flat-lay of a working position photographed honestly — not styled, not symmetrical.
+
+LIGHT. Broad soft ambient from the venue's own overhead lighting, plus one warm task lamp just out of frame at the left throwing a slightly warmer pool across the left end of the console. Soft-edged shadows fall to the lower right from everything on the table. No hard spot, no glare on the surface.
+
+TECHNICAL TRUTH.
+
+All cables leave the BACK edge of the console — the top edge of the frame — and run off the table in a taped bundle.
+One USB-C cable runs from that bundle to the laptop.
+One headphone lead runs to the FRONT edge of the console, the edge nearest the bottom of frame.
+The paper input list is oriented to the operator, so its writing runs away from the camera and cannot be read.
+Objects on the table are placed as somebody working would leave them, not arranged for a photograph — nothing is parallel to the table edge except the console itself.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, hands, readable paper, readable laptop screen, styled flat lay, symmetrical arrangement, props arranged in a grid, latte art
+```
+
+</details>
+
+---
+
+### 19 · It fits the table
+
+| | |
+|---|---|
+| **Model** | Signature Plus 22 |
+| **Demonstrates** | Chassis depth · a full console on an ordinary desk |
+| **Save the image as** | `wf-19-it-fits-the-table.jpg` |
+
+Every buyer asks the same first question about a twenty-two channel desk: will it actually fit where I need it. A side-on frame at table height answers that in a way no specification ever does, and it is the only composition in the set about the shape of the object rather than its surface.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 22 (5).webp`
+   — PRIMARY — the side elevation of the console. Sets the angle: the camera is at table height, looking along the desk from the side.
+2. `SOUNDCRAFT Signature Plus 22 (8).webp`
+   — The opposite side elevation of the same console — extra geometry for the chassis profile, which is the subject of this frame.
+3. `SOUNDCRAFT Signature Plus 22 (2).webp`
+   — Layout reference — the full control surface from directly above.
+4. `SOUNDCRAFT Signature Plus 22 (7).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — the side elevation of the console. Sets the angle: the camera is at table height, looking along the desk from the side.
+  [2] The opposite side elevation of the same console — extra geometry for the chassis profile, which is the subject of this frame.
+  [3] Layout reference — the full control surface from directly above.
+  [4] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A modest home studio or small office room in daylight. A plain wooden desk of ordinary depth stands against a pale wall, seen end-on so its depth reads clearly.
+
+The console sits on the desk toward the back, its wedge profile in clean side elevation — low at the front, raised at the rear. In front of it there is still usable desk space: a notebook lying open face down, a pen, a coffee cup, and a laptop pushed to one side.
+
+Behind the desk, a plain wall with a single framed picture carrying no readable content, and a small shelf holding two books and a plant. A window out of frame to the left casts daylight across the scene.
+
+CAMERA. Full-frame digital, 50 mm lens at f/4, ISO 400, 1/160 s. Camera height about 0.78 metres — exactly desk height — positioned to the side of the desk and level with the surface, looking along it so the console is seen in near-perfect side elevation. The console occupies the centre and right of frame; the empty desk space in front of it is deliberately visible at the left, because the free space is the subject.
+
+LIGHT. Clean, even daylight from the left with a soft falloff across the wall behind. Low contrast, natural colour, no artificial fill. The light rakes along the console's front lip and picks out the slope of the chassis, which is what makes the profile read.
+
+TECHNICAL TRUTH.
+
+The desk is an ordinary domestic or office desk of normal depth — not studio furniture, not a purpose-built console desk.
+The console's rear edge sits close to the wall; its cables leave the BACK, drop straight down behind the desk, and are gathered loosely.
+No cable runs across the front of the desk or through the free space in front of the console.
+Nothing rests on top of the console surface.
+The free desk space in front of the console must be clearly visible and unobstructed — that space is the argument the picture is making.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, hands, purpose-built studio desk, console furniture, rack furniture, clutter in front of the console, cables across the desk, readable picture frame, readable book spines
+```
+
+</details>
+
+---
+
+### 20 · The trolley
+
+| | |
+|---|---|
+| **Model** | Signature Plus 12 |
+| **Demonstrates** | One person moves the whole system |
+| **Save the image as** | `wf-20-the-trolley.jpg` |
+
+Schools, colleges and institutions across this territory buy exactly one thing: a system one member of staff can wheel into a hall, switch on, and use. A desk living on an AV trolley is that system, and it closes the set on the most practical note available.
+
+**Attach these references, in this order:**
+
+1. `SOUNDCRAFT Signature Plus 12 (4).webp`
+   — PRIMARY — rear-right three-quarter, elevated. Sets the angle: standing beside the trolley looking down at the desk.
+2. `SOUNDCRAFT Signature Plus 12 (2).webp`
+   — Layout reference — the full control surface from directly above.
+3. `SOUNDCRAFT Signature Plus 12 (5).webp`
+   — Connector reference — the rear panel.
+
+<details><summary><strong>Prompt — copy everything inside the fence</strong></summary>
+
+```text
+Create one photorealistic 16:9 photograph from the attached reference images.
+
+THE REFERENCES, in the order attached:
+  [1] PRIMARY — rear-right three-quarter, elevated. Sets the angle: standing beside the trolley looking down at the desk.
+  [2] Layout reference — the full control surface from directly above.
+  [3] Connector reference — the rear panel.
+
+HARDWARE FIDELITY CONTRACT — highest priority. This overrides anything below it that appears to conflict.
+
+The mixing console in the attached references is a real, specific, manufactured product. Reproduce it EXACTLY as photographed. It is the one element in this image that may not be interpreted, restyled, simplified or improved.
+
+• Keep the exact number of channel strips, faders, knobs, buttons and sockets.
+• Keep every control in the exact position, size, shape and colour it has in the references, including the colour coding of the knob caps.
+• Keep the chassis proportions, the slope of the top surface, the shape of the end cheeks and the finish of the metalwork.
+• Reproduce the printed brand name and model name exactly as they appear. Do not re-letter, re-spell or re-typeset them. Do not invent any additional text, badge, logo, sticker or label anywhere on the console.
+• If a legend is too small to render legibly at this size, let it fall softly out of focus or be lost to distance. Never substitute invented characters.
+• Do not add a screen, display, LED strip, illuminated meter or any lit element that is not in the references.
+• Do not add rack ears, handles, dust covers, stands or accessories that are not in the references.
+
+HOW TO USE THE REFERENCES. Reference image 1 defines the console's ANGLE as well as its appearance: build this scene's camera to match that viewpoint, and do not re-project the console to a different one. References 2 and onward are supplied only to give you fuller information about the same console's control layout and rear connector panel — do not place them in the picture as separate objects, and do not produce a collage.
+
+THE SCENE. A school assembly hall in the morning, set up but empty. A wooden floor, high windows down one side, a low stage at the far end with the curtains drawn back, and rows of stacked chairs against the walls.
+
+In the near foreground stands a grey steel AV trolley on castors with two shelves and a cable hook at the side. The console sits on the upper shelf. On the lower shelf: a small amplifier, a coiled mains lead, and a plastic crate holding two microphones and a couple of short cables.
+
+A single powered loudspeaker on a tall stand stands beside the trolley, and a microphone on a boom stand is set up near the front of the stage.
+
+No people.
+
+CAMERA. Full-frame digital, 35 mm lens at f/3.5, ISO 640, 1/125 s. Camera height about 1.7 metres, standing beside the trolley and looking down at roughly 35 degrees so the console reads clearly from behind and to the right. Trolley and console occupy the lower-left half of frame; the empty hall and the stage recede to the upper right.
+
+LIGHT. Bright, clean morning daylight flooding through the high windows on the left, throwing long soft shadows across the wooden floor. Overhead fluorescents are off. Honest institutional daylight — bright, a little cool, completely unstyled.
+
+TECHNICAL TRUTH.
+
+The microphone cable runs from the boom stand near the stage, along the floor at the edge of the room, and into the BACK of the console.
+One speaker cable leaves the back of the console and runs to the powered loudspeaker on its stand beside the trolley.
+A mains lead runs from the trolley's lower shelf to a wall socket by a route clearly separate from the audio cables.
+Spare cable hangs in a loose coil on the trolley's side hook.
+The console sits flat on the trolley shelf with a little clearance at each end. It is not strapped down, cased, or rack-mounted.
+No cable enters the front or top of the console.
+
+PHOTOGRAPHIC TREATMENT. This must read as a photograph taken on a real camera by a working photographer, not as a render and not as an illustration. Full-frame digital capture with natural depth of field and honest, uneven available light. Slight, honest imperfection is wanted: a little dust, a cable that is not perfectly coiled, wear on a surface, a slightly uneven stack of chairs. Avoid the clean, symmetrical, over-lit look of a catalogue render.
+
+NO TEXT ANYWHERE. Do not add signage, posters, banners, screen text, captions, watermarks, brand marks or any lettering that is not already printed on the console itself in the references. Any screen visible in the frame shows abstract, unreadable shapes and colour — never words, never a recognisable software interface, never a recognisable company's product.
+
+NEGATIVE PROMPT: distorted product, warped console, wrong channel count, extra faders, missing faders, uneven fader row, invented knobs, rearranged controls, garbled text, gibberish lettering, misspelled brand name, invented logo, added badge, added sticker, added screen, added display, added LED strip, rack ears, handles, dust cover, plastic toy look, CGI render look, video game asset, clay render, oversaturated, HDR halo, heavy vignette, watermark, caption, text overlay, signage, readable software interface, extra fingers, six fingers, distorted hands, malformed face, duplicated person, floating cables, cables plugged into nothing, cables entering the front panel, cables passing through solid objects, impossible cable routing, mirrored text, lens dirt, heavy chromatic aberration, fisheye distortion, people, children, students, staff, hands, rack-mounted console, rack ears, straps over the console, readable notices, school branding
 ```
 
 </details>
