@@ -23,6 +23,8 @@ npm run coverage      # prove both films from the same data the renderer reads
 npm run studio        # preview
 npm run render:reel
 npm run render:video
+python3 scripts/remux.py   # swap the mastered mix onto both renders
+python3 scripts/remux.py   # swap the mastered mix onto both renders
 npm run thumb:reel
 npm run thumb:video
 ```
@@ -125,6 +127,50 @@ trimmed relative to the bed, so **every source plays at unity in the timeline**.
 A volume multiplier there would silently undo the mastering. Cues too short for
 R128's 400 ms gate are levelled by a BS.1770 momentary window computed in the
 script instead of by ffmpeg, which reports −70 for anything shorter.
+
+### The stems
+
+Both layers ship as standalone files in `out/` as well as inside the films, so
+they can be auditioned, re-levelled or handed to an editor on their own:
+
+| File | Length | Level |
+|---|---|---|
+| `…-reel-music-bed.mp3` | 91.10 s | −23.0 LUFS |
+| `…-reel-transitions.flac` | 91.10 s | −26.0 LUFS · 64 cues |
+| `…-explainer-music-bed.mp3` | 301.33 s | −23.0 LUFS |
+| `…-explainer-transitions.flac` | 301.33 s | −26.9 LUFS · 170 cues |
+
+The transition stems carry every cue at the exact position the film plays it,
+summed at unity — so a stem and its film's own transition layer are the same
+signal. The cue positions come from `scripts/cues.json`, which is written by the
+**same function the renderer calls** (`src/cues.ts`); a stem rebuilt from a
+second copy of that logic would drift from the film the first time either copy
+was touched.
+
+They are FLAC rather than MP3 for two reasons that point the same way: the stem
+is mostly silence, so lossless comes out *smaller* here (1.4 MB against 2.9 MB
+for the reel), and it carries no encoder padding, so it lines up with the film
+sample for sample. The music beds stay MP3 because their source is already a
+192 kbps MP3 and encoding that losslessly would only make a bigger file of the
+same audio.
+
+Individual cues, as cut from your library, are in `public/audio/sfx/`.
+
+`scripts/remux.py` assembles narration + bed + transitions from those stems and
+swaps the result onto a finished render, with the picture copied rather than
+re-encoded. It runs at the end of `scripts/render-all.sh`, and it is what
+guarantees the shipped audio is the mastered mix: the renderer reads the cue
+palette off disk at the end of a run, and an eleven-decibel error in the
+transition layer is not something to discover after a six-hour render.
+
+`scripts/remux.py` assembles narration + bed + transitions from those stems and
+swaps the result onto a finished render with the picture copied rather than
+re-encoded. It runs at the end of `scripts/render-all.sh` and it is the thing
+that guarantees the shipped audio is the mastered mix: the renderer reads the
+cue palette off disk at the end of a run, and an eleven-decibel error in the
+transition layer is not something to find out about after a six-hour render.
+
+### The narration
 
 `public/audio/vo-reel.wav` and `vo-video.wav` are silent placeholders at exactly
 each film's length. Drop the recorded narration in at those paths and re-render;

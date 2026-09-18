@@ -9,8 +9,9 @@ import {
   useVideoConfig,
 } from "remotion";
 import { ACCENT, FONT, GROUND, TYPE_OPACITY, formatFor, type AccentKey } from "./theme.ts";
-import { buildTimeline, type Segment } from "./script.ts";
-import { buildShots, type Shot, type ShotSpec } from "./shots.ts";
+import { type Segment } from "./script.ts";
+import { type Shot, type ShotSpec } from "./shots.ts";
+import { sheetFor, type Placed } from "./cues.ts";
 import { clip as getClip, img, imgs } from "./assets.ts";
 import { Caption } from "./components/Caption.tsx";
 import {
@@ -22,7 +23,7 @@ import {
   ProductPlate,
   StackBleed,
 } from "./components/Staged.tsx";
-import { TRANS, TRANS_CUE, TransitionIn, transitionFor, type TransitionKind } from "./components/Transitions.tsx";
+import { TRANS, TransitionIn } from "./components/Transitions.tsx";
 import {
   AuxMatrix,
   ChannelLadder,
@@ -105,8 +106,6 @@ const Stage: React.FC<{ shot: Shot; f: number; dur: number }> = ({ shot, f, dur 
   }
 };
 
-type Placed = Shot & { trans: TransitionKind; from: number; to: number };
-
 const ShotLayer: React.FC<{ shot: Placed }> = ({ shot }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -141,26 +140,9 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
   const SAFE = fmt.safe;
   const sec = (s: number) => Math.round(s * fps);
 
-  const { segments } = buildTimeline(data.segments);
-  const shots = buildShots(segments, data.plan);
-
-  /**
-   * Each shot runs until the NEXT one starts — not until its own caption ends.
-   * The difference is the breath between segments, which would otherwise be a
-   * hole in the picture; here the outgoing shot simply holds through it while
-   * the narration takes a breath.
-   */
-  const placed: Placed[] = shots.map((s, i) => {
-    const next = shots[i + 1];
-    const firstOfSeg = i === 0 || shots[i - 1].segment !== s.segment;
-    return {
-      ...s,
-      trans: transitionFor(s.seed, firstOfSeg, i === 0),
-      from: s.start,
-      to: next ? next.start : data.outroAt + 0.7,
-    };
-  });
-
+  // Shot placement and the cue sheet are shared with the stem build, so the
+  // standalone transition file and the film can never drift apart.
+  const { segments, placed, cues } = sheetFor(data, fps);
   /** Contiguous windows, so the overlay never has a gap to fall through. */
   const windows = segments.map((s, i) => ({
     id: s.id,
@@ -173,25 +155,6 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
 
   const outroFrom = sec(data.outroAt);
 
-  // ── the cue sheet, derived rather than typed ───────────────────────────
-  type Cue = { at: number; cue: string };
-  const cues: Cue[] = [];
-  for (const s of placed) cues.push({ at: Math.max(0, s.from - 0.06), cue: TRANS_CUE[s.trans] });
-  for (const seg of segments) {
-    cues.push({ at: Math.max(0, seg.start - 0.42), cue: "riser-short" });
-    for (const c of seg.captions) if (c.beat) cues.push({ at: c.start + 0.04, cue: "tick-tiny" });
-    // The demonstratives that COUNT — the effect table filling, the four
-    // consoles arriving — get one blip per item, locked to the same frames the
-    // graphic uses, which is the only place in either film where a picture and
-    // a sound are tied frame for frame.
-    for (const d of data.demos[seg.id] ?? []) {
-      const at = seg.captions[d.from]?.start ?? seg.start;
-      if (d.kind === "ladder") for (let i = 0; i < 4; i++) cues.push({ at: at + (6 + i * 7) / fps, cue: "blip-one" });
-      if (d.kind === "fx") for (let i = 0; i < 8; i++) cues.push({ at: at + (6 + i * 6.4) / fps, cue: "blip-one" });
-    }
-  }
-  cues.push({ at: data.outroAt - 0.25, cue: "outro-bloom" });
-  cues.sort((a, b) => a.at - b.at);
 
   const TopBlock: React.FC = () => {
     const frame = useCurrentFrame();

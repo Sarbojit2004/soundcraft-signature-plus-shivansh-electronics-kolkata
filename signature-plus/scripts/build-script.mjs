@@ -6,6 +6,7 @@
 // chapter is the one the edit was written to.
 import { REEL_SEGMENTS, VIDEO_SEGMENTS, buildTimeline, WPM, SEGMENT_GAP, BEAT, spokenWords } from "../src/script.ts";
 import { REEL, EXPLAINER, OUTRO_LEN } from "../src/films.ts";
+import { sheetFor } from "../src/cues.ts";
 import { writeFileSync } from "node:fs";
 
 const clock = (s) => {
@@ -69,5 +70,19 @@ writeFileSync(
     1,
   ) + "\n",
 );
+
+// The transition layer is delivered as a standalone stem as well as inside the
+// films, so the cue sheet is written out from the SAME function the renderer
+// calls. Rebuilding the stem from a second copy of that logic would drift from
+// the film the first time either copy was touched.
+const sheet = (data) => {
+  const { cues } = sheetFor(data, 30);
+  return { seconds: data.durationInFrames / 30, outroAt: data.outroAt, cues };
+};
+writeFileSync(
+  new URL("./cues.json", import.meta.url),
+  JSON.stringify({ reel: sheet(REEL), video: sheet(EXPLAINER) }, null, 1) + "\n",
+);
+console.log(`cue sheet: ${sheetFor(REEL, 30).cues.length} reel · ${sheetFor(EXPLAINER, 30).cues.length} explainer`);
 console.log(out.split("\n").slice(0, 18).join("\n"));
 console.log("...\nwrote VOICEOVER-SCRIPT.md");
