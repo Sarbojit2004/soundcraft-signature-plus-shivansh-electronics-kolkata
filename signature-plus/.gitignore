@@ -9,3 +9,14 @@ public/clip/
 # Silent narration placeholders: 73 MB of zeroes, regenerated in a second by
 # `npm run audio`. The recorded read replaces them at the same paths.
 public/audio/vo-*.wav
+
+# The whole-file 4K masters exceed GitHub's 100 MB per-file limit. They are
+# committed as playable segments under out/*-4k-parts/ instead — each one a
+# standalone MP4, stream-copied from the master with no re-encode, so rejoining
+# them is a concatenation rather than a render:
+#
+#   ffmpeg -f concat -safe 0 -i <(for f in out/reel-4k-parts/*.mp4; \
+#     do echo "file '$PWD/$f'"; done) -c copy out/soundcraft-signature-plus-reel.mp4
+#
+out/soundcraft-signature-plus-reel.mp4
+out/soundcraft-signature-plus-explainer.mp4

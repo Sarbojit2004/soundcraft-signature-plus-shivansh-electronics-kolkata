@@ -22,53 +22,10 @@ import { AbsoluteFill, interpolate, useVideoConfig } from "remotion";
 // travelling accent streak — one linear-gradient div — instead.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type TransitionKind =
-  | "fade"
-  | "wipeDiag"
-  | "whipLeft"
-  | "whipRight"
-  | "punchIn"
-  | "pullBack"
-  | "slideUp"
-  | "flash";
+export type { TransitionKind } from "./transition-plan.ts";
+export { TRANS, TRANS_CUE, transitionFor } from "./transition-plan.ts";
 
-/** Frames each move takes. Longer than a cut, shorter than a dissolve. */
-export const TRANS: Record<TransitionKind, number> = {
-  fade: 11,
-  wipeDiag: 13,
-  whipLeft: 9,
-  whipRight: 9,
-  punchIn: 8,
-  pullBack: 10,
-  slideUp: 11,
-  flash: 7,
-};
-
-const BOUNDARY: TransitionKind[] = ["wipeDiag", "whipLeft", "flash", "whipRight", "slideUp"];
-const INSIDE: TransitionKind[] = ["punchIn", "pullBack", "fade", "slideUp", "punchIn", "wipeDiag"];
-
-export const transitionFor = (seed: number, boundary: boolean, first: boolean): TransitionKind => {
-  if (first) return "fade";
-  return boundary ? BOUNDARY[seed % BOUNDARY.length] : INSIDE[seed % INSIDE.length];
-};
-
-/**
- * Which cue belongs under each move.
- *
- * Every name below is cut from the sound-effects library supplied with this
- * brief — see scripts/cut_sfx.py for which take of which file each one is, and
- * why the pack's multi-take files had to be split before they could be used.
- */
-export const TRANS_CUE: Record<TransitionKind, string> = {
-  fade: "air-pass",
-  wipeDiag: "gate-snap",
-  whipLeft: "whip-mid",
-  whipRight: "whip-bright",
-  punchIn: "impact-tight",
-  pullBack: "impact-full",
-  slideUp: "riser-short",
-  flash: "snap-low",
-};
+import { TRANS, type TransitionKind } from "./transition-plan.ts";
 
 const smooth = (p: number) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
 /** Decelerating — the incoming shot arrives fast and settles, never bounces. */

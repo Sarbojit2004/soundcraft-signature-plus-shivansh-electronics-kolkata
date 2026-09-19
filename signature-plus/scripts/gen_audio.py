@@ -33,7 +33,14 @@ THREE JOBS.
    copies the result in. One cue — the outro bloom — is synthesised, because the
    library is a tech/UI pack and has no warm sustained swell in it.
 
-3. MASTERING. Everything is measured with EBU R128 and levelled against one
+3. THE STEMS. Both layers are delivered as standalone files as well as inside
+   the films: the continuous music bed, and the whole transition layer laid out
+   at the exact positions the films play it. The cue positions come from
+   scripts/cues.json, which is written by the SAME function the renderer calls
+   (src/cues.ts) — a stem rebuilt from a second copy of that logic would drift
+   from the film the first time either copy was touched.
+
+4. MASTERING. Everything is measured with EBU R128 and levelled against one
    reference, so nothing needs a volume multiplier in the timeline. A multiplier
    there would silently undo this: it is what made an earlier film's bed
    inaudible at roughly -37 LUFS despite being "mixed correctly".
@@ -317,6 +324,87 @@ def master(path, target_lufs):
     return lufs(path)
 
 
+# ── 3. the stems ─────────────────────────────────────────────────────────────
+
+STEMS = os.path.join(ROOT, 'out')
+# What each film is called on disk. The landscape film is the "explainer"
+# everywhere a human reads it, and "video" only inside the code.
+STEM_NAME = {'reel': 'reel', 'video': 'explainer'}
+
+
+def transition_stem(key):
+    """The whole transition layer, at the positions the film plays it.
+
+    Every cue is summed at unity, exactly as the timeline plays it, so this file
+    and the film's own transition layer are the same signal — which is the point
+    of a stem. Nothing is normalised afterwards for the same reason.
+    """
+    with open(os.path.join(HERE, 'cues.json')) as fh:
+        sheet = json.load(fh)[key]
+    n = int(sheet['seconds'] * SR)
+    out = np.zeros((n + SR, 2))
+    cache = {}
+    for c in sheet['cues']:
+        name = c['cue']
+        if name not in cache:
+            path = os.path.join(SFX, name + '.wav')
+            if not os.path.exists(path):
+                raise SystemExit('cue "%s" is in the sheet but not in the palette' % name)
+            cache[name] = read_audio(path)
+        x = cache[name]
+        a = int(round(c['at'] * SR))
+        b = min(a + len(x), len(out))
+        if b > a:
+            out[a:b] += x[:b - a]
+    peak = np.abs(out).max()
+    clipped = peak > 1.0
+    if clipped:
+        # Two cues landing on the same frame can sum past full scale. The film
+        # mixes them against a bed and a voice and never gets there, but a stem
+        # on its own can, so it is pulled down as a whole rather than limited —
+        # limiting would change the shape of the cues it is meant to preserve.
+        out *= 0.99 / peak
+    return out[:n], peak, clipped
+
+
+def build_stems():
+    os.makedirs(STEMS, exist_ok=True)
+    print()
+    for key in ('reel', 'video'):
+        name = STEM_NAME[key]
+
+        bed = os.path.join(OUT, 'music-%s.mp3' % key)
+        dst = os.path.join(STEMS, 'soundcraft-signature-plus-%s-music-bed.mp3' % name)
+        shutil.copyfile(bed, dst)
+        I, _, P = lufs(dst)
+        print('%-52s %7.2f s  %6.1f LUFS  peak %5.1f dBFS'
+              % (os.path.basename(dst), _dur(dst), I, P))
+
+        # FLAC, not MP3, for two reasons that both point the same way: the stem
+        # is mostly silence, so lossless comes out SMALLER here than 256 kbps
+        # MP3 (1.5 MB against 2.9 MB for the reel), and it carries no encoder
+        # padding, so it lines up with the film sample for sample. The music bed
+        # stays MP3 because its source is already a 192 kbps MP3 and encoding
+        # that losslessly would only make a bigger file of the same audio.
+        y, peak, clipped = transition_stem(key)
+        wav = os.path.join(STEMS, '_t.wav')
+        write_wav(wav, y)
+        dst = os.path.join(STEMS, 'soundcraft-signature-plus-%s-transitions.flac' % name)
+        subprocess.run([FF, '-v', 'error', '-y', '-i', wav, '-compression_level', '8', dst], check=True)
+        os.remove(wav)
+        I, _, P = lufs(dst)
+        print('%-52s %7.2f s  %6.1f LUFS  peak %5.1f dBFS%s'
+              % (os.path.basename(dst), _dur(dst), I, P,
+                 '   (summed past full scale, pulled down %.1f dB)' % (20 * np.log10(peak)) if clipped else ''))
+
+
+def _dur(path):
+    p = subprocess.run([FF, '-hide_banner', '-i', path], capture_output=True, text=True).stderr
+    import re
+    m = re.search(r'Duration: (\d+):(\d+):([\d.]+)', p)
+    return int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3)) if m else 0.0
+
+
 def main():
     os.makedirs(SFX, exist_ok=True)
     src = read_audio(SOURCE_MUSIC)
@@ -360,7 +448,9 @@ def main():
         write_wav(os.path.join(OUT, f'vo-{name}.wav'), np.zeros((int(length * SR), 2)))
         print('vo-%-5s placeholder %.2f s' % (name, length))
 
-    print('\n%d cues + 2 beds + 2 placeholders' % made)
+    build_stems()
+
+    print('\n%d cues + 2 beds + 2 placeholders + 4 stems' % made)
 
 
 if __name__ == '__main__':
