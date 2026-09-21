@@ -19,8 +19,6 @@ out/soundcraft-signature-plus-reel-4k.mp4
 # real previews the moment the master lands.
 out/PARTIAL-*.mp4
 
-# Exceeded GitHub's 100 MB limit at finalize time.
-out/**/soundcraft-signature-plus-reel-4k.mp4
-
-# Exceeded GitHub's 100 MB limit at finalize time.
+# Appended by finalize.sh's size guard — the master is already excluded above,
+# but the guard does not know that and re-stating it is harmless.
 out/**/soundcraft-signature-plus-reel-4k.mp4
