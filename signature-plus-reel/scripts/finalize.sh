@@ -55,8 +55,26 @@ if [ ! -f "$PARTS/JOIN.md" ]; then
   python3 scripts/split_mp4.py "$MASTER" || say "SPLIT FAILED"
 fi
 
+# NOT `[ -f ]`. ffmpeg creates its output at zero bytes the instant it starts
+# and only writes the moov atom at the end, so testing for existence catches a
+# file that is present, growing, and unplayable — which is exactly what got
+# committed and pushed the first time this ran: a 540p with no readable
+# duration and no stream headers. Wait for it to stop growing instead, the
+# same way the master is waited on.
 say "waiting for the previews"
-for _ in $(seq 1 90); do [ -f "$OUT/preview-reel-540p.mp4" ] && break; sleep 10; done
+for _ in $(seq 1 120); do [ -f "$OUT/preview-reel-540p.mp4" ] && break; sleep 5; done
+if [ -f "$OUT/preview-reel-540p.mp4" ]; then wait_for_master "$OUT/preview-reel-540p.mp4"; fi
+if [ -f "$OUT/soundcraft-signature-plus-reel-1080p.mp4" ]; then wait_for_master "$OUT/soundcraft-signature-plus-reel-1080p.mp4"; fi
+
+# And prove they are playable before they are committed.
+for f in "$OUT/preview-reel-540p.mp4" "$OUT/soundcraft-signature-plus-reel-1080p.mp4"; do
+  [ -f "$f" ] || continue
+  if ! "$HOME/bin/ffmpeg" -hide_banner -i "$f" 2>&1 | grep -q "Duration:"; then
+    say "UNPLAYABLE, not committing: $f"; rm -f "$f"
+  else
+    say "ok: $(basename "$f") $("$HOME/bin/ffmpeg" -hide_banner -i "$f" 2>&1 | grep -o 'Duration: [0-9:.]*' | head -1)"
+  fi
+done
 
 # ── 2. the thumbnail ────────────────────────────────────────────────────────
 # Re-rendered here rather than reused: the one on disk predates the
