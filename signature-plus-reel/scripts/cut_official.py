@@ -22,11 +22,11 @@ desk are worth having, but a 0.36 s window is a flash rather than a shot — so
 each one is
 RETIMED, with motion-compensated frame interpolation synthesising the new
 intermediate frames rather than duplicating the old ones. The rate is set per
-window (0.42 to 0.62) rather than globally, because the windows are not the
+window (0.25 to 0.62) rather than globally, because the windows are not the
 same length: the shortest is slowed hardest so it lands as a shot, and the long
 ones stay nearer real time, where the interpolator has least to invent.
 
-Five seconds of source becomes 8.9 s of usable picture. It reads as a deliberate
+5.17 s of source becomes 10.67 s of usable picture. It reads as a deliberate
 slow-motion treatment rather than as a shortage.
 
 RESOLUTION. The source is 720p and the reel masters at 2160x3840, so these
@@ -77,7 +77,12 @@ WINDOWS = [
     # Generation of..." clears at 7.10 — the cut at 6.9 still carries the tail
     # of that card — and closes before "Your Creative Audio Character" fades up
     # at 7.8.
-    ("of-02-desk-tracking",  7.12, 0.62, 0.50, None, "engineer at the desk, guitarist behind"),
+    # 0.25, which is the hardest retime in the set: this shot sits in the
+    # `connect` segment under a 2.46 s caption, and a clip shorter than its own
+    # slot freezes on its last frame for the remainder. Widened to the full
+    # clean window (0.68 s) first, so the interpolator has as much real motion
+    # to work from as the window allows.
+    ("of-02-desk-tracking",  7.11, 0.68, 0.25, None, "engineer at the desk, guitarist behind"),
     # The 32 rotating from three-quarter into a full top-down plan. Clean
     # throughout; closes before the "THE SIGNATURE PLUS SERIES" eyebrow at 13.45.
     ("of-03-plan-reveal",   12.35, 1.05, 0.55, None, "the 32 rotating into its top-down plan"),
@@ -93,7 +98,8 @@ WINDOWS = [
     ("of-05-console-hands", 49.95, 1.68, 0.62, None, "hands working the channel strips"),
     # Studio seat, headphones, laptop. Opens on the cut at 51.75, closes before
     # "Professional Analog Mixing." fades up at 52.15.
-    ("of-06-studio-seat",   51.78, 0.36, 0.42, None, "studio seat, headphones and laptop"),
+    # 0.32 so it clears the 0.90 s closing slot with headroom.
+    ("of-06-studio-seat",   51.77, 0.38, 0.32, None, "studio seat, headphones and laptop"),
 ]
 
 

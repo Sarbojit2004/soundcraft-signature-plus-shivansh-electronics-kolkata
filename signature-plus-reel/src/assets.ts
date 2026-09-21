@@ -25,10 +25,22 @@ export type Asset = {
   transparent: boolean;
 };
 
-export type Clip = { slug: string; file: string; w: number; h: number; ar: number; dur: number };
+export type Clip = {
+  slug: string;
+  file: string;
+  w: number;
+  h: number;
+  ar: number;
+  dur: number;
+  /** "official" = cut from the Soundcraft overview film; "broll" = generated. */
+  kind?: "official" | "broll";
+  /** For a B-roll, the script segment it is fixed to. */
+  seg?: string;
+  what?: string;
+};
 
-import { ASSETS, CLIPS, REGION_LUM } from "./assets.generated.ts";
-export { ASSETS, CLIPS, REGION_LUM };
+import { ASSETS, CLIPS, MISSING_BROLL, REGION_LUM } from "./assets.generated.ts";
+export { ASSETS, CLIPS, MISSING_BROLL, REGION_LUM };
 
 /**
  * How far to pull a detail push down (or up) so every one lands on the same

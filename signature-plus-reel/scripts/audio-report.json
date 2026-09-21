@@ -1,0 +1,66 @@
+{
+ "cues": {
+  "air-pass": {
+   "dur": 0.52,
+   "peak_dbfs": -13.5,
+   "rms_dbfs": -29.4
+  },
+  "gate-snap": {
+   "dur": 0.2,
+   "peak_dbfs": -3.1,
+   "rms_dbfs": -23.4
+  },
+  "whip-mid": {
+   "dur": 0.34,
+   "peak_dbfs": -6.0,
+   "rms_dbfs": -24.4
+  },
+  "whip-bright": {
+   "dur": 0.3,
+   "peak_dbfs": -3.8,
+   "rms_dbfs": -23.4
+  },
+  "impact-tight": {
+   "dur": 0.38,
+   "peak_dbfs": -5.3,
+   "rms_dbfs": -20.2
+  },
+  "impact-full": {
+   "dur": 0.82,
+   "peak_dbfs": -5.7,
+   "rms_dbfs": -20.1
+  },
+  "riser-short": {
+   "dur": 0.66,
+   "peak_dbfs": -6.3,
+   "rms_dbfs": -25.4
+  },
+  "snap-low": {
+   "dur": 0.17,
+   "peak_dbfs": -4.0,
+   "rms_dbfs": -22.3
+  },
+  "blip-one": {
+   "dur": 0.075,
+   "peak_dbfs": -14.6,
+   "rms_dbfs": -27.3
+  },
+  "tick-tiny": {
+   "dur": 0.038,
+   "peak_dbfs": -13.5,
+   "rms_dbfs": -31.0
+  },
+  "outro-bloom": {
+   "dur": 4.4,
+   "peak_dbfs": -12.3,
+   "rms_dbfs": -25.6
+  }
+ },
+ "bed": {
+  "dur": 90.0,
+  "lufs": -23.0,
+  "handover": 82.4,
+  "xfade": 1.6
+ },
+ "kit_gain": 0.5329
+}

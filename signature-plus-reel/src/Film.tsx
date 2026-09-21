@@ -24,16 +24,15 @@ import {
   StackBleed,
 } from "./components/Staged.tsx";
 import { TRANS, TransitionIn } from "./components/Transitions.tsx";
+import { TopRail, type Mark } from "./components/TopRail.tsx";
 import {
   AuxMatrix,
   ChannelLadder,
-  ChapterTag,
   CompCurve,
   EqCurve,
   FxTable,
   GainDial,
   MeterPair,
-  ProgressRule,
   SpecChips,
   UsbPath,
 } from "./components/Demonstratives.tsx";
@@ -94,6 +93,11 @@ const Stage: React.FC<{ shot: Shot; f: number; dur: number }> = ({ shot, f, dur 
       return <BleedShot asset={img(shot.slug)} {...common} />;
     case "clip":
       return <ClipBleed clip={getClip(shot.slug)} startFrom={shot.from ?? 0} {...common} />;
+    // A generated B-roll is 720 x 1280 — the frame's own aspect — so ClipBleed
+    // takes the full-bleed branch and plays it edge to edge. It is never given
+    // a startFrom: the whole point of these four is that they run complete.
+    case "broll":
+      return <ClipBleed clip={getClip(shot.slug)} startFrom={0} {...common} />;
     case "panel":
       return <PanelPlate asset={img(shot.slug)} {...common} />;
     case "detail":
@@ -153,6 +157,14 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
     captions: s.captions,
   }));
 
+  /** One tick per chapter on the rail, derived from the same timeline the film
+   *  is cut to, so the contents page and the edit cannot disagree. The four
+   *  fixed B-roll blocks are flagged, and the rail draws them taller. */
+  const marks: Mark[] = segments.map((s) => ({
+    at: s.start / data.outroAt,
+    fixed: s.fixed !== undefined,
+  }));
+
   const outroFrom = sec(data.outroAt);
 
 
@@ -186,10 +198,23 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
 
     return (
       <>
-        <div style={{ position: "absolute", left: SAFE.left, top: SAFE.top, width: SAFE.w, opacity: fade }}>
-          <ProgressRule p={t / data.outroAt} accent={w.accent} width={SAFE.w} />
-          <div style={{ height: SAFE.w * 0.018 }} />
-          <ChapterTag accent={w.accent} label={w.chapter} intro={intro} width={SAFE.w} />
+        {/* The rail does not fade with the segment — a timeline that blinks out
+            between chapters stops being a timeline. Only its readout re-intros
+            on each chapter change; the bar itself is continuous for the whole
+            body. */}
+        <div style={{ position: "absolute", left: SAFE.left, top: SAFE.top, width: SAFE.w }}>
+          <TopRail
+            t={t}
+            total={data.outroAt}
+            index={windows.findIndex((x) => x.id === w.id) + 1}
+            count={windows.length}
+            label={w.chapter}
+            accent={w.accent}
+            marks={marks}
+            intro={intro}
+            width={SAFE.w}
+            f={frame}
+          />
         </div>
 
         {/* The technical block sits on its own panel.
@@ -286,18 +311,20 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
         <OutroLayer />
       </Sequence>
 
-      {/* ── audio ───────────────────────────────────────────────────────── */}
-      {/* The narration drops in at this path. A silent placeholder of exactly
-          the film's length already sits there, so swapping in the recorded read
-          is the only step — no code change and no re-timing.
+      {/* ── audio ─────────────────────────────────────────────────────────
+          NO NARRATION TRACK. This reel carries its script as burned-in
+          captions over a music bed, which is what the brief asks for — so
+          there is deliberately no vo-*.wav to drop in and no silent
+          placeholder pretending one is coming. src/script.ts is still written
+          and timed as a read-aloud script, so a recorded read can be added
+          later without re-cutting anything, but nothing here is waiting on it.
 
-          Everything below is already mastered to its final perceived loudness
-          by scripts/gen_audio.py — the bed and the reference cue at -23 LUFS
-          (EBU R128), each cue trimmed relative to the bed. So every source
-          plays at unity here: a volume multiplier in the timeline would
-          silently undo that mastering. */}
-      <Audio src={staticFile(`audio/vo-${fmt.id}.wav`)} volume={1} />
-      <Audio src={staticFile(`audio/music-${fmt.id}.mp3`)} volume={1} />
+          The bed and every cue are already mastered to their final perceived
+          loudness by scripts/gen_audio.py — the bed to -23 LUFS (EBU R128) and
+          each cue trimmed relative to it. So every source plays at unity here:
+          a volume multiplier in the timeline would silently undo that
+          mastering. */}
+      <Audio src={staticFile("audio/music-reel.mp3")} volume={1} />
       {/* 150 frames per cue, not 90: the outro bloom runs 4.4 s, and a Sequence
           that ends under a decaying tail cuts it dead rather than letting it
           ring out. Every other cue is under a second, so the extra room is

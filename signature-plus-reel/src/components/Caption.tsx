@@ -45,7 +45,14 @@ type Props = {
 /** Splits a caption into lead-in / key word / tail around its emphasis. */
 export const splitCaption = (t: string, e?: string) => {
   const words = t.trim().split(/\s+/).filter(Boolean);
-  const norm = (x: string) => x.replace(/[^\w.,+-]/g, "").toLowerCase();
+  // Strip punctuation from the ENDS only, never from the middle: "2.4" and
+  // "USB-C" and "desk's" have to survive intact, but a caption's final word
+  // arrives as "knob." and its emphasis is declared as "knob". Comparing those
+  // raw silently failed the match and dropped the whole caption through to the
+  // longest-word fallback below — which put the script face on "desk," instead
+  // of "one knob" in about a third of this reel's captions before it was found.
+  const norm = (x: string) =>
+    x.replace(/^[^\w+]+/, "").replace(/[^\w+]+$/, "").toLowerCase();
 
   if (e) {
     const target = e.split(/\s+/).filter(Boolean);

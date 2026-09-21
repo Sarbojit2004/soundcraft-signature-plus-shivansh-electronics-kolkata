@@ -1,202 +1,232 @@
 import React from "react";
-import { AbsoluteFill, Img, staticFile, useVideoConfig } from "remotion";
-import { ACCENT, FONT, GROUND, INK, MODELS, formatFor, type FormatId } from "./theme.ts";
-import { img, LINEUP } from "./assets.ts";
+import { AbsoluteFill, Img, random, staticFile } from "remotion";
+import { ACCENT, FONT, GROUND, INK, MODELS, formatFor } from "./theme.ts";
+import { img } from "./assets.ts";
+import { splitCaption } from "./components/Caption.tsx";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// THE COVERS — one per film, each built as a poster rather than grabbed as a
-// frame.
+// THE THUMBNAIL — 2160 x 3840, one frame.
 //
-// A cover for this product has an unusual job. The four consoles are, on
-// purpose, the same desk at four widths — so a hero shot of any one of them is
-// a picture of "a mixer" and tells a browsing viewer nothing. What makes
-// someone stop is the CLAIM, and the claim only exists once all four are in
-// frame together and visibly identical except in length.
+// A reel thumbnail is read at about 300 px tall in a grid, at a glance, by
+// somebody who has not decided to watch yet. So it is built from the three
+// things that survive that: ONE console, ONE line, and a colour.
 //
-// So both covers are the four desks, labelled, under the films' own caption
-// lockup set in the same two faces — at full opacity here, because the 64% the
-// films hold their type at exists to let a moving picture read through the
-// letterforms, and a still tile 200 px wide has no such problem.
+// It uses the film's own type lockup — the brush script carrying the word the
+// line turns on, the black geometric sans carrying the rest — so the thumbnail
+// and the first frame of the reel are visibly the same piece of work. The line
+// is the reel's own hook, not a slogan invented for the tile.
 //
-// No logo, no company name, no number. The films keep all of that for their end
-// screens and the covers follow the same rule.
+// NO BRAND MARKS. Same rule as the body of the reel: the Shivansh Electronics
+// and Soundcraft logos appear on the six-second end screen and nowhere else,
+// and that includes here. The console is the product shot; the wordmark
+// already on its chassis is the console's, not an overlay.
+//
+// NO PRICE, and no competitor named or implied.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const HARD = "0 5px 12px rgba(0,0,0,0.94), 0 0 6px rgba(0,0,0,0.8)";
+/** The reel's own hook, split at the word it turns on. */
+const LINE = { t: "On this desk, that is one knob.", e: "one knob" };
 
-export const Thumbnail: React.FC<{ format?: FormatId }> = () => (
-  <AbsoluteFill style={{ background: GROUND.dark, fontFamily: FONT.display, overflow: "hidden" }}>
-    <Layout accent={ACCENT.shared.glow} rule={ACCENT.sound.glow} />
-  </AbsoluteFill>
-);
-
-const Layout: React.FC<{ accent: string; rule: string }> = ({ accent, rule }) => {
-  const { width: W, height: H } = useVideoConfig();
-  const fmt = formatFor(W, H);
+export const Thumbnail: React.FC = () => {
+  const fmt = formatFor(2160, 3840);
+  const W = fmt.width;
+  const H = fmt.height;
   const SAFE = fmt.safe;
+  const acc = ACCENT.shared;
+  const sound = ACCENT.sound;
 
-  const room = (
-    <>
-      <AbsoluteFill style={{ background: "radial-gradient(ellipse 88% 54% at 50% 42%, #1A1E27 0%, #0A0C10 56%, #040507 100%)" }} />
+  const hero = img("p32-3");
+  const parts = splitCaption(LINE.t, LINE.e);
+
+  const gridPitch = Math.round(W / 14);
+
+  return (
+    <AbsoluteFill style={{ background: GROUND.dark, fontFamily: FONT.display, overflow: "hidden" }}>
+      {/* ── the room ───────────────────────────────────────────────────── */}
       <AbsoluteFill
         style={{
-          opacity: 0.30,
-          backgroundImage:
-            `repeating-linear-gradient(0deg, rgba(255,255,255,0.07) 0 2px, rgba(0,0,0,0) 2px ${Math.round(W / 16)}px),` +
-            `repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0 2px, rgba(0,0,0,0) 2px ${Math.round(W / 16)}px)`,
+          background:
+            "radial-gradient(ellipse 96% 54% at 50% 38%, #1B1F28 0%, #0B0D12 56%, #040506 100%)",
         }}
       />
-      <AbsoluteFill style={{ background: `radial-gradient(ellipse 58% 30% at 50% 44%, ${rule}1C 0%, rgba(0,0,0,0) 74%)` }} />
-    </>
-  );
+      <AbsoluteFill
+        style={{
+          opacity: 0.34,
+          backgroundImage:
+            `repeating-linear-gradient(0deg, rgba(255,255,255,0.07) 0 2px, rgba(0,0,0,0) 2px ${gridPitch}px),` +
+            `repeating-linear-gradient(90deg, rgba(255,255,255,0.07) 0 2px, rgba(0,0,0,0) 2px ${gridPitch}px)`,
+        }}
+      />
+      {/* a warm pool under the console, so it sits in the frame rather than on it */}
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse 70% 26% at 50% 52%, ${sound.glow}26 0%, rgba(0,0,0,0) 72%)`,
+        }}
+      />
+      {/* dust */}
+      {Array.from({ length: 34 }).map((_, i) => {
+        const rx = random(`tx${i}`);
+        const ry = random(`ty${i}`);
+        const rs = random(`ts${i}`);
+        const d = W / 380;
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: rx * W,
+              top: ry * H * 0.72,
+              width: d * (1 + rs * 1.7),
+              height: d * (1 + rs * 1.7),
+              borderRadius: "50%",
+              background: "rgba(240,246,252,0.55)",
+              opacity: 0.14 + rs * 0.26,
+            }}
+          />
+        );
+      })}
 
-  const lockup = (scale: number, align: "left" | "center") => (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: align === "center" ? "center" : "flex-start" }}>
+      {/* ── the eyebrow ────────────────────────────────────────────────── */}
       <div
         style={{
-          fontFamily: FONT.display,
-          fontSize: fmt.type.before.size * scale,
-          letterSpacing: fmt.type.before.track,
-          color: INK.onDark,
-          textTransform: "uppercase",
-          textShadow: HARD,
+          position: "absolute",
+          left: SAFE.left,
+          top: SAFE.top * 0.92,
+          width: SAFE.w,
+          display: "flex",
+          alignItems: "center",
+          gap: W * 0.018,
         }}
       >
-        ONE FORMAT.
-      </div>
-      <div
-        style={{
-          fontFamily: FONT.script,
-          fontSize: fmt.type.script.size * scale,
-          color: accent,
-          lineHeight: 0.98,
-          padding: `${16 * scale}px ${24 * scale}px ${26 * scale}px 0`,
-          transform: "rotate(-1.6deg)",
-          textShadow: `0 6px 14px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.85), 0 0 ${34 * scale}px ${accent}55`,
-          whiteSpace: "nowrap",
-        }}
-      >
-        Four
-      </div>
-      <div
-        style={{
-          fontFamily: FONT.display,
-          fontSize: fmt.type.after.size * scale,
-          letterSpacing: fmt.type.after.track,
-          color: INK.onDark,
-          textTransform: "uppercase",
-          textShadow: HARD,
-        }}
-      >
-        SIZES
-      </div>
-      <div style={{ height: 10 * scale }} />
-      <div style={{ width: fmt.type.after.size * scale * 4.2, height: Math.max(5, W / 300), background: rule }} />
-      <div style={{ height: 14 * scale }} />
-      <div
-        style={{
-          fontFamily: FONT.display,
-          fontSize: fmt.type.chapter.size * scale * 1.12,
-          letterSpacing: fmt.type.chapter.track,
-          color: INK.onDarkSoft,
-          textTransform: "uppercase",
-          textShadow: HARD,
-        }}
-      >
-        SOUNDCRAFT SIGNATURE PLUS
-      </div>
-    </div>
-  );
-
-  if (fmt.portrait) {
-    const bandTop = H * 0.355;
-    const bandH = (H * 0.965 - bandTop) / 4;
-    return (
-      <>
-        {room}
-        <div style={{ position: "absolute", left: SAFE.left, top: SAFE.top + H * 0.012, width: SAFE.w }}>{lockup(1, "left")}</div>
-        {LINEUP.map((slug, i) => (
-          <Band key={slug} slug={slug} top={bandTop + i * bandH} h={bandH} W={W} accent={accent} rule={rule} label={MODELS[i].short} />
-        ))}
-      </>
-    );
-  }
-
-  const colW = W * 0.36;
-  const shelfL = W * 0.40;
-  const shelfW = W * 0.56;
-  const cellH = (H * 0.94) / 4;
-  return (
-    <>
-      {room}
-      <div style={{ position: "absolute", left: SAFE.left, top: H * 0.20, width: colW }}>{lockup(1.35, "left")}</div>
-      {LINEUP.map((slug, i) => (
-        <Band key={slug} slug={slug} top={H * 0.03 + i * cellH} h={cellH} W={shelfW} left={shelfL} accent={accent} rule={rule} label={MODELS[i].short} />
-      ))}
-    </>
-  );
-};
-
-/**
- * One console in a band, sized by its CONTENT rather than by its canvas.
- *
- * The renders are 4096 px canvases in which the desk occupies the middle ~80%
- * and the rest is transparent padding, and the padding differs from file to
- * file. objectFit: contain therefore fits the PADDING to the band and leaves
- * four small consoles floating in four large empty rectangles — which is what
- * the first cut of this cover looked like.
- */
-const Band: React.FC<{
-  slug: string; top: number; h: number; W: number; left?: number;
-  accent: string; rule: string; label: string;
-}> = ({ slug, top, h, W, left = 0, accent, rule, label }) => {
-  const a = img(slug);
-  const [x0, y0, x1, y1] = a.bbox as number[];
-  const numW = h * 0.62;
-  const boxW = W - numW - h * 0.22;
-  const boxH = h * 0.96;
-  const contentW = Math.min(boxW, boxH * a.ar);
-  const fullW = contentW / Math.max(1e-6, x1 - x0);
-  const fullH = (fullW * a.h) / a.w;
-
-  return (
-    <div style={{ position: "absolute", left, top, width: W, height: h, display: "flex", alignItems: "center" }}>
-      <div
-        style={{
-          width: numW,
-          textAlign: "right",
-          paddingRight: h * 0.10,
-          fontFamily: "'ReelDisplay', Arial, sans-serif",
-          fontSize: h * 0.44,
-          letterSpacing: h * 0.02,
-          color: accent,
-          textShadow: HARD,
-          fontVariantNumeric: "tabular-nums",
-        }}
-      >
-        {label}
-      </div>
-      <div style={{ width: Math.max(4, W / 340), height: h * 0.66, background: rule, marginRight: h * 0.10 }} />
-      <div style={{ position: "relative", flex: 1, height: boxH, overflow: "hidden" }}>
+        <div style={{ width: W * 0.009, height: W * 0.044, background: sound.glow }} />
         <div
           style={{
-            position: "absolute",
-            inset: 0,
-            background: `radial-gradient(ellipse 60% 62% at 50% 52%, ${rule}22 0%, rgba(0,0,0,0) 72%)`,
+            fontSize: W * 0.032,
+            letterSpacing: W * 0.0042,
+            color: INK.onDark,
+            textTransform: "uppercase",
+            textShadow: "0 8px 18px rgba(0,0,0,0.95)",
           }}
-        />
-        <Img
-          src={staticFile(a.file)}
+        >
+          Signature Plus
+        </div>
+        <div style={{ flex: 1 }} />
+        <div
           style={{
-            position: "absolute",
-            left: boxW / 2 - ((x0 + x1) / 2) * fullW,
-            top: boxH / 2 - ((y0 + y1) / 2) * fullH,
-            width: fullW,
-            height: fullH,
-            objectFit: "fill",
+            fontSize: W * 0.028,
+            letterSpacing: W * 0.005,
+            color: sound.glow,
+            fontVariantNumeric: "tabular-nums",
+            textShadow: "0 8px 18px rgba(0,0,0,0.95)",
           }}
-        />
+        >
+          {MODELS.map((m) => m.short).join(" · ")}
+        </div>
       </div>
-    </div>
+
+      {/* ── the console ────────────────────────────────────────────────── */}
+      {/* Sized off its own alpha bounding box rather than its canvas: the render
+          occupies about 80% of a 4096 px plate, and centring the CANVAS would
+          leave the desk sitting high and small. */}
+      <Img
+        src={staticFile(hero.file)}
+        style={{
+          position: "absolute",
+          left: -W * 0.10,
+          top: H * 0.255,
+          width: W * 1.20,
+          height: "auto",
+          objectFit: "contain",
+        }}
+      />
+
+      {/* a hard floor line, to sit the console on something */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: H * 0.555,
+          width: W,
+          height: Math.round(H / 900),
+          background: `linear-gradient(90deg, ${sound.glow}00 0%, ${sound.glow}88 22%, ${sound.glow}88 78%, ${sound.glow}00 100%)`,
+        }}
+      />
+
+      {/* ── the line ───────────────────────────────────────────────────── */}
+      <div
+        style={{
+          position: "absolute",
+          left: SAFE.left,
+          width: SAFE.w,
+          bottom: SAFE.bottom * 0.78,
+        }}
+      >
+        {parts.before ? (
+          <div
+            style={{
+              fontSize: fmt.type.before.size * 1.22,
+              letterSpacing: fmt.type.before.track,
+              color: INK.onDarkSoft,
+              textTransform: "uppercase",
+              textShadow: "0 10px 22px rgba(0,0,0,0.95)",
+              marginBottom: -H * 0.012,
+            }}
+          >
+            {parts.before}
+          </div>
+        ) : null}
+
+        <div
+          style={{
+            fontFamily: FONT.script,
+            fontSize: fmt.type.script.size * 1.16,
+            letterSpacing: fmt.type.script.track,
+            lineHeight: 0.86,
+            color: sound.glow,
+            textShadow: "0 16px 36px rgba(0,0,0,0.98), 0 0 10px rgba(0,0,0,0.9)",
+          }}
+        >
+          {parts.key}
+        </div>
+
+        {parts.after ? (
+          <div
+            style={{
+              fontSize: fmt.type.after.size * 1.16,
+              letterSpacing: fmt.type.after.track,
+              color: INK.onDark,
+              textTransform: "uppercase",
+              textShadow: "0 10px 24px rgba(0,0,0,0.96)",
+              marginTop: H * 0.004,
+            }}
+          >
+            {parts.after}
+          </div>
+        ) : null}
+
+        {/* the counter-line — what the reel is actually arguing */}
+        <div
+          style={{
+            marginTop: H * 0.022,
+            display: "flex",
+            alignItems: "center",
+            gap: W * 0.016,
+          }}
+        >
+          <div style={{ width: W * 0.10, height: Math.round(H / 1100), background: acc.glow }} />
+          <div
+            style={{
+              fontSize: W * 0.030,
+              letterSpacing: W * 0.0038,
+              color: INK.onDarkSoft,
+              textTransform: "uppercase",
+              textShadow: "0 8px 18px rgba(0,0,0,0.95)",
+            }}
+          >
+            Not a page. Not a menu.
+          </div>
+        </div>
+      </div>
+    </AbsoluteFill>
   );
 };

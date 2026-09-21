@@ -1,0 +1,30 @@
+{
+  "name": "soundcraft-signature-plus-reel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Soundcraft Signature Plus (12 / 16 / 22 / 32) — 90 s 4K vertical reel at 2160x3840. Shivansh Electronics, Kolkata.",
+  "scripts": {
+    "studio": "remotion studio",
+    "typecheck": "tsc --noEmit",
+    "assets": "python3 scripts/prep_assets.py",
+    "official": "python3 scripts/cut_official.py",
+    "audio": "python3 scripts/gen_audio.py",
+    "validate": "node --experimental-strip-types scripts/validate.mjs",
+    "render": "bash scripts/render-4k.sh",
+    "thumb": "remotion still ReelThumbnail out/soundcraft-signature-plus-reel-thumbnail.png",
+    "preview": "remotion render Reel out/preview-reel-480p.mp4 --scale=0.125 --concurrency=2"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.497",
+    "@remotion/cli": "4.0.497",
+    "@remotion/renderer": "4.0.497",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.497"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "typescript": "5.6.3"
+  }
+}

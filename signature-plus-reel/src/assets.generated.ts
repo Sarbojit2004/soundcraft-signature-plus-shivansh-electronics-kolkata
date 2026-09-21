@@ -541,7 +541,7 @@ export const CLIPS: Clip[] = [
   "w": 1280,
   "h": 720,
   "ar": 1.7778,
-  "dur": 1.23,
+  "dur": 2.7,
   "kind": "official",
   "what": "engineer at the desk, guitarist behind"
  },
@@ -581,7 +581,7 @@ export const CLIPS: Clip[] = [
   "w": 1280,
   "h": 720,
   "ar": 1.7778,
-  "dur": 0.73,
+  "dur": 1.07,
   "kind": "official",
   "what": "studio seat, headphones and laptop"
  }

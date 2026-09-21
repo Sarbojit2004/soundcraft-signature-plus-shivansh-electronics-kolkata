@@ -1,20 +1,43 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// THE SHOT PLANS — what is on screen, and exactly when.
+// THE SHOT PLAN — what is on screen, and exactly when.
 //
 // Every shot is pinned to a CAPTION INDEX rather than to a timestamp, and runs
 // until the next shot's caption begins. So the picture changes on the word it
-// belongs to, and re-timing the script — or recording it slower than written —
-// moves the picture with the voice instead of leaving it behind.
+// belongs to, and re-timing the script moves the picture with it instead of
+// leaving it behind.
 //
-// The pairing is the point. When the narration says the gain runs from six to
+// The pairing is the point. When the caption says the gain runs from six to
 // sixty-five, the frame is the actual gain row with +6 and +65 printed beside
 // the knob. When it says there is a compressor on every one of them, the frame
-// is the magenta row running the length of the desk. A claim a viewer can check
-// against the picture in front of them is worth three a viewer has to take on
-// trust.
+// is the row running the length of the desk. A claim a viewer can check against
+// the picture in front of them is worth three they have to take on trust.
+//
+// ── THE FOUR B-ROLL BLOCKS ──────────────────────────────────────────────────
+//
+// Each `broll` segment carries exactly ONE shot. That is deliberate and it is
+// the difference between this reel and the MOTU films: there, a generated clip
+// was sampled for a second or two and cut away from. Here the clip is the whole
+// five seconds, uncut, because it was generated complete and paid for complete.
+// One pin, no second pin to end it early.
+//
+// Until a clip is on disk, `fallback` stands in — always a REAL photograph of
+// the desk in the same kind of room the clip is set in, never a studio render.
+// The block is fixed at 5.000 s in script.ts either way, so the reel times
+// identically with or without the generated footage and the swap is a
+// re-render, not a re-edit.
+//
+// SEVEN KINDS (see components/Staged.tsx):
+//   product  a transparent studio render floating in a lit void
+//   photo    an opaque photograph — a real room
+//   clip     a moving shot, plated over a darkened wash of itself
+//   broll    a generated 9:16 clip, full-bleed, played complete
+//   panel    a rear panel or other ultra-wide drawing, tracked along
+//   detail   a push into one named control on a 4096 px plan
+//   stack    two pictures, both complete, never sliced
+//   mosaic   three or more as one drifting plane
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { MASTER_REGION, R32, dimFor, type Region } from "./assets.ts";
+import { MASTER_REGION, MISSING_BROLL, R32, dimFor, type Region } from "./assets.ts";
 import type { MoveKind } from "./components/Staged.tsx";
 import type { TimedSegment } from "./script.ts";
 import type { AccentKey } from "./theme.ts";
@@ -22,19 +45,15 @@ import type { AccentKey } from "./theme.ts";
 type RegionName = keyof typeof R32;
 
 export type ShotSpec =
-  /** A transparent studio render, floating whole in a lit void. */
   | { at: number; kind: "product"; slug: string; move?: MoveKind }
-  /** An opaque photograph — a real room, or manufacturer photography. */
   | { at: number; kind: "photo"; slug: string; move?: MoveKind }
-  /** A moving shot. `from` is the source frame it starts on, of 240. */
   | { at: number; kind: "clip"; slug: string; from?: number; move?: MoveKind }
-  /** A rear panel or other ultra-wide drawing, tracked along. */
+  /** A generated 9:16 B-roll, played complete. `fallback` stands in until the
+   *  file is on disk. */
+  | { at: number; kind: "broll"; slug: string; fallback: ShotSpec; move?: MoveKind }
   | { at: number; kind: "panel"; slug: string }
-  /** A push into one named control on a 4096 px plan. */
   | { at: number; kind: "detail"; slug: string; region: RegionName; zoom?: number }
-  /** Two pictures, both complete — stacked or side by side, never sliced. */
   | { at: number; kind: "stack"; slugs: string[] }
-  /** Three or more as one drifting plane. */
   | { at: number; kind: "mosaic"; slugs: string[]; labels?: string[] };
 
 export type Shot = ShotSpec & {
@@ -42,230 +61,128 @@ export type Shot = ShotSpec & {
   accent: AccentKey;
   seed: number;
   start: number;
-  /** The resolved rectangle, for a detail push. */
   rect?: Region;
-  /** Brightness multiplier that lands this region on the common tone. */
   dim?: number;
 };
 
 const P32 = "p32-1";
 
-// DELIBERATELY UNUSED, after reviewing all twenty delivered clips frame by
-// frame. Nothing here is a rendering problem; each one carries an artefact the
-// generator left in the picture, and there is enough good material that
-// omitting them costs the films nothing:
-//
-//   broll-03-profile-22   a second, duplicated "soundcraft" wordmark floating
-//                         below the console on the white ground
-//   broll-14-two-players  the same wordmark artefact appears bottom-centre in
-//                         the later frames
-//   broll-16-plan-32      a camera and microphone rig is sitting on top of the
-//                         console
-//   broll-12-family       the four consoles are crammed into the right of the
-//                         frame at a size where none of them reads
-//
-// (broll-18 was generated as an on-air booth rather than the rear panel it was
-// prompted for, so it is used as the booth shot it actually is.)
-
 // ═════════════════════════════════════════════════════════════════════════════
-// THE 90-SECOND VERTICAL REEL — 31 shots across 82 seconds.
+// THE 90-SECOND VERTICAL REEL — 30 shots across 84 seconds.
+//
+// Read down the plan and it is the edit; read the caption index beside each
+// shot against script.ts and it is the argument.
 // ═════════════════════════════════════════════════════════════════════════════
 
 export const REEL_PLAN: Record<string, ShotSpec[]> = {
+  // ── the problem, stated in a room ────────────────────────────────────────
   hook: [
-    { at: 0, kind: "clip", slug: "broll-10-live-foh", from: 6, move: "push" },
-    { at: 1, kind: "photo", slug: "p32-7", move: "trackLeft" },
-    // "that is one knob" — so the frame is the knob.
-    { at: 2, kind: "detail", slug: P32, region: "aux", zoom: 0.62 },
-    { at: 3, kind: "product", slug: "p32-3", move: "orbit" },
+    // "Ten minutes to doors." — a real club, real crowd, the desk in the
+    // foreground. The only photograph in the set that already contains the
+    // situation the line describes.
+    { at: 0, kind: "photo", slug: "p32-7", move: "push" },
+    // "The singer wants more of herself." — so the frame is a singer.
+    { at: 1, kind: "clip", slug: "of-04-outdoor-band", move: "trackRight" },
+    // "that is one knob." — so the frame is the knob, not the desk.
+    { at: 2, kind: "detail", slug: P32, region: "gain", zoom: 0.55 },
   ],
+
+  // ── B-ROLL 1 · front of house, at show time ─────────────────────────────
+  live: [
+    { at: 0, kind: "broll", slug: "broll-01-live-foh", move: "push",
+      fallback: { at: 0, kind: "photo", slug: "p32-7", move: "trackLeft" } },
+  ],
+
+  // ── the preamp and the EQ ───────────────────────────────────────────────
   sound: [
-    { at: 0, kind: "clip", slug: "broll-04-ghost-preamps", from: 10, move: "trackRight" },
+    { at: 0, kind: "detail", slug: P32, region: "connectors", zoom: 0.80 },
     { at: 1, kind: "detail", slug: P32, region: "gain", zoom: 0.68 },
-    { at: 2, kind: "clip", slug: "broll-13-band-room", from: 20, move: "pull" },
-    { at: 3, kind: "detail", slug: P32, region: "padHpf", zoom: 0.60 },
-    { at: 4, kind: "detail", slug: P32, region: "eq", zoom: 0.95 },
-    { at: 5, kind: "clip", slug: "broll-01-knob-field", from: 30, move: "trackLeft" },
-    { at: 6, kind: "detail", slug: P32, region: "midSweep", zoom: 0.70 },
+    // "Quiet enough for a ribbon mic." — a hand actually working the strips.
+    { at: 2, kind: "clip", slug: "of-05-console-hands", move: "trackRight" },
+    { at: 3, kind: "detail", slug: P32, region: "eq", zoom: 0.95 },
+    { at: 4, kind: "detail", slug: P32, region: "midSweep", zoom: 0.70 },
   ],
+
+  // ── B-ROLL 2 · the same desk, a different room ──────────────────────────
+  hall: [
+    { at: 0, kind: "broll", slug: "broll-02-community-hall", move: "trackLeft",
+      fallback: { at: 0, kind: "photo", slug: "p22-10", move: "trackLeft" } },
+  ],
+
+  // ── the compressor ──────────────────────────────────────────────────────
   control: [
     { at: 0, kind: "detail", slug: P32, region: "comp", zoom: 1.0 },
+    // Pulling back off the same row: one channel, then the whole desk's worth
+    // of them. The claim is "every mono channel", so the shot has to widen.
     { at: 1, kind: "detail", slug: P32, region: "comp", zoom: 0.44 },
-    { at: 2, kind: "product", slug: "p22-4", move: "push" },
-    { at: 3, kind: "photo", slug: "p22-10", move: "pull" },
+    { at: 2, kind: "product", slug: "p22-4", move: "orbit" },
   ],
+
+  // ── the effects ─────────────────────────────────────────────────────────
   space: [
-    { at: 0, kind: "clip", slug: "broll-06-lexicon", from: 24, move: "push" },
-    { at: 1, kind: "detail", slug: P32, region: "lexicon", zoom: 0.92 },
-    { at: 2, kind: "photo", slug: "wf-14-black-box-theatre", move: "trackRight" },
+    { at: 0, kind: "detail", slug: P32, region: "lexicon", zoom: 0.92 },
+    { at: 1, kind: "detail", slug: P32, region: "lexicon", zoom: 0.54 },
+    { at: 2, kind: "photo", slug: "p16-8", move: "push" },
   ],
+
+  // ── B-ROLL 3 · the night being recorded ─────────────────────────────────
+  studio: [
+    { at: 0, kind: "broll", slug: "broll-03-project-studio", move: "push",
+      fallback: { at: 0, kind: "photo", slug: "p22-11", move: "push" } },
+  ],
+
+  // ── the computer ────────────────────────────────────────────────────────
   connect: [
-    { at: 0, kind: "clip", slug: "broll-08-usb-c", from: 30, move: "push" },
-    { at: 1, kind: "photo", slug: "wf-12-streaming-the-room", move: "trackLeft" },
-    { at: 2, kind: "photo", slug: "wf-15-on-air-booth", move: "pull" },
+    { at: 0, kind: "detail", slug: P32, region: "usbC", zoom: 0.70 },
+    // "Record the mix while you make it." — the desk and the laptop in one
+    // frame, which is the whole claim.
+    { at: 1, kind: "clip", slug: "of-02-desk-tracking", move: "push" },
+    { at: 2, kind: "photo", slug: "p16-7", move: "trackLeft" },
   ],
+
+  // ── monitoring, talkback and the guitar ─────────────────────────────────
   room: [
-    { at: 0, kind: "clip", slug: "broll-07-ssm-metering", from: 10, move: "push" },
-    { at: 1, kind: "clip", slug: "broll-19-aux-talkback", from: 14, move: "trackRight" },
-    { at: 2, kind: "detail", slug: P32, region: "auxMaster", zoom: 0.86 },
-    { at: 3, kind: "clip", slug: "broll-15-reaching-back", from: 40, move: "push" },
-    { at: 4, kind: "detail", slug: P32, region: "routing", zoom: 0.64 },
+    { at: 0, kind: "detail", slug: P32, region: "meter", zoom: 0.90 },
+    { at: 1, kind: "detail", slug: P32, region: "talkback", zoom: 0.72 },
+    { at: 2, kind: "detail", slug: P32, region: "hiZ", zoom: 0.66 },
   ],
+
+  // ── B-ROLL 4 · set once, trusted ────────────────────────────────────────
+  band: [
+    { at: 0, kind: "broll", slug: "broll-04-rehearsal-room", move: "orbit",
+      fallback: { at: 0, kind: "photo", slug: "p16-8", move: "orbit" } },
+  ],
+
+  // ── the four sizes ──────────────────────────────────────────────────────
   scale: [
-    { at: 0, kind: "mosaic", slugs: ["p12-3", "p16-2", "p22-4", "p32-3"], labels: ["12", "16", "22", "32"] },
-    // The whole argument in one frame: the smallest plan and the largest,
-    // both complete, side by side. This is the shot the diagonal split used
-    // to ruin.
-    { at: 1, kind: "stack", slugs: ["p12-2", P32] },
-    { at: 2, kind: "product", slug: "p12-3", move: "orbit" },
+    { at: 0, kind: "mosaic", slugs: ["p12-3", "p16-2", "p22-4", "p32-3"],
+      labels: ["12", "16", "22", "32"] },
+    // "The master section never changes." — the official film's own rotation
+    // from three-quarter into the full top-down plan, which is the clearest
+    // look at the master block in any asset here.
+    { at: 1, kind: "clip", slug: "of-03-plan-reveal", move: "push" },
+    // The whole argument in one frame: the smallest plan and the largest, both
+    // complete, side by side.
+    { at: 2, kind: "stack", slugs: ["p12-2", P32] },
   ],
+
+  // ── the close ───────────────────────────────────────────────────────────
   close: [
     { at: 0, kind: "product", slug: "p32-6", move: "pull" },
-    { at: 1, kind: "clip", slug: "broll-10-live-foh", from: 150, move: "push" },
-  ],
-};
-
-// ═════════════════════════════════════════════════════════════════════════════
-// THE FIVE-MINUTE LANDSCAPE EXPLAINER — 86 shots across 296 seconds.
-//
-// The landscape film gets the workflow photography the reel has no room for:
-// twenty rooms the desk actually has to work in, and the b-roll that shows a
-// hand on the control the voice is naming.
-// ═════════════════════════════════════════════════════════════════════════════
-
-export const VIDEO_PLAN: Record<string, ShotSpec[]> = {
-  open: [
-    { at: 0, kind: "clip", slug: "broll-10-live-foh", from: 4, move: "push" },
-    { at: 1, kind: "photo", slug: "wf-09-between-sets", move: "trackLeft" },
-    { at: 2, kind: "photo", slug: "wf-01-foh-club", move: "pull" },
-    { at: 3, kind: "clip", slug: "broll-13-band-room", from: 8, move: "trackRight" },
-    { at: 4, kind: "photo", slug: "wf-07-soundcheck-monitors", move: "push" },
-    { at: 5, kind: "photo", slug: "wf-04-tracking-to-laptop", move: "trackLeft" },
-    { at: 6, kind: "clip", slug: "broll-01-knob-field", from: 10, move: "pull" },
-    { at: 7, kind: "detail", slug: P32, region: "faders", zoom: 0.82 },
-    { at: 8, kind: "product", slug: "p32-3", move: "orbit" },
-  ],
-  format: [
-    { at: 0, kind: "mosaic", slugs: ["p12-3", "p16-2", "p22-4", "p32-3"], labels: ["12", "16", "22", "32"] },
-    { at: 1, kind: "product", slug: "p12-3", move: "trackRight" },
-    { at: 2, kind: "clip", slug: "broll-02-hero-32", from: 20, move: "push" },
-    { at: 3, kind: "stack", slugs: ["p12-2", P32] },
-    { at: 4, kind: "detail", slug: P32, region: "master", zoom: 1.0 },
-    { at: 5, kind: "detail", slug: "p12-2", region: "master", zoom: 1.0 },
-    { at: 6, kind: "detail", slug: P32, region: "lexicon", zoom: 0.96 },
-    { at: 7, kind: "product", slug: "p12-6", move: "orbit" },
-    { at: 8, kind: "product", slug: "p22-9", move: "pull" },
-    { at: 9, kind: "mosaic", slugs: ["p12-2", "p16-4", "p22-2", P32], labels: ["12", "16", "22", "32"] },
-    { at: 10, kind: "clip", slug: "broll-09-compact-12", from: 40, move: "push" },
-  ],
-  sound: [
-    { at: 0, kind: "clip", slug: "broll-04-ghost-preamps", from: 4, move: "trackRight" },
-    { at: 1, kind: "detail", slug: P32, region: "connectors", zoom: 0.80 },
-    { at: 2, kind: "detail", slug: P32, region: "gain", zoom: 0.68 },
-    { at: 3, kind: "detail", slug: P32, region: "gain", zoom: 0.34 },
-    { at: 4, kind: "clip", slug: "broll-13-band-room", from: 40, move: "push" },
-    { at: 5, kind: "photo", slug: "wf-10-teaching-room", move: "trackLeft" },
-    { at: 6, kind: "detail", slug: P32, region: "padHpf", zoom: 0.62 },
-    { at: 7, kind: "photo", slug: "wf-02-community-hall", move: "push" },
-    { at: 8, kind: "detail", slug: P32, region: "padHpf", zoom: 0.38 },
-    { at: 9, kind: "clip", slug: "broll-05-plan-16", from: 60, move: "pull" },
-    { at: 10, kind: "detail", slug: P32, region: "eq", zoom: 0.95 },
-    { at: 11, kind: "detail", slug: P32, region: "eq", zoom: 0.55 },
-    { at: 12, kind: "detail", slug: P32, region: "midSweep", zoom: 0.72 },
-    { at: 13, kind: "detail", slug: P32, region: "midSweep", zoom: 0.40 },
-    { at: 14, kind: "photo", slug: "wf-14-black-box-theatre", move: "trackRight" },
-    { at: 15, kind: "clip", slug: "broll-17-plan-12", from: 40, move: "push" },
-  ],
-  control: [
-    { at: 0, kind: "product", slug: "p22-4", move: "orbit" },
-    { at: 1, kind: "detail", slug: P32, region: "comp", zoom: 1.0 },
-    { at: 2, kind: "detail", slug: P32, region: "comp", zoom: 0.44 },
-    { at: 3, kind: "clip", slug: "broll-01-knob-field", from: 120, move: "trackLeft" },
-    { at: 4, kind: "detail", slug: P32, region: "comp", zoom: 0.30 },
-    { at: 5, kind: "clip", slug: "broll-11-room-daylight", from: 6, move: "push" },
-    { at: 6, kind: "photo", slug: "p22-10", move: "trackRight" },
-    { at: 7, kind: "clip", slug: "broll-18-rear-panel-32", from: 30, move: "pull" },
-    { at: 8, kind: "photo", slug: "p16-8", move: "push" },
-    { at: 9, kind: "photo", slug: "wf-11-conference-panel", move: "trackLeft" },
-    { at: 10, kind: "photo", slug: "wf-16-two-desks", move: "push" },
-    { at: 11, kind: "photo", slug: "p22-11", move: "pull" },
-    { at: 12, kind: "detail", slug: P32, region: "connectors", zoom: 0.46 },
-    { at: 13, kind: "product", slug: "p32-2", move: "trackRight" },
-  ],
-  space: [
-    { at: 0, kind: "clip", slug: "broll-06-lexicon", from: 8, move: "push" },
-    { at: 1, kind: "detail", slug: P32, region: "lexicon", zoom: 0.92 },
-    { at: 2, kind: "detail", slug: P32, region: "lexicon", zoom: 0.54 },
-    { at: 3, kind: "photo", slug: "wf-06-control-booth", move: "trackLeft" },
-    { at: 4, kind: "detail", slug: P32, region: "fxSend", zoom: 0.70 },
-    { at: 5, kind: "clip", slug: "broll-06-lexicon", from: 140, move: "pull" },
-    { at: 6, kind: "photo", slug: "wf-09-between-sets", move: "push" },
-  ],
-  room: [
-    { at: 0, kind: "photo", slug: "wf-07-soundcheck-monitors", move: "trackRight" },
-    { at: 1, kind: "detail", slug: P32, region: "aux", zoom: 0.90 },
-    { at: 2, kind: "detail", slug: P32, region: "aux", zoom: 0.46 },
-    { at: 3, kind: "photo", slug: "wf-03-outdoor-event", move: "push" },
-    { at: 4, kind: "detail", slug: P32, region: "fxSend", zoom: 0.60 },
-    { at: 5, kind: "detail", slug: P32, region: "auxMaster", zoom: 0.86 },
-    { at: 6, kind: "clip", slug: "broll-19-aux-talkback", from: 6, move: "trackLeft" },
-    { at: 7, kind: "detail", slug: P32, region: "talkback", zoom: 0.72 },
-    { at: 8, kind: "detail", slug: P32, region: "monitor", zoom: 0.88 },
-    { at: 9, kind: "detail", slug: P32, region: "meter", zoom: 0.90 },
-    { at: 10, kind: "clip", slug: "broll-07-ssm-metering", from: 20, move: "push" },
-    { at: 11, kind: "photo", slug: "wf-18-overhead-mix-position", move: "pull" },
-    { at: 12, kind: "detail", slug: P32, region: "routing", zoom: 0.64 },
-    { at: 13, kind: "clip", slug: "broll-01-knob-field", from: 180, move: "trackRight" },
-  ],
-  connect: [
-    { at: 0, kind: "panel", slug: "p32-5" },
-    { at: 1, kind: "detail", slug: P32, region: "usbC", zoom: 0.70 },
-    { at: 2, kind: "clip", slug: "broll-08-usb-c", from: 8, move: "push" },
-    { at: 3, kind: "photo", slug: "wf-04-tracking-to-laptop", move: "trackLeft" },
-    { at: 4, kind: "photo", slug: "wf-12-streaming-the-room", move: "push" },
-    { at: 5, kind: "detail", slug: P32, region: "usbReturn", zoom: 0.72 },
-    { at: 6, kind: "detail", slug: P32, region: "hiZ", zoom: 0.66 },
-    { at: 7, kind: "photo", slug: "wf-08-project-studio", move: "trackRight" },
-    { at: 8, kind: "clip", slug: "broll-15-reaching-back", from: 120, move: "pull" },
-  ],
-  build: [
-    { at: 0, kind: "detail", slug: P32, region: "qr", zoom: 0.62 },
-    { at: 1, kind: "photo", slug: "wf-08-project-studio", move: "push" },
-    { at: 2, kind: "photo", slug: "wf-20-the-trolley", move: "orbit" },
-    // The claim is "it will sit on a shelf beside a laptop", so the frame is
-    // the desk and the shelf, both whole, side by side.
-    { at: 3, kind: "stack", slugs: ["p12-1", "wf-19-it-fits-the-table"] },
-    { at: 4, kind: "product", slug: "p32-4", move: "orbit" },
-    { at: 5, kind: "detail", slug: P32, region: "faders", zoom: 0.60 },
-    { at: 6, kind: "panel", slug: "p22-7" },
-  ],
-  which: [
-    { at: 0, kind: "mosaic", slugs: ["p12-3", "p16-2", "p22-4", "p32-3"], labels: ["12", "16", "22", "32"] },
-    { at: 1, kind: "photo", slug: "wf-17-the-reception", move: "trackLeft" },
-    { at: 2, kind: "detail", slug: P32, region: "connectors", zoom: 0.72 },
-    { at: 3, kind: "stack", slugs: ["p12-3", "wf-05-podcast-desk"] },
-    { at: 4, kind: "stack", slugs: ["p16-2", "wf-02-community-hall"] },
-    { at: 5, kind: "stack", slugs: ["p22-4", "wf-07-soundcheck-monitors"] },
-    { at: 6, kind: "stack", slugs: ["p32-3", "wf-01-foh-club"] },
-    { at: 7, kind: "photo", slug: "p16-7", move: "pull" },
-    { at: 8, kind: "detail", slug: P32, region: "faders", zoom: 0.44 },
-  ],
-  close: [
-    { at: 0, kind: "product", slug: "p32-6", move: "orbit" },
-    { at: 1, kind: "photo", slug: "wf-13-load-out", move: "push" },
-    { at: 2, kind: "photo", slug: "p32-7", move: "trackRight" },
-    { at: 3, kind: "mosaic", slugs: ["p12-3", "p16-2", "p22-4", "p32-3"], labels: ["12", "16", "22", "32"] },
-    { at: 4, kind: "clip", slug: "broll-20-hero-22", from: 30, move: "pull" },
-    { at: 5, kind: "clip", slug: "broll-10-live-foh", from: 170, move: "push" },
+    { at: 1, kind: "clip", slug: "of-06-studio-seat", move: "push" },
   ],
 };
 
 /**
- * Turns a plan into an absolute shot list against a timed script.
+ * Turns the plan into an absolute shot list against the timed script.
  *
- * A shot inherits its start from the caption it is pinned to, and its accent
- * from the segment it lives in. The seed is stable across re-times so a given
+ * A shot inherits its start from the caption it is pinned to and its accent
+ * from the segment it lives in. The seed is stable across re-times, so a given
  * shot keeps its camera move and its transition when the script is edited.
+ *
+ * A `broll` whose file is not on disk is swapped for its fallback here, at the
+ * one place that knows about MISSING_BROLL, so nothing downstream — staging,
+ * transitions, the cue sheet — has to know the difference.
  */
 export const buildShots = (
   segments: TimedSegment[],
@@ -275,14 +192,14 @@ export const buildShots = (
   let seed = 0;
   for (const seg of segments) {
     const specs = plan[seg.id];
-    if (!specs || !specs.length) {
-      throw new Error(`segment "${seg.id}" has no shots`);
-    }
-    for (const spec of specs) {
+    if (!specs || !specs.length) throw new Error(`segment "${seg.id}" has no shots`);
+    for (const raw of specs) {
+      const spec: ShotSpec =
+        raw.kind === "broll" && MISSING_BROLL.includes(raw.slug)
+          ? { ...raw.fallback, at: raw.at }
+          : raw;
       const cap = seg.captions[spec.at];
-      if (!cap) {
-        throw new Error(`segment "${seg.id}" has no caption ${spec.at} for a shot`);
-      }
+      if (!cap) throw new Error(`segment "${seg.id}" has no caption ${spec.at} for a shot`);
       out.push({
         ...spec,
         segment: seg.id,
