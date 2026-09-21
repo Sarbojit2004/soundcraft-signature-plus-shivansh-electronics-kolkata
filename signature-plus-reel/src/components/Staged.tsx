@@ -438,7 +438,21 @@ export const ClipBleed: React.FC<Base & { clip: Clip; startFrom?: number }> = ({
     rot: c.rot * 0.35,
   });
 
-  if (clip.ar >= (W / H) * 0.94) {
+  // Bleed only when the clip is ROUGHLY THE FRAME'S OWN SHAPE; plate it
+  // otherwise.
+  //
+  // This used to read `clip.ar >= (W / H) * 0.94`, which is correct for a
+  // landscape frame and silently wrong for a portrait one: in a 9:16 frame
+  // W / H is 0.5625, so the test passed for literally every clip and the plate
+  // branch below was dead code. A 1280 x 720 shot was being object-fit: cover'd
+  // into 2160 x 3840 — a 5.3x vertical upscale of 720p, with 68% of the frame
+  // width thrown away.
+  //
+  // The generated B-roll IS 720 x 1280, the frame's own aspect, so it still
+  // bleeds. The five cuts from the official 16:9 film now take the plate,
+  // which upscales 1.92x instead of 5.3x and keeps the whole composition.
+  const frameAr = W / H;
+  if (Math.abs(clip.ar - frameAr) / frameAr < 0.15) {
     const over = 1.07;
     const roomX = (W * (over - 1)) / 2;
     const roomY = (H * (over - 1)) / 2;

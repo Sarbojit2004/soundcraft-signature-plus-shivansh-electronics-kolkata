@@ -39,12 +39,14 @@ import {
 import { Outro } from "./components/Outro.tsx";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// THE FILM — one component, rendered at two shapes.
+// THE FILM — one composition, 2160 x 3840, 90.000 s.
 //
 // Three data structures drive everything and there is not one hand-typed frame
 // number below:
 //
-//   script.ts  what is said, and when   — spoken word count sets every duration
+//   script.ts  what is said, and when   — spoken length sets every flexible
+//              duration; the four B-roll blocks are fixed at 5.000 s because
+//              the clip on disk is exactly that long
 //   shots.ts   what is shown, and when  — each shot pinned to its caption
 //   this file  how it is staged, transitioned, annotated and mixed
 //
@@ -52,20 +54,20 @@ import { Outro } from "./components/Outro.tsx";
 //
 //   1. picture   full-bleed imagery under a camera move. Overlapping sequences,
 //                so every shot change is a transition rather than a cut.
-//   2. scrim     a gradient across the top of the frame only. The overlay there
-//                is dense technical text at 64% opacity; without it the block
-//                would sit on whatever tone the picture happens to have. It is
-//                kept to the top, where the subject almost never is.
-//   3. overlay   everything typographic — the caption lockup, the chapter tag,
+//   2. scrim     two gradients, top and bottom, behind the two places type
+//                lives. The top one carries the rail and the technical panel;
+//                the bottom one carries the caption lockup. Both are weighted
+//                to the frame edges, where the subject almost never is.
+//   3. overlay   everything typographic — the top rail, the caption lockup,
 //                the demonstratives, the spec chips. This ENTIRE layer is held
 //                at TYPE_OPACITY, which is where the brief's "36% transparent"
 //                lives: one multiplier, applied once, so nothing can drift.
 //   4. outro     the end screen, and the only place any brand mark appears.
 //
-// WHAT DIFFERS BETWEEN THE TWO SHAPES is layout, not content. The vertical
-// frame stacks the technical block above the caption because it has height to
-// spare and no width; the landscape frame puts it in the right third because it
-// has width to spare and no height. Both read the same data.
+// The two-format machinery in theme.ts is still here and still resolves through
+// formatFor(), because every staging component reads its layout from the
+// composition's own dimensions. There is no landscape deliverable; tearing that
+// out to save one unused branch would touch every file for no gain.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type FilmData = {
@@ -160,8 +162,12 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
   /** One tick per chapter on the rail, derived from the same timeline the film
    *  is cut to, so the contents page and the edit cannot disagree. The four
    *  fixed B-roll blocks are flagged, and the rail draws them taller. */
+  // Against the FILM's length, the same denominator the playhead uses — a tick
+  // measured against the body and a playhead measured against the film would
+  // drift apart by the width of the end screen.
+  const filmLen = data.durationInFrames / fps;
   const marks: Mark[] = segments.map((s) => ({
-    at: s.start / data.outroAt,
+    at: s.start / filmLen,
     fixed: s.fixed !== undefined,
   }));
 
@@ -205,7 +211,12 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
         <div style={{ position: "absolute", left: SAFE.left, top: SAFE.top, width: SAFE.w }}>
           <TopRail
             t={t}
-            total={data.outroAt}
+            // The FILM's length, not the body's. The rail only exists during
+            // the body, but a viewer is watching a 90 s video and a readout
+            // that tops out at 01:24 is telling them the wrong thing. The bar
+            // therefore reaches ~93% as the last caption clears and the end
+            // screen carries the remainder.
+            total={filmLen}
             index={windows.findIndex((x) => x.id === w.id) + 1}
             count={windows.length}
             label={w.chapter}
@@ -268,13 +279,31 @@ export const Film: React.FC<{ data: FilmData }> = ({ data }) => {
         );
       })}
 
-      {/* ── 2. scrim, the top of the frame only ─────────────────────────── */}
+      {/* ── 2. scrim, top and bottom ────────────────────────────────────── */}
       <Sequence from={0} durationInFrames={outroFrom}>
         <AbsoluteFill
           style={{
             background:
               "linear-gradient(180deg, rgba(4,5,7,0.68) 0%, rgba(4,5,7,0.48) 26%, rgba(4,5,7,0.18) 62%, rgba(4,5,7,0) 100%)",
             height: H * (fmt.portrait ? 0.36 : 0.46),
+          }}
+        />
+        {/* The caption lockup sits in the bottom third and was designed to buy
+            its legibility with a hard tight shadow rather than a scrim — which
+            works over the dark, grey-chassis product photography this system
+            was built on, and fails over the brightly-lit rooms this reel adds.
+            A caption over the sunlit console in `connect`, or over the
+            daylight hall, was white type at 64% on near-white.
+
+            So the bottom gets a scrim too. It is weaker than the top one, and
+            weighted to the very bottom where the tail line sits, so the
+            picture still reads through it and nothing about the lockup itself
+            had to change. */}
+        <AbsoluteFill
+          style={{
+            top: H * 0.62,
+            background:
+              "linear-gradient(180deg, rgba(4,5,7,0) 0%, rgba(4,5,7,0.30) 34%, rgba(4,5,7,0.60) 70%, rgba(4,5,7,0.70) 100%)",
           }}
         />
       </Sequence>

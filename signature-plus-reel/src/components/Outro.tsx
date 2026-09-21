@@ -7,7 +7,7 @@ import { SiteIcon, WhatsAppIcon } from "./Icons.tsx";
 // ─────────────────────────────────────────────────────────────────────────────
 // THE END SCREEN
 //
-// Eight seconds, at the very end, and the only place any brand mark appears.
+// Six seconds, at the very end, and the only place any brand mark appears.
 // That is the instruction and it is also the right call for this kind of film:
 // branding sprinkled through five minutes asks a viewer to ignore it fifty
 // times; branding withheld to the end arrives once, on a viewer who has already
@@ -20,8 +20,9 @@ import { SiteIcon, WhatsAppIcon } from "./Icons.tsx";
 // The card is also what makes three phone numbers legible — they sit on a solid
 // ground rather than over a photograph.
 //
-// The landscape film has room the vertical one does not, so it also shows the
-// four consoles across the top. The vertical film states them as numbers.
+// The four consoles sit across the top, two by two, because a lineup says what
+// four bare numbers cannot — and by the time a viewer reaches the end screen
+// the reel has just spent eight seconds arguing that the four are one desk.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const WA = "#128C7E";
@@ -204,7 +205,12 @@ export const Outro: React.FC = () => {
             position: "absolute",
             left: SAFE.left,
             width: SAFE.w,
-            top: "70%",
+            // 66%, not 70%: the card carries the three contact numbers, which
+            // are the single most important thing in the film, and at 70% its
+            // lower edge crossed the 720 px bottom safe margin — straight into
+            // the caption block and comment bar that Reels, Shorts and TikTok
+            // all draw over that strip.
+            top: "66%",
             transform: `translateY(-50%) translateY(${interpolate(rise, [0, 1], [90, 0])}px) scale(${interpolate(rise, [0, 1], [0.94, 1])})`,
             ...cardStyle,
           }}

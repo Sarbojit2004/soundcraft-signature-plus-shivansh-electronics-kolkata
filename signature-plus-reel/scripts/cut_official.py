@@ -32,8 +32,8 @@ slow-motion treatment rather than as a shortage.
 RESOLUTION. The source is 720p and the reel masters at 2160x3840, so these
 clips are never full-bleed: `shots.ts` stages them with the `clip` kind, which
 lays a 16:9 plate across the frame over a darkened wash of itself. The plate is
-2160 px wide, so the upscale is 1.69x rather than the 5.3x a 9:16 crop blown up
-to full frame would need. That is the difference between soft and mush.
+2160 px wide, so the upscale is 1.92x rather than the 5.3x a full-bleed crop blown up
+to the frame height would need. That is the difference between soft and mush.
 """
 import json
 import os

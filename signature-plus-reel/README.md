@@ -134,8 +134,8 @@ clean window turned out to be 0.24 s.
 
 Because the source is 720p and the master is 2160 × 3840, these are never
 full-bleed: `shots.ts` stages them as a 16:9 plate over a darkened wash of
-themselves, so the upscale is 1.69× rather than the 5.3× a cropped full-frame
-blow-up would need.
+themselves, so the upscale is 1.92× rather than the 5.3× a full-bleed crop
+would need.
 
 ---
 
