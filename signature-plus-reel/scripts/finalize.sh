@@ -74,11 +74,13 @@ targeted with no bitrate cap — a cap would starve the transitions and the
 detail pushes into the 4096 px plans, which is exactly where the bits are
 needed.
 
-The whole-file master exceeds GitHub's 100 MB limit, so it ships as
+The whole-file master exceeds GitHub's 100 MiB limit, so it ships as
 stream-copied parts under out/reel-4k-parts/. Nothing is re-encoded: each
-part carries the original bitstream cut on a keyframe, so rejoining is a
-concatenation and the result is bit-identical to what Remotion wrote. Each
-part is also a standalone playable MP4. See out/reel-4k-parts/JOIN.md.
+part carries the original video and audio bitstream, cut on a keyframe
+boundary by ffmpeg's segment muxer. The rejoined file is frame-for-frame
+identical to the master — verified by split_mp4.py on every run, drift
+0.000 s — though not byte-for-byte, since the container is rebuilt. Each
+part is a standalone playable MP4. See out/reel-4k-parts/JOIN.md.
 
 Also: a 1080x1920 and a 540x960, both downscaled FROM the master rather
 than re-rendered, so they cannot differ from it; and the thumbnail,

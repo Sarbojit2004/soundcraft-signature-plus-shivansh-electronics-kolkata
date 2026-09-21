@@ -232,11 +232,18 @@ Checks 2 and 3 each caught real faults during the build.
 
 ## Rejoining the 4K master
 
-GitHub will not take a file over 100 MB, so the master ships as stream-copied
+GitHub will not take a file over 100 MiB, so the master ships as stream-copied
 parts under `out/reel-4k-parts/`. **Nothing is re-encoded** — each part carries
-the original bitstream cut on a keyframe, so rejoining is a concatenation and
-the result is bit-identical to what Remotion wrote. Every part is also a
-standalone playable MP4. See `out/reel-4k-parts/JOIN.md`.
+the original video and audio bitstream, cut on a keyframe boundary by ffmpeg's
+segment muxer.
+
+Precisely: the rejoined file is **frame-for-frame identical** to the master —
+same packets, same order, no generation loss — but *not* byte-for-byte, because
+the MP4 container is rebuilt. `split_mp4.py` verifies this on every run by
+actually rejoining the parts and comparing durations, and fails the split if
+they drift. On this master the drift is **0.000 s**.
+
+Every part is also a standalone playable MP4. See `out/reel-4k-parts/JOIN.md`.
 
 ---
 
