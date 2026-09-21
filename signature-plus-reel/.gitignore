@@ -1,0 +1,16 @@
+node_modules/
+.remotion/
+
+# Derived, and rebuilt from the sources already in this repository by
+# `npm run assets`. Committing them would duplicate ~500 MB for no benefit.
+public/img/
+public/clip/
+
+# Rebuilt in seconds by `npm run audio` from High Impact.mp3 + the synthesiser.
+public/audio/music-reel.mp3
+public/audio/sfx/
+
+# The whole-file 4K master exceeds GitHub's 100 MB per-file limit. It ships as
+# stream-copied parts under out/reel-4k-parts/ instead — each a standalone MP4,
+# so rejoining is a concatenation rather than a render. See out/parts/JOIN.md.
+out/soundcraft-signature-plus-reel-4k.mp4
