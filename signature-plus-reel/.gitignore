@@ -14,3 +14,7 @@ public/audio/sfx/
 # stream-copied parts under out/reel-4k-parts/ instead — each a standalone MP4,
 # so rejoining is a concatenation rather than a render. See out/parts/JOIN.md.
 out/soundcraft-signature-plus-reel-4k.mp4
+
+# A throwaway cut from whatever frames existed mid-render, superseded by the
+# real previews the moment the master lands.
+out/PARTIAL-*.mp4
