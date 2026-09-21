@@ -9,8 +9,27 @@ cd "$(dirname "$0")/.."
 FF="$HOME/bin/ffmpeg"
 M=out/soundcraft-signature-plus-reel-4k.mp4
 
-until [ -f "$M" ] && ! pgrep -f "remotion render Reel" >/dev/null 2>&1; do sleep 20; done
-sleep 5
+# Wait until the master exists AND has stopped growing.
+#
+# This used to be `pgrep -f "remotion render Reel"`, which deadlocked: the
+# shell command line that CREATED this script contained that literal string
+# inside its heredoc, so pgrep matched a long-dead wrapper shell and both this
+# script and finalize.sh span for an hour after the render had finished.
+#
+# A size-stability check cannot collide with a process name. Two identical
+# readings 8 s apart means the muxer has closed the file.
+wait_for_master() {
+  local last=-1 now
+  while true; do
+    if [ -f "$1" ]; then
+      now=$(stat -c%s "$1")
+      [ "$now" = "$last" ] && [ "$now" -gt 0 ] && return 0
+      last=$now
+    fi
+    sleep 8
+  done
+}
+wait_for_master "$M"
 
 echo "master: $(du -h "$M" | cut -f1)"
 
