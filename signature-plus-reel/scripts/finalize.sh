@@ -66,13 +66,22 @@ for _ in $(seq 1 120); do [ -f "$OUT/preview-reel-540p.mp4" ] && break; sleep 5;
 if [ -f "$OUT/preview-reel-540p.mp4" ]; then wait_for_master "$OUT/preview-reel-540p.mp4"; fi
 if [ -f "$OUT/soundcraft-signature-plus-reel-1080p.mp4" ]; then wait_for_master "$OUT/soundcraft-signature-plus-reel-1080p.mp4"; fi
 
-# And prove they are playable before they are committed.
+# Prove they are playable before committing them — but NEVER delete anything.
+#
+# The first version of this check ran `rm -f` on any file without a readable
+# Duration, and it destroyed BOTH finished previews: a re-entrant run caught
+# them mid-write, judged them unplayable, and deleted encodes that were
+# seconds from completing. A verifier that removes its own inputs is not a
+# verifier, it is a hazard. Anything unplayable is excluded from the commit
+# and otherwise left exactly where it is.
+SKIP=""
 for f in "$OUT/preview-reel-540p.mp4" "$OUT/soundcraft-signature-plus-reel-1080p.mp4"; do
   [ -f "$f" ] || continue
-  if ! "$HOME/bin/ffmpeg" -hide_banner -i "$f" 2>&1 | grep -q "Duration:"; then
-    say "UNPLAYABLE, not committing: $f"; rm -f "$f"
+  if "$HOME/bin/ffmpeg" -hide_banner -i "$f" 2>&1 | grep -q "Duration:"; then
+    say "ok: $(basename "$f")"
   else
-    say "ok: $(basename "$f") $("$HOME/bin/ffmpeg" -hide_banner -i "$f" 2>&1 | grep -o 'Duration: [0-9:.]*' | head -1)"
+    say "not playable yet, excluding from this commit: $(basename "$f")"
+    SKIP="$SKIP $f"
   fi
 done
 
@@ -102,6 +111,8 @@ fi
 # ── 4. commit and push ──────────────────────────────────────────────────────
 cd ..
 git add -A signature-plus-reel
+# Anything the playability check rejected stays out of this commit.
+for f in $SKIP; do git reset -q -- "signature-plus-reel/$f" 2>/dev/null; done
 if git diff --cached --quiet; then
   say "nothing to commit"
 else
