@@ -34,11 +34,23 @@
 what is left out is near-duplicate three-quarter renders, which cost the
 film nothing. Two omissions are NOT that, and are worth stating plainly:
 
-* **All six rear-panel and edge-on views are unused.** The `panel` shot
-  kind exists and is wired up, but no shot in the plan calls it. The
-  `connect` chapter argues USB-C and four-in/four-out while showing a
-  detail push into the socket on the TOP-DOWN plan — the physical rear
-  connector row is never on screen. That is a real gap, not a trim.
+* **All six rear-panel and edge-on views are unused, and that is now a
+  deliberate decision rather than an oversight.** An earlier version of
+  this ledger called it "a real gap, not a trim", on the assumption that
+  those plates showed the connector row the `connect` chapter talks
+  about. They do not. Every one of them is the BACK OF THE CHASSIS: a
+  large soundcraft wordmark, the model name, the Ghost / Sapphyre / dbx /
+  Lexicon / GB badge row, an IEC inlet and a power switch. There is not a
+  single audio connector on any of them.
+
+  The Signature Plus carries all of its I/O on the TOP surface — which is
+  why the plan has `connectors`, `usbC`, `outXlr`, `outJacks` and `hiZ`
+  regions, and why `connect` already pushes into them. The chapter was
+  never missing the sockets; it shows them where they actually are.
+
+  Using one would also break the brief outright: every plate is covered
+  in brand marks, and nothing branded appears before the six-second end
+  screen.
 * **Two of the four top-down plans are unused** (`p16-4`, `p22-2`). Only
   the 32 and the 12 are on screen, which is enough for the `scale`
   argument — smallest against largest — but 'every plan is used' would
