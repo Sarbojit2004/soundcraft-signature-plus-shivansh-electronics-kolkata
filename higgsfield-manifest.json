@@ -58,5 +58,13 @@
  {
   "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38HrvKOOtPO8XbBYIfwrYWYySAd/hf_20260926_154836_09d8b31e-2cfa-4f69-9a70-3f647e06b1ff.mp4",
   "dest": "signature-plus-series/broll/clips/b15-creator-stream.mp4"
+ },
+ {
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38HrvKOOtPO8XbBYIfwrYWYySAd/hf_20260926_161804_0063f325-ce5d-45b3-86c4-5265f295927a.png",
+  "dest": "signature-plus-series/thumbnails/src/bg-landscape.png"
+ },
+ {
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38HrvKOOtPO8XbBYIfwrYWYySAd/hf_20260926_161807_802273c3-3e4a-4331-8fd9-aa38e3ccc52a.png",
+  "dest": "signature-plus-series/thumbnails/src/bg-portrait.png"
  }
 ]

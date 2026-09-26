@@ -1,0 +1,114 @@
+[
+ {
+  "id": "v01-hero-32",
+  "file": "vclip/v01-hero-32.mp4",
+  "dur": 1.9,
+  "label": "Signature Plus 32",
+  "product": "32"
+ },
+ {
+  "id": "v02-studio-engineer",
+  "file": "vclip/v02-studio-engineer.mp4",
+  "dur": 2.5,
+  "label": "Studio session",
+  "product": "all"
+ },
+ {
+  "id": "v03-live-vocal",
+  "file": "vclip/v03-live-vocal.mp4",
+  "dur": 2.0,
+  "label": "Live vocal",
+  "product": "all"
+ },
+ {
+  "id": "v04-ghost-preamps",
+  "file": "vclip/v04-ghost-preamps.mp4",
+  "dur": 3.8,
+  "label": "Ghost mic preamps",
+  "product": "all"
+ },
+ {
+  "id": "v05-dbx",
+  "file": "vclip/v05-dbx.mp4",
+  "dur": 3.2,
+  "label": "dbx compression",
+  "product": "all"
+ },
+ {
+  "id": "v06-sapphyre",
+  "file": "vclip/v06-sapphyre.mp4",
+  "dur": 3.3,
+  "label": "Sapphyre EQ",
+  "product": "all"
+ },
+ {
+  "id": "v07-lexicon",
+  "file": "vclip/v07-lexicon.mp4",
+  "dur": 3.5,
+  "label": "Lexicon effects",
+  "product": "all"
+ },
+ {
+  "id": "v08-usb-c",
+  "file": "vclip/v08-usb-c.mp4",
+  "dur": 3.0,
+  "label": "USB-C 4 x 4",
+  "product": "all"
+ },
+ {
+  "id": "v09-qr-manual",
+  "file": "vclip/v09-qr-manual.mp4",
+  "dur": 3.4,
+  "label": "QR code manuals",
+  "product": "all"
+ },
+ {
+  "id": "v10-talkback",
+  "file": "vclip/v10-talkback.mp4",
+  "dur": 3.4,
+  "label": "Talkback to any output",
+  "product": "all"
+ },
+ {
+  "id": "v11-layout",
+  "file": "vclip/v11-layout.mp4",
+  "dur": 4.0,
+  "label": "Colour-coded layout",
+  "product": "all"
+ },
+ {
+  "id": "v12-outdoor-band",
+  "file": "vclip/v12-outdoor-band.mp4",
+  "dur": 1.6,
+  "label": "Outdoor show",
+  "product": "all"
+ },
+ {
+  "id": "v13-bass-vocal",
+  "file": "vclip/v13-bass-vocal.mp4",
+  "dur": 2.3,
+  "label": "Live performance",
+  "product": "all"
+ },
+ {
+  "id": "v14-engineer-daylight",
+  "file": "vclip/v14-engineer-daylight.mp4",
+  "dur": 2.0,
+  "label": "Studio mixing",
+  "product": "all"
+ },
+ {
+  "id": "v15-producer-studio",
+  "file": "vclip/v15-producer-studio.mp4",
+  "dur": 1.4,
+  "label": "Production room",
+  "product": "all"
+ },
+ {
+  "id": "v16-patched-console",
+  "file": "vclip/v16-patched-console.mp4",
+  "dur": 2.3,
+  "label": "Hands-on mixing",
+  "product": "all"
+ }
+]

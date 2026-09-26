@@ -1,0 +1,2366 @@
+{
+ "name": "reel",
+ "bpm": 128.0,
+ "beat": 0.46875,
+ "offset": 0.0,
+ "shots": [
+  {
+   "b0": 0,
+   "b1": 4,
+   "section": "hook",
+   "kind": "vclip",
+   "id": "v01-hero-32",
+   "file": "vclip/v01-hero-32.mp4",
+   "label": "Signature Plus 32",
+   "product": "32",
+   "rate": 1.0133,
+   "move": "gimbalL",
+   "trans": "fade",
+   "start": 0.0,
+   "end": 1.875
+  },
+  {
+   "b0": 4,
+   "b1": 7,
+   "section": "hook",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-32-6-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "fade",
+   "start": 1.875,
+   "end": 3.2812
+  },
+  {
+   "b0": 7,
+   "b1": 10,
+   "section": "hook",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-22-9-webp"
+   ],
+   "move": "gimbalR",
+   "trans": "fade",
+   "start": 3.2812,
+   "end": 4.6875
+  },
+  {
+   "b0": 10,
+   "b1": 13,
+   "section": "hook",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-16-3-webp"
+   ],
+   "move": "focusOut",
+   "trans": "pullBack",
+   "start": 4.6875,
+   "end": 6.0938
+  },
+  {
+   "b0": 13,
+   "b1": 16,
+   "section": "hook",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-12-6-webp"
+   ],
+   "move": "focusIn",
+   "trans": "slideUp",
+   "start": 6.0938,
+   "end": 7.5
+  },
+  {
+   "b0": 16,
+   "b1": 27,
+   "section": "hook",
+   "kind": "broll",
+   "id": "b01",
+   "file": "broll/b01-foh-club.mp4",
+   "label": "Signature Plus 32 \u00b7 live club FOH",
+   "product": "32",
+   "rate": 0.9777777777777779,
+   "move": "focusOut",
+   "trans": "wipeDiag",
+   "start": 7.5,
+   "end": 12.6562
+  },
+  {
+   "b0": 27,
+   "b1": 30,
+   "section": "hook",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-32-4-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "punchIn",
+   "start": 12.6562,
+   "end": 14.0625
+  },
+  {
+   "b0": 30,
+   "b1": 34,
+   "section": "sizes",
+   "kind": "lineup",
+   "assets": [
+    "render-signature-plus-12-3-webp",
+    "render-signature-plus-16-2-webp",
+    "render-signature-plus-22-4-webp",
+    "render-signature-plus-32-3-webp"
+   ],
+   "move": "focusOut",
+   "trans": "flash",
+   "start": 14.0625,
+   "end": 15.9375
+  },
+  {
+   "b0": 34,
+   "b1": 37,
+   "section": "sizes",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-7-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "fade",
+   "start": 15.9375,
+   "end": 17.3438
+  },
+  {
+   "b0": 37,
+   "b1": 40,
+   "section": "sizes",
+   "kind": "still",
+   "assets": [
+    "plan-signature-plus-12-2-webp"
+   ],
+   "move": "orbit",
+   "trans": "slideUp",
+   "start": 17.3438,
+   "end": 18.75
+  },
+  {
+   "b0": 40,
+   "b1": 43,
+   "section": "sizes",
+   "kind": "still",
+   "assets": [
+    "plan-signature-plus-16-4-webp"
+   ],
+   "move": "focusIn",
+   "trans": "fade",
+   "start": 18.75,
+   "end": 20.1562
+  },
+  {
+   "b0": 43,
+   "b1": 46,
+   "section": "sizes",
+   "kind": "still",
+   "assets": [
+    "plan-signature-plus-22-2-webp"
+   ],
+   "move": "zoomOut",
+   "trans": "slideUp",
+   "start": 20.1562,
+   "end": 21.5625
+  },
+  {
+   "b0": 46,
+   "b1": 49,
+   "section": "sizes",
+   "kind": "still",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "move": "focusIn",
+   "trans": "punchIn",
+   "start": 21.5625,
+   "end": 22.9688
+  },
+  {
+   "b0": 49,
+   "b1": 52,
+   "section": "sizes",
+   "kind": "still",
+   "assets": [
+    "banner-signature-plus-overview-jpg"
+   ],
+   "move": "orbit",
+   "trans": "fade",
+   "start": 22.9688,
+   "end": 24.375
+  },
+  {
+   "b0": 52,
+   "b1": 63,
+   "section": "sizes",
+   "kind": "broll",
+   "id": "b09",
+   "file": "broll/b09-cafe-acoustic.mp4",
+   "label": "Signature Plus 12 \u00b7 caf\u00e9 gig",
+   "product": "12",
+   "rate": 0.9777777777777779,
+   "move": "zoomOut",
+   "trans": "wipeDiag",
+   "start": 24.375,
+   "end": 29.5312
+  },
+  {
+   "b0": 63,
+   "b1": 68,
+   "section": "pre",
+   "kind": "vclip",
+   "id": "v04-ghost-preamps",
+   "file": "vclip/v04-ghost-preamps.mp4",
+   "label": "Ghost mic preamps",
+   "product": "all",
+   "rate": 1.6213,
+   "move": "focusIn",
+   "trans": "whipLeft",
+   "start": 29.5312,
+   "end": 31.875
+  },
+  {
+   "b0": 68,
+   "b1": 71,
+   "section": "pre",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.3,
+    0.285,
+    0.34
+   ],
+   "label": "preamps",
+   "move": "focusOut",
+   "trans": "fade",
+   "start": 31.875,
+   "end": 33.2812
+  },
+  {
+   "b0": 71,
+   "b1": 74,
+   "section": "pre",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-1-webp"
+   ],
+   "move": "craneUp",
+   "trans": "fade",
+   "start": 33.2812,
+   "end": 34.6875
+  },
+  {
+   "b0": 74,
+   "b1": 85,
+   "section": "pre",
+   "kind": "broll",
+   "id": "b04",
+   "file": "broll/b04-home-studio.mp4",
+   "label": "Signature Plus 12 \u00b7 home studio",
+   "product": "12",
+   "rate": 0.9777777777777779,
+   "move": "gimbalL",
+   "trans": "wipeDiag",
+   "start": 34.6875,
+   "end": 39.8438
+  },
+  {
+   "b0": 85,
+   "b1": 88,
+   "section": "pre",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.3,
+    0.34,
+    0.3
+   ],
+   "label": "gain",
+   "move": "gimbalR",
+   "trans": "fade",
+   "start": 39.8438,
+   "end": 41.25
+  },
+  {
+   "b0": 88,
+   "b1": 91,
+   "section": "pre",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-12-1-webp"
+   ],
+   "move": "craneUp",
+   "trans": "slideUp",
+   "start": 41.25,
+   "end": 42.6562
+  },
+  {
+   "b0": 91,
+   "b1": 96,
+   "section": "eq",
+   "kind": "vclip",
+   "id": "v06-sapphyre",
+   "file": "vclip/v06-sapphyre.mp4",
+   "label": "Sapphyre EQ",
+   "product": "all",
+   "rate": 1.408,
+   "move": "zoomIn",
+   "trans": "whipRight",
+   "start": 42.6562,
+   "end": 45.0
+  },
+  {
+   "b0": 96,
+   "b1": 99,
+   "section": "eq",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.4,
+    0.45,
+    0.32
+   ],
+   "label": "eq",
+   "move": "zoomOut",
+   "trans": "fade",
+   "start": 45.0,
+   "end": 46.4062
+  },
+  {
+   "b0": 99,
+   "b1": 102,
+   "section": "eq",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-12-7-webp"
+   ],
+   "move": "gimbalL",
+   "trans": "wipeDiag",
+   "start": 46.4062,
+   "end": 47.8125
+  },
+  {
+   "b0": 102,
+   "b1": 105,
+   "section": "eq",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-12-4-webp"
+   ],
+   "move": "gimbalL",
+   "trans": "wipeDiag",
+   "start": 47.8125,
+   "end": 49.2188
+  },
+  {
+   "b0": 105,
+   "b1": 110,
+   "section": "dbx",
+   "kind": "vclip",
+   "id": "v05-dbx",
+   "file": "vclip/v05-dbx.mp4",
+   "label": "dbx compression",
+   "product": "all",
+   "rate": 1.3653,
+   "move": "focusIn",
+   "trans": "slideUp",
+   "start": 49.2188,
+   "end": 51.5625
+  },
+  {
+   "b0": 110,
+   "b1": 113,
+   "section": "dbx",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.5,
+    0.37,
+    0.3
+   ],
+   "label": "comp",
+   "move": "craneUp",
+   "trans": "punchIn",
+   "start": 51.5625,
+   "end": 52.9688
+  },
+  {
+   "b0": 113,
+   "b1": 124,
+   "section": "dbx",
+   "kind": "broll",
+   "id": "b05",
+   "file": "broll/b05-podcast-table.mp4",
+   "label": "Signature Plus 16 \u00b7 podcast",
+   "product": "16",
+   "rate": 0.9777777777777779,
+   "move": "orbit",
+   "trans": "flash",
+   "start": 52.9688,
+   "end": 58.125
+  },
+  {
+   "b0": 124,
+   "b1": 127,
+   "section": "dbx",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-16-2-webp"
+   ],
+   "move": "orbit",
+   "trans": "whipRight",
+   "start": 58.125,
+   "end": 59.5312
+  },
+  {
+   "b0": 127,
+   "b1": 130,
+   "section": "dbx",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-16-1-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "whipRight",
+   "start": 59.5312,
+   "end": 60.9375
+  },
+  {
+   "b0": 130,
+   "b1": 133,
+   "section": "dbx",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-16-6-webp"
+   ],
+   "move": "craneUp",
+   "trans": "whipLeft",
+   "start": 60.9375,
+   "end": 62.3438
+  },
+  {
+   "b0": 133,
+   "b1": 138,
+   "section": "lex",
+   "kind": "vclip",
+   "id": "v07-lexicon",
+   "file": "vclip/v07-lexicon.mp4",
+   "label": "Lexicon effects",
+   "product": "all",
+   "rate": 1.4933,
+   "move": "orbit",
+   "trans": "wipeDiag",
+   "start": 62.3438,
+   "end": 64.6875
+  },
+  {
+   "b0": 138,
+   "b1": 141,
+   "section": "lex",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-3-webp"
+   ],
+   "move": "focusOut",
+   "trans": "wipeDiag",
+   "start": 64.6875,
+   "end": 66.0938
+  },
+  {
+   "b0": 141,
+   "b1": 144,
+   "section": "lex",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.855,
+    0.47,
+    0.15
+   ],
+   "label": "lexicon",
+   "move": "zoomOut",
+   "trans": "punchIn",
+   "start": 66.0938,
+   "end": 67.5
+  },
+  {
+   "b0": 144,
+   "b1": 155,
+   "section": "lex",
+   "kind": "broll",
+   "id": "b08",
+   "file": "broll/b08-theatre-booth.mp4",
+   "label": "Signature Plus 22 \u00b7 theatre booth",
+   "product": "22",
+   "rate": 0.9777777777777779,
+   "move": "craneUp",
+   "trans": "flash",
+   "start": 67.5,
+   "end": 72.6562
+  },
+  {
+   "b0": 155,
+   "b1": 158,
+   "section": "lex",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-22-3-webp"
+   ],
+   "move": "focusIn",
+   "trans": "punchIn",
+   "start": 72.6562,
+   "end": 74.0625
+  },
+  {
+   "b0": 158,
+   "b1": 161,
+   "section": "lex",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-22-4-webp"
+   ],
+   "move": "focusOut",
+   "trans": "punchIn",
+   "start": 74.0625,
+   "end": 75.4688
+  },
+  {
+   "b0": 161,
+   "b1": 164,
+   "section": "mon",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-5-webp"
+   ],
+   "move": "zoomOut",
+   "trans": "flash",
+   "start": 75.4688,
+   "end": 76.875
+  },
+  {
+   "b0": 164,
+   "b1": 167,
+   "section": "mon",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.36,
+    0.57,
+    0.32
+   ],
+   "label": "aux",
+   "move": "craneUp",
+   "trans": "wipeDiag",
+   "start": 76.875,
+   "end": 78.2812
+  },
+  {
+   "b0": 167,
+   "b1": 178,
+   "section": "mon",
+   "kind": "broll",
+   "id": "b11",
+   "file": "broll/b11-soundcheck-stage.mp4",
+   "label": "Signature Plus 22 \u00b7 soundcheck",
+   "product": "22",
+   "rate": 0.9777777777777779,
+   "move": "zoomIn",
+   "trans": "flash",
+   "start": 78.2812,
+   "end": 83.4375
+  },
+  {
+   "b0": 178,
+   "b1": 182,
+   "section": "mon",
+   "kind": "vclip",
+   "id": "v10-talkback",
+   "file": "vclip/v10-talkback.mp4",
+   "label": "Talkback to any output",
+   "product": "all",
+   "rate": 1.8133,
+   "move": "orbit",
+   "trans": "whipLeft",
+   "start": 83.4375,
+   "end": 85.3125
+  },
+  {
+   "b0": 182,
+   "b1": 185,
+   "section": "mon",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.91,
+    0.4,
+    0.12
+   ],
+   "label": "talkback",
+   "move": "orbit",
+   "trans": "flash",
+   "start": 85.3125,
+   "end": 86.7188
+  },
+  {
+   "b0": 185,
+   "b1": 188,
+   "section": "mon",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-6-webp"
+   ],
+   "move": "craneUp",
+   "trans": "flash",
+   "start": 86.7188,
+   "end": 88.125
+  },
+  {
+   "b0": 188,
+   "b1": 199,
+   "section": "mon",
+   "kind": "broll",
+   "id": "b02",
+   "file": "broll/b02-worship-service.mp4",
+   "label": "Signature Plus 22 \u00b7 worship service",
+   "product": "22",
+   "rate": 0.9777777777777779,
+   "move": "gimbalR",
+   "trans": "flash",
+   "start": 88.125,
+   "end": 93.2812
+  },
+  {
+   "b0": 199,
+   "b1": 202,
+   "section": "mon",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-22-1-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "whipLeft",
+   "start": 93.2812,
+   "end": 94.6875
+  },
+  {
+   "b0": 202,
+   "b1": 205,
+   "section": "mon",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-22-6-webp"
+   ],
+   "move": "focusIn",
+   "trans": "punchIn",
+   "start": 94.6875,
+   "end": 96.0938
+  },
+  {
+   "b0": 205,
+   "b1": 209,
+   "section": "usb",
+   "kind": "vclip",
+   "id": "v08-usb-c",
+   "file": "vclip/v08-usb-c.mp4",
+   "label": "USB-C 4 x 4",
+   "product": "all",
+   "rate": 1.6,
+   "move": "focusOut",
+   "trans": "whipLeft",
+   "start": 96.0938,
+   "end": 97.9688
+  },
+  {
+   "b0": 209,
+   "b1": 212,
+   "section": "usb",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-2-webp"
+   ],
+   "move": "orbit",
+   "trans": "wipeDiag",
+   "start": 97.9688,
+   "end": 99.375
+  },
+  {
+   "b0": 212,
+   "b1": 215,
+   "section": "usb",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.8,
+    0.3,
+    0.14
+   ],
+   "label": "usb",
+   "move": "focusOut",
+   "trans": "wipeDiag",
+   "start": 99.375,
+   "end": 100.7812
+  },
+  {
+   "b0": 215,
+   "b1": 226,
+   "section": "usb",
+   "kind": "broll",
+   "id": "b15",
+   "file": "broll/b15-creator-stream.mp4",
+   "label": "Signature Plus 12 \u00b7 live stream",
+   "product": "12",
+   "rate": 0.9777777777777779,
+   "move": "zoomOut",
+   "trans": "wipeDiag",
+   "start": 100.7812,
+   "end": 105.9375
+  },
+  {
+   "b0": 226,
+   "b1": 229,
+   "section": "usb",
+   "kind": "still",
+   "assets": [
+    "rear-signature-plus-32-5-webp"
+   ],
+   "move": "orbit",
+   "trans": "punchIn",
+   "start": 105.9375,
+   "end": 107.3438
+  },
+  {
+   "b0": 229,
+   "b1": 232,
+   "section": "usb",
+   "kind": "still",
+   "assets": [
+    "rear-signature-plus-22-7-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "pullBack",
+   "start": 107.3438,
+   "end": 108.75
+  },
+  {
+   "b0": 232,
+   "b1": 235,
+   "section": "usb",
+   "kind": "still",
+   "assets": [
+    "rear-signature-plus-16-5-webp"
+   ],
+   "move": "gimbalL",
+   "trans": "wipeDiag",
+   "start": 108.75,
+   "end": 110.1562
+  },
+  {
+   "b0": 235,
+   "b1": 237,
+   "section": "usb",
+   "kind": "still",
+   "assets": [
+    "rear-signature-plus-12-5-webp"
+   ],
+   "move": "zoomOut",
+   "trans": "punchIn",
+   "start": 110.1562,
+   "end": 111.0938
+  },
+  {
+   "b0": 237,
+   "b1": 248,
+   "section": "field",
+   "kind": "broll",
+   "id": "b03",
+   "file": "broll/b03-festival-foh.mp4",
+   "label": "Signature Plus 32 \u00b7 festival FOH",
+   "product": "32",
+   "rate": 0.9777777777777779,
+   "move": "gimbalL",
+   "trans": "flash",
+   "start": 111.0938,
+   "end": 116.25
+  },
+  {
+   "b0": 248,
+   "b1": 250,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v12-outdoor-band",
+   "file": "vclip/v12-outdoor-band.mp4",
+   "label": "Outdoor show",
+   "product": "all",
+   "rate": 1.7067,
+   "move": "focusIn",
+   "trans": "flash",
+   "start": 116.25,
+   "end": 117.1875
+  },
+  {
+   "b0": 250,
+   "b1": 252,
+   "section": "field",
+   "kind": "still",
+   "assets": [
+    "life-signature-plus-32-7-webp"
+   ],
+   "move": "gimbalR",
+   "trans": "whipLeft",
+   "start": 117.1875,
+   "end": 118.125
+  },
+  {
+   "b0": 252,
+   "b1": 263,
+   "section": "field",
+   "kind": "broll",
+   "id": "b13",
+   "file": "broll/b13-ballroom-gala.mp4",
+   "label": "Signature Plus 32 \u00b7 ballroom gala",
+   "product": "32",
+   "rate": 0.9777777777777779,
+   "move": "gimbalR",
+   "trans": "flash",
+   "start": 118.125,
+   "end": 123.2812
+  },
+  {
+   "b0": 263,
+   "b1": 265,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v13-bass-vocal",
+   "file": "vclip/v13-bass-vocal.mp4",
+   "label": "Live performance",
+   "product": "all",
+   "rate": 2.4533,
+   "move": "craneUp",
+   "trans": "flash",
+   "start": 123.2812,
+   "end": 124.2188
+  },
+  {
+   "b0": 265,
+   "b1": 267,
+   "section": "field",
+   "kind": "still",
+   "assets": [
+    "life-signature-plus-16-7-webp"
+   ],
+   "move": "gimbalR",
+   "trans": "punchIn",
+   "start": 124.2188,
+   "end": 125.1562
+  },
+  {
+   "b0": 267,
+   "b1": 278,
+   "section": "field",
+   "kind": "broll",
+   "id": "b06",
+   "file": "broll/b06-wedding-reception.mp4",
+   "label": "Signature Plus 16 \u00b7 wedding reception",
+   "product": "16",
+   "rate": 0.9777777777777779,
+   "move": "focusOut",
+   "trans": "flash",
+   "start": 125.1562,
+   "end": 130.3125
+  },
+  {
+   "b0": 278,
+   "b1": 289,
+   "section": "field",
+   "kind": "broll",
+   "id": "b07",
+   "file": "broll/b07-conference-panel.mp4",
+   "label": "Signature Plus 22 \u00b7 conference",
+   "product": "22",
+   "rate": 0.9777777777777779,
+   "move": "focusOut",
+   "trans": "flash",
+   "start": 130.3125,
+   "end": 135.4688
+  },
+  {
+   "b0": 289,
+   "b1": 292,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v02-studio-engineer",
+   "file": "vclip/v02-studio-engineer.mp4",
+   "label": "Studio session",
+   "product": "all",
+   "rate": 1.7778,
+   "move": "orbit",
+   "trans": "flash",
+   "start": 135.4688,
+   "end": 136.875
+  },
+  {
+   "b0": 292,
+   "b1": 294,
+   "section": "field",
+   "kind": "still",
+   "assets": [
+    "life-signature-plus-22-11-webp"
+   ],
+   "move": "orbit",
+   "trans": "punchIn",
+   "start": 136.875,
+   "end": 137.8125
+  },
+  {
+   "b0": 294,
+   "b1": 305,
+   "section": "field",
+   "kind": "broll",
+   "id": "b10",
+   "file": "broll/b10-music-school.mp4",
+   "label": "Signature Plus 16 \u00b7 music school",
+   "product": "16",
+   "rate": 0.9777777777777779,
+   "move": "orbit",
+   "trans": "flash",
+   "start": 137.8125,
+   "end": 142.9688
+  },
+  {
+   "b0": 305,
+   "b1": 316,
+   "section": "field",
+   "kind": "broll",
+   "id": "b12",
+   "file": "broll/b12-radio-onair.mp4",
+   "label": "Signature Plus 12 \u00b7 on air",
+   "product": "12",
+   "rate": 0.9777777777777779,
+   "move": "zoomIn",
+   "trans": "flash",
+   "start": 142.9688,
+   "end": 148.125
+  },
+  {
+   "b0": 316,
+   "b1": 318,
+   "section": "field",
+   "kind": "still",
+   "assets": [
+    "life-signature-plus-22-10-webp"
+   ],
+   "move": "focusOut",
+   "trans": "flash",
+   "start": 148.125,
+   "end": 149.0625
+  },
+  {
+   "b0": 318,
+   "b1": 320,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v14-engineer-daylight",
+   "file": "vclip/v14-engineer-daylight.mp4",
+   "label": "Studio mixing",
+   "product": "all",
+   "rate": 2.1333,
+   "move": "gimbalL",
+   "trans": "wipeDiag",
+   "start": 149.0625,
+   "end": 150.0
+  },
+  {
+   "b0": 320,
+   "b1": 322,
+   "section": "field",
+   "kind": "still",
+   "assets": [
+    "life-signature-plus-16-8-webp"
+   ],
+   "move": "focusOut",
+   "trans": "punchIn",
+   "start": 150.0,
+   "end": 150.9375
+  },
+  {
+   "b0": 322,
+   "b1": 324,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v03-live-vocal",
+   "file": "vclip/v03-live-vocal.mp4",
+   "label": "Live vocal",
+   "product": "all",
+   "rate": 2.1333,
+   "move": "zoomIn",
+   "trans": "punchIn",
+   "start": 150.9375,
+   "end": 151.875
+  },
+  {
+   "b0": 324,
+   "b1": 326,
+   "section": "field",
+   "kind": "vclip",
+   "id": "v15-producer-studio",
+   "file": "vclip/v15-producer-studio.mp4",
+   "label": "Production room",
+   "product": "all",
+   "rate": 1.4933,
+   "move": "zoomIn",
+   "trans": "whipRight",
+   "start": 151.875,
+   "end": 152.8125
+  },
+  {
+   "b0": 326,
+   "b1": 330,
+   "section": "detail",
+   "kind": "vclip",
+   "id": "v09-qr-manual",
+   "file": "vclip/v09-qr-manual.mp4",
+   "label": "QR code manuals",
+   "product": "all",
+   "rate": 1.8133,
+   "move": "gimbalL",
+   "trans": "slideUp",
+   "start": 152.8125,
+   "end": 154.6875
+  },
+  {
+   "b0": 330,
+   "b1": 334,
+   "section": "detail",
+   "kind": "vclip",
+   "id": "v11-layout",
+   "file": "vclip/v11-layout.mp4",
+   "label": "Colour-coded layout",
+   "product": "all",
+   "rate": 2.1333,
+   "move": "zoomOut",
+   "trans": "fade",
+   "start": 154.6875,
+   "end": 156.5625
+  },
+  {
+   "b0": 334,
+   "b1": 336,
+   "section": "detail",
+   "kind": "card",
+   "assets": [
+    "feature-signature-plus-overview-4-webp"
+   ],
+   "move": "focusIn",
+   "trans": "fade",
+   "start": 156.5625,
+   "end": 157.5
+  },
+  {
+   "b0": 336,
+   "b1": 338,
+   "section": "detail",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.5,
+    0.7,
+    0.34
+   ],
+   "label": "caps",
+   "move": "focusIn",
+   "trans": "fade",
+   "start": 157.5,
+   "end": 158.4375
+  },
+  {
+   "b0": 338,
+   "b1": 340,
+   "section": "detail",
+   "kind": "still",
+   "assets": [
+    "side-signature-plus-22-5-webp"
+   ],
+   "move": "gimbalL",
+   "trans": "fade",
+   "start": 158.4375,
+   "end": 159.375
+  },
+  {
+   "b0": 340,
+   "b1": 342,
+   "section": "detail",
+   "kind": "still",
+   "assets": [
+    "side-signature-plus-22-8-webp"
+   ],
+   "move": "gimbalR",
+   "trans": "fade",
+   "start": 159.375,
+   "end": 160.3125
+  },
+  {
+   "b0": 342,
+   "b1": 353,
+   "section": "detail",
+   "kind": "broll",
+   "id": "b14",
+   "file": "broll/b14-rehearsal-studio.mp4",
+   "label": "Signature Plus 32 \u00b7 rehearsal studio",
+   "product": "32",
+   "rate": 0.9777777777777779,
+   "move": "gimbalR",
+   "trans": "wipeDiag",
+   "start": 160.3125,
+   "end": 165.4688
+  },
+  {
+   "b0": 353,
+   "b1": 356,
+   "section": "detail",
+   "kind": "vclip",
+   "id": "v16-patched-console",
+   "file": "vclip/v16-patched-console.mp4",
+   "label": "Hands-on mixing",
+   "product": "all",
+   "rate": 1.6356,
+   "move": "focusIn",
+   "trans": "punchIn",
+   "start": 165.4688,
+   "end": 166.875
+  },
+  {
+   "b0": 356,
+   "b1": 358,
+   "section": "detail",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.4,
+    0.8,
+    0.42
+   ],
+   "label": "faders",
+   "move": "craneUp",
+   "trans": "fade",
+   "start": 166.875,
+   "end": 167.8125
+  },
+  {
+   "b0": 358,
+   "b1": 362,
+   "section": "close",
+   "kind": "lineup",
+   "assets": [
+    "render-signature-plus-12-3-webp",
+    "render-signature-plus-16-2-webp",
+    "render-signature-plus-22-4-webp",
+    "render-signature-plus-32-3-webp"
+   ],
+   "move": "focusIn",
+   "trans": "wipeDiag",
+   "start": 167.8125,
+   "end": 169.6875
+  },
+  {
+   "b0": 362,
+   "b1": 364,
+   "section": "close",
+   "kind": "still",
+   "assets": [
+    "low-signature-plus-32-2-webp"
+   ],
+   "move": "orbit",
+   "trans": "slideUp",
+   "start": 169.6875,
+   "end": 170.625
+  },
+  {
+   "b0": 364,
+   "b1": 366,
+   "section": "close",
+   "kind": "still",
+   "assets": [
+    "render-signature-plus-32-3-webp"
+   ],
+   "move": "gimbalR",
+   "trans": "punchIn",
+   "start": 170.625,
+   "end": 171.5625
+  },
+  {
+   "b0": 366,
+   "b1": 368,
+   "section": "close",
+   "kind": "detail",
+   "assets": [
+    "plan-signature-plus-32-1-webp"
+   ],
+   "region": [
+    0.89,
+    0.55,
+    0.2
+   ],
+   "label": "master",
+   "move": "gimbalR",
+   "trans": "fade",
+   "start": 171.5625,
+   "end": 172.5
+  },
+  {
+   "b0": 368,
+   "b1": 371,
+   "section": "close",
+   "kind": "lineup",
+   "assets": [
+    "render-signature-plus-12-3-webp",
+    "render-signature-plus-16-2-webp",
+    "render-signature-plus-22-4-webp",
+    "render-signature-plus-32-3-webp"
+   ],
+   "move": "zoomIn",
+   "trans": "slideUp",
+   "start": 172.5,
+   "end": 174.0
+  }
+ ],
+ "sections": [
+  {
+   "id": "hook",
+   "series": "all",
+   "label": "SIGNATURE PLUS",
+   "sub": "",
+   "start": 0.0,
+   "end": 14.0625,
+   "drop": false,
+   "top": {
+    "icons": [
+     [
+      "sizes",
+      4,
+      "",
+      "SIZES"
+     ],
+     [
+      "ch",
+      32,
+      "",
+      "UP TO \u00b7 CHANNELS"
+     ],
+     [
+      "fx",
+      32,
+      "",
+      "LEXICON PRESETS"
+     ]
+    ]
+   },
+   "ticker": [
+    "SIGNATURE PLUS 12",
+    "SIGNATURE PLUS 16",
+    "SIGNATURE PLUS 22",
+    "SIGNATURE PLUS 32"
+   ],
+   "captions": [
+    {
+     "start": 0.0,
+     "end": 7.0312,
+     "t": "SIGNATURE PLUS SERIES",
+     "e": "Signature"
+    },
+    {
+     "start": 7.0312,
+     "end": 14.0625,
+     "t": "PERFECTED performances",
+     "e": "performances"
+    }
+   ]
+  },
+  {
+   "id": "sizes",
+   "series": "all",
+   "label": "FOUR SIZES",
+   "sub": "",
+   "start": 14.0625,
+   "end": 29.5312,
+   "drop": false,
+   "top": {
+    "io": [
+     [
+      "SIG+ 12",
+      6,
+      12
+     ],
+     [
+      "SIG+ 16",
+      10,
+      16
+     ],
+     [
+      "SIG+ 22",
+      14,
+      22
+     ],
+     [
+      "SIG+ 32",
+      24,
+      32
+     ]
+    ],
+    "icons": [
+     [
+      "sizes",
+      4,
+      "",
+      "SIZES"
+     ],
+     [
+      "pre",
+      24,
+      "",
+      "UP TO \u00b7 GHOST PREAMPS"
+     ],
+     [
+      "ch",
+      32,
+      "",
+      "UP TO \u00b7 INPUTS"
+     ]
+    ]
+   },
+   "ticker": [
+    "12 \u00b7 6 MONO",
+    "16 \u00b7 10 MONO",
+    "22 \u00b7 14 MONO",
+    "32 \u00b7 24 MONO",
+    "SAME MASTER SECTION"
+   ],
+   "captions": [
+    {
+     "start": 14.0625,
+     "end": 21.5625,
+     "t": "FOUR SIZES. ONE desk.",
+     "e": "desk"
+    },
+    {
+     "start": 21.5625,
+     "end": 29.5312,
+     "t": "12 \u00b7 16 \u00b7 22 \u00b7 32",
+     "e": "32"
+    }
+   ]
+  },
+  {
+   "id": "pre",
+   "series": "p32",
+   "label": "GHOST PREAMPS",
+   "sub": "",
+   "start": 29.5312,
+   "end": 42.6562,
+   "drop": false,
+   "top": {
+    "value": 65,
+    "icons": [
+     [
+      "gain",
+      65,
+      "dB",
+      "MAX GAIN"
+     ],
+     [
+      "pre",
+      6,
+      "dB",
+      "MIN GAIN"
+     ],
+     [
+      "hpf",
+      100,
+      "Hz",
+      "HIGH-PASS"
+     ]
+    ]
+   },
+   "ticker": [
+    "GHOST PREAMPS",
+    "+6 TO +65 dB",
+    "PAD",
+    "100 Hz HPF",
+    "48 V PHANTOM"
+   ],
+   "captions": [
+    {
+     "start": 29.5312,
+     "end": 36.0938,
+     "t": "GHOST mic preamps",
+     "e": "Ghost"
+    },
+    {
+     "start": 36.0938,
+     "end": 42.6562,
+     "t": "6 TO 65 dB OF gain",
+     "e": "gain"
+    }
+   ]
+  },
+  {
+   "id": "eq",
+   "series": "p12",
+   "label": "SAPPHYRE EQ",
+   "sub": "",
+   "start": 42.6562,
+   "end": 49.2188,
+   "drop": false,
+   "top": {
+    "icons": [
+     [
+      "eq",
+      3,
+      "",
+      "EQ BANDS"
+     ],
+     [
+      "rate",
+      150,
+      "Hz",
+      "MID FROM"
+     ],
+     [
+      "rate",
+      3,
+      "kHz",
+      "MID TO"
+     ]
+    ]
+   },
+   "ticker": [
+    "SAPPHYRE EQ",
+    "60 Hz SHELF",
+    "12 kHz SHELF",
+    "SWEPT MID 150 Hz \u2013 3 kHz"
+   ],
+   "captions": [
+    {
+     "start": 42.6562,
+     "end": 49.2188,
+     "t": "SAPPHYRE EQ",
+     "e": "Sapphyre"
+    }
+   ]
+  },
+  {
+   "id": "dbx",
+   "series": "p16",
+   "label": "dbx COMPRESSION",
+   "sub": "",
+   "start": 49.2188,
+   "end": 62.3438,
+   "drop": true,
+   "top": {
+    "icons": [
+     [
+      "dyn",
+      1,
+      "",
+      "KNOB \u00b7 dbx"
+     ],
+     [
+      "ch",
+      24,
+      "",
+      "UP TO \u00b7 COMP CHANNELS"
+     ],
+     [
+      "io",
+      1,
+      "",
+      "INSERT / CH"
+     ]
+    ]
+   },
+   "ticker": [
+    "dbx COMPRESSION",
+    "OverEasy CURVE",
+    "ONE KNOB",
+    "INSERT ON EVERY MONO CH"
+   ],
+   "captions": [
+    {
+     "start": 49.2188,
+     "end": 55.7812,
+     "t": "dbx compression",
+     "e": "dbx"
+    },
+    {
+     "start": 55.7812,
+     "end": 62.3438,
+     "t": "ONE KNOB. ONE switch.",
+     "e": "switch"
+    }
+   ]
+  },
+  {
+   "id": "lex",
+   "series": "p22",
+   "label": "LEXICON FX",
+   "sub": "",
+   "start": 62.3438,
+   "end": 75.4688,
+   "drop": true,
+   "top": {
+    "icons": [
+     [
+      "fx",
+      32,
+      "",
+      "PRESETS"
+     ],
+     [
+      "fx",
+      2,
+      "",
+      "BANKS"
+     ],
+     [
+      "tap",
+      1,
+      "",
+      "TAP TEMPO"
+     ]
+    ]
+   },
+   "ticker": [
+    "LEXICON EFFECTS",
+    "HALLS \u00b7 PLATES \u00b7 ROOMS",
+    "CHORUS \u00b7 FLANGER \u00b7 DELAYS",
+    "STORE \u00b7 TAP TEMPO"
+   ],
+   "captions": [
+    {
+     "start": 62.3438,
+     "end": 68.9062,
+     "t": "LEXICON effects",
+     "e": "Lexicon"
+    },
+    {
+     "start": 68.9062,
+     "end": 75.4688,
+     "t": "32 PRESETS \u00b7 TAP tempo",
+     "e": "tempo"
+    }
+   ]
+  },
+  {
+   "id": "mon",
+   "series": "p22",
+   "label": "MONITORING",
+   "sub": "",
+   "start": 75.4688,
+   "end": 96.0938,
+   "drop": true,
+   "top": {
+    "icons": [
+     [
+      "aux",
+      4,
+      "",
+      "AUX SENDS"
+     ],
+     [
+      "talk",
+      1,
+      "",
+      "TALKBACK XLR"
+     ],
+     [
+      "meter",
+      2,
+      "",
+      "METER SCALES"
+     ]
+    ]
+   },
+   "ticker": [
+    "4 AUX SENDS",
+    "PRE / POST",
+    "MIX TO AUX",
+    "TALKBACK TO ANY OUTPUT",
+    "dBu + dBFS METERING"
+   ],
+   "captions": [
+    {
+     "start": 75.4688,
+     "end": 82.5,
+     "t": "FOUR aux SENDS",
+     "e": "aux"
+    },
+    {
+     "start": 82.5,
+     "end": 89.0625,
+     "t": "TALKBACK TO any output",
+     "e": "any output"
+    },
+    {
+     "start": 89.0625,
+     "end": 96.0938,
+     "t": "DUAL metering",
+     "e": "metering"
+    }
+   ]
+  },
+  {
+   "id": "usb",
+   "series": "p12",
+   "label": "USB-C",
+   "sub": "",
+   "start": 96.0938,
+   "end": 111.0938,
+   "drop": false,
+   "top": {
+    "icons": [
+     [
+      "usb",
+      4,
+      "\u00d74",
+      "USB-C I/O"
+     ],
+     [
+      "hiz",
+      4,
+      "",
+      "HI-Z INPUTS"
+     ],
+     [
+      "ch",
+      2,
+      "",
+      "REC \u00b7 STREAM"
+     ]
+    ]
+   },
+   "ticker": [
+    "USB-C 4 IN \u00b7 4 OUT",
+    "RECORD THE SHOW",
+    "STREAM",
+    "PLAYBACK",
+    "HI-Z DIRECT INPUT"
+   ],
+   "captions": [
+    {
+     "start": 96.0938,
+     "end": 103.5938,
+     "t": "USB-C \u00b7 4 IN, 4 OUT",
+     "e": "USB-C"
+    },
+    {
+     "start": 103.5938,
+     "end": 111.0938,
+     "t": "RECORD AND stream",
+     "e": "stream"
+    }
+   ]
+  },
+  {
+   "id": "field",
+   "series": "all",
+   "label": "IN THE FIELD",
+   "sub": "",
+   "start": 111.0938,
+   "end": 152.8125,
+   "drop": true,
+   "top": {
+    "icons": [
+     [
+      "sizes",
+      4,
+      "",
+      "SIZES"
+     ],
+     [
+      "units",
+      15,
+      "",
+      "USE CASES"
+     ],
+     [
+      "ch",
+      32,
+      "",
+      "UP TO \u00b7 INPUTS"
+     ]
+    ]
+   },
+   "ticker": [
+    "LIVE",
+    "WORSHIP",
+    "EVENTS",
+    "EDUCATION",
+    "BROADCAST",
+    "STUDIO",
+    "STREAMING"
+   ],
+   "captions": [
+    {
+     "start": 111.0938,
+     "end": 119.5312,
+     "t": "LIVE stages",
+     "e": "stages"
+    },
+    {
+     "start": 119.5312,
+     "end": 127.9688,
+     "t": "GALAS AND events",
+     "e": "events"
+    },
+    {
+     "start": 127.9688,
+     "end": 135.9375,
+     "t": "CONFERENCES AND studios",
+     "e": "studios"
+    },
+    {
+     "start": 135.9375,
+     "end": 144.375,
+     "t": "SCHOOLS AND broadcast",
+     "e": "broadcast"
+    },
+    {
+     "start": 144.375,
+     "end": 152.8125,
+     "t": "EVERY performance",
+     "e": "performance"
+    }
+   ]
+  },
+  {
+   "id": "detail",
+   "series": "p32",
+   "label": "THE DETAILS",
+   "sub": "",
+   "start": 152.8125,
+   "end": 167.8125,
+   "drop": false,
+   "top": {
+    "icons": [
+     [
+      "qr",
+      1,
+      "",
+      "QR MANUAL"
+     ],
+     [
+      "hiz",
+      4,
+      "",
+      "HI-Z INPUTS"
+     ],
+     [
+      "aux",
+      4,
+      "",
+      "AUX SENDS"
+     ]
+    ]
+   },
+   "ticker": [
+    "COLOUR-CODED CAPS",
+    "LONG-THROW FADERS",
+    "METAL CHASSIS",
+    "QR MANUALS"
+   ],
+   "captions": [
+    {
+     "start": 152.8125,
+     "end": 160.3125,
+     "t": "COLOUR-CODED layout",
+     "e": "layout"
+    },
+    {
+     "start": 160.3125,
+     "end": 167.8125,
+     "t": "LONG-THROW faders",
+     "e": "faders"
+    }
+   ]
+  },
+  {
+   "id": "close",
+   "series": "all",
+   "label": "SIGNATURE PLUS",
+   "sub": "",
+   "start": 167.8125,
+   "end": 174.0,
+   "drop": false,
+   "top": {
+    "icons": [
+     [
+      "sizes",
+      4,
+      "",
+      "SIZES"
+     ],
+     [
+      "pre",
+      24,
+      "",
+      "UP TO \u00b7 PREAMPS"
+     ],
+     [
+      "fx",
+      32,
+      "",
+      "LEXICON PRESETS"
+     ]
+    ]
+   },
+   "ticker": [
+    "SIGNATURE PLUS 12 \u00b7 16 \u00b7 22 \u00b7 32",
+    "PERFECTED PERFORMANCES"
+   ],
+   "captions": [
+    {
+     "start": 167.8125,
+     "end": 173.9062,
+     "t": "ONE family",
+     "e": "family"
+    }
+   ]
+  }
+ ],
+ "outroAt": 174.0,
+ "sfx": [
+  {
+   "at": 0.03,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 1.825,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 3.2312000000000003,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 4.6375,
+   "cue": "air-pass"
+  },
+  {
+   "at": 6.0438,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 7.0612,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 7.45,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 12.6062,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 13.2025,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 14.0125,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 14.0925,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 15.8875,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 17.2938,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 18.7,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 20.106199999999998,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 21.5125,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 21.5925,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 22.9188,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 24.325,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 28.6712,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 29.481199999999998,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 29.5612,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 31.825,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 33.2312,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 34.6375,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 36.1238,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 39.793800000000005,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 41.2,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 41.7962,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 42.6062,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 42.6862,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 44.95,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 46.3562,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 47.7625,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 48.3588,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 49.168800000000005,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 49.2188,
+   "cue": "impact-cinematic"
+  },
+  {
+   "at": 49.2488,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 51.5125,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 52.918800000000005,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 55.8112,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 58.075,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 59.4812,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 60.8875,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 61.4838,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 62.293800000000005,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 62.3438,
+   "cue": "impact-cinematic"
+  },
+  {
+   "at": 62.3738,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 64.6375,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 66.0438,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 67.45,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 68.9362,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 72.6062,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 74.0125,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 74.6088,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 75.4188,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 75.4688,
+   "cue": "impact-cinematic"
+  },
+  {
+   "at": 75.4988,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 76.825,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 78.2312,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 82.53,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 83.3875,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 85.2625,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 86.6688,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 88.075,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 89.0925,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 93.2312,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 94.6375,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 95.2338,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 96.0438,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 96.1238,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 97.9188,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 99.325,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 100.7312,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 103.6238,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 105.8875,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 107.2938,
+   "cue": "air-pass"
+  },
+  {
+   "at": 108.7,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 110.1062,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 110.2338,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 111.0438,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 111.0938,
+   "cue": "impact-cinematic"
+  },
+  {
+   "at": 111.1238,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 116.2,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 117.1375,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 118.075,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 119.5612,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 123.2312,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 124.1688,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 125.1062,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 127.9988,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 130.2625,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 135.41879999999998,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 135.9675,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 136.825,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 137.7625,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 142.91879999999998,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 144.405,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 148.075,
+   "cue": "chime-lift"
+  },
+  {
+   "at": 149.0125,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 149.95,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 150.8875,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 151.825,
+   "cue": "whoosh-doppler"
+  },
+  {
+   "at": 151.9525,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 152.7625,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 152.8425,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 154.6375,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 156.5125,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 157.45,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 158.3875,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 159.325,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 160.2625,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 160.3425,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 165.41879999999998,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 166.825,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 166.9525,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 167.7625,
+   "cue": "glass-sweep"
+  },
+  {
+   "at": 167.8425,
+   "cue": "tick-stereo"
+  },
+  {
+   "at": 169.6375,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 170.575,
+   "cue": "impact-soft"
+  },
+  {
+   "at": 171.5125,
+   "cue": "swell-reverse"
+  },
+  {
+   "at": 172.45,
+   "cue": "shimmer-rise"
+  },
+  {
+   "at": 173.85,
+   "cue": "outro-bloom"
+  }
+ ],
+ "audio": {
+  "blocks": [
+   [
+    0,
+    192
+   ],
+   [
+    208,
+    256
+   ],
+   [
+    288,
+    432
+   ]
+  ],
+  "duration": 180.0,
+  "srcOffset": 0.04
+ }
+}
