@@ -1,0 +1,10 @@
+node_modules/
+out/
+*.log
+/public/img/
+/public/soft/
+/public/amb/
+/public/broll/
+/public/vclip/
+/public/audio/
+__pycache__/
