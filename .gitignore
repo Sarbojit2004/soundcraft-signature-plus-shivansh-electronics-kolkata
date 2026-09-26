@@ -152,3 +152,11 @@ gemini-creations/clean/
 # put back.
 !signature-plus/out/
 !signature-plus/out/**
+
+# Same again for the reel project. This was missed when signature-plus-reel was
+# added, and the consequence was invisible: every rendered deliverable — the
+# four 4K parts, both previews, the thumbnail — was silently ignored, `git add`
+# staged nothing, and the commits that claimed to ship them shipped only
+# source. Nothing errored. The files simply never left the machine.
+!signature-plus-reel/out/
+!signature-plus-reel/out/**
