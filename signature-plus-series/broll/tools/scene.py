@@ -83,7 +83,10 @@ def product(path, crop_alpha=True, floor_cut=None):
     a = np.array(im)
     if floor_cut is not None:
         a[floor_cut:, :, 3] = 0
-    ys, xs = np.where(a[..., 3] > 16)
+    # Crop on the solid body only: product shots carry a faint baked-in drop
+    # shadow, which would otherwise make the unit float above its own shadow.
+    a[..., 3] = np.where(a[..., 3] > 200, a[..., 3], 0)
+    ys, xs = np.where(a[..., 3] > 200)
     return Image.fromarray(a).crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
 
 
