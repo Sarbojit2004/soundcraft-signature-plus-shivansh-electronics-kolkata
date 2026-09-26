@@ -10,7 +10,13 @@ while [ $i -lt $FRAMES ]; do
   e=$((i + CHUNK - 1)); [ $e -ge $FRAMES ] && e=$((FRAMES - 1))
   f=$D/$(printf '%05d' $i).mp4
   if [ ! -s "$f" ]; then
-    npx remotion render $COMP "$f.tmp.mp4" --frames=$i-$e --muted --concurrency=${CONC:-4} --crf=${CRF:-16} --jpeg-quality=92 --log=error
+    # A hung chunk is killed after 15 min and retried (up to 3 attempts).
+    n=0
+    until timeout -k 20 900 npx remotion render $COMP "$f.tmp.mp4" --frames=$i-$e --muted --concurrency=${CONC:-4} --crf=${CRF:-16} --jpeg-quality=92 --log=error; do
+      n=$((n + 1)); rm -f "$f.tmp.mp4"; pkill -f headless_shell || true
+      [ $n -ge 3 ] && { echo "chunk $i-$e FAILED after $n attempts"; exit 1; }
+      echo "chunk $i-$e retry $n"
+    done
     mv "$f.tmp.mp4" "$f"
   fi
   echo "chunk $i-$e done"
