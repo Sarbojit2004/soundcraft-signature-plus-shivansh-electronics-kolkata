@@ -1,0 +1,3 @@
+__pycache__/
+audio-src/*.wav
+audio-src/*.mp3
