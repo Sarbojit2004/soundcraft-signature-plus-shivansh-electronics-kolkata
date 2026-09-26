@@ -1,157 +1,133 @@
 #!/usr/bin/env python3
 """Portrait (1080x1920) and landscape (1920x1080) thumbnails.
 
-Composited from the REAL product renders only — no generated imagery, no
-Shivansh or MOTU logo overlaid. A dark studio lit by the three series colours
-(ember = M-Series, teal = UltraLite-mk5 / 828, indigo = AVB), the AVB rack
-stack with the 828 behind, the UltraLite-mk5 and the M-Series in front, each
-with a contact shadow and a floor reflection. Built at 2x and downsampled.
+Background: a Higgsfield (nano_banana) front-of-house view — festival stage,
+crowd, and an empty mixing-desk surface in the foreground. On that surface
+the four REAL Signature Plus renders are composited with silhouette contact
+shadows; the typography is set locally. No Shivansh or Soundcraft logo is
+overlaid. Built at the background's native size, then resized to HD.
 """
 import os
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 PUB = os.path.join(ROOT, "public")
-OUT = os.path.join(os.path.dirname(ROOT), "thumbnails")
-os.makedirs(OUT, exist_ok=True)
-
-EMBER, TEAL, INDIGO, GOLD = (255, 138, 76), (63, 227, 210), (139, 151, 255), (255, 194, 74)
+TH = os.path.join(os.path.dirname(ROOT), "thumbnails")
+FONT_D = os.path.join(PUB, "fonts", "display.ttf")
+FONT_S = os.path.join(PUB, "fonts", "script.ttf")
+CREAM, GOLD = (251, 248, 242), (255, 169, 92)
+CHIP = {"12": (184, 50, 43), "16": (183, 134, 28), "22": (16, 133, 124), "32": (46, 95, 201)}
 
 
 def img(slug):
     im = Image.open(os.path.join(PUB, "img", slug + ".png")).convert("RGBA")
-    return im.crop(im.getbbox())
+    a = np.array(im)[..., 3]
+    ys, xs = np.where(a > 200)
+    return im.crop((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
 
 
-def backdrop(W, H, floor_y):
-    y, x = np.mgrid[0:H, 0:W].astype(np.float32)
-    base = np.zeros((H, W, 3), np.float32)
-    base += np.array([10, 10, 14], np.float32)
-    # Three coloured light beams from above, one per series.
-    for cx, col, spread in ((0.2, EMBER, 0.22), (0.5, TEAL, 0.2), (0.8, INDIGO, 0.22)):
-        dx = (x / W - cx - (y / H - 0.0) * (cx - 0.5) * 0.5) / (spread * (0.4 + y / H))
-        beam = np.exp(-dx ** 2) * np.clip(1.15 - y / floor_y, 0, 1) ** 1.4 * 0.42
-        base += beam[..., None] * np.array(col, np.float32)
-    # A warm pool of light on the floor under the products.
-    pool = np.exp(-(((x - W / 2) / (W * 0.42)) ** 2 + ((y - floor_y) / (H * 0.12)) ** 2))
-    base += pool[..., None] * np.array([70, 60, 55], np.float32)
-    # The floor is darker and glossier than the wall.
-    fl = y > floor_y
-    base[fl] *= 0.55
-    # Vignette
-    v = 1 - 0.55 * (((x - W / 2) / (W * 0.7)) ** 2 + ((y - H / 2) / (H * 0.75)) ** 2)
-    base *= np.clip(v, 0.2, 1)[..., None]
-    return Image.fromarray(np.clip(base, 0, 255).astype(np.uint8)).convert("RGBA")
+def place(c, im, cx, bottom, width):
+    p = im.resize((int(width), int(im.height * width / im.width)), Image.LANCZOS)
+    p = ImageEnhance.Brightness(p).enhance(0.97)
+    x, y = int(cx - p.width / 2), int(bottom - p.height)
+    a = np.array(p)[..., 3]
+    for off, blur, op in ((0.012, 0.01, 0.8), (0.04, 0.05, 0.55)):
+        m = Image.new("L", c.size, 0)
+        m.paste(Image.fromarray(a), (x, y + int(p.height * off)))
+        m = m.filter(ImageFilter.GaussianBlur(max(3, p.width * blur)))
+        sh = Image.new("RGBA", c.size, (0, 0, 0, 0))
+        sh.putalpha(m.point(lambda v: int(v * op)))
+        c.alpha_composite(sh)
+    # warm stage-light rim from behind
+    glow = Image.new("RGBA", c.size, (0, 0, 0, 0))
+    g = Image.new("L", c.size, 0); g.paste(Image.fromarray(a), (x, y - int(p.height * 0.01)))
+    glow.paste((255, 190, 120, 255), mask=g.filter(ImageFilter.GaussianBlur(p.width * 0.012)).point(lambda v: int(v * 0.35)))
+    c.alpha_composite(glow)
+    c.alpha_composite(p, (x, y))
 
 
-def place(canvas, im, cx, bottom, width, refl=0.22, shadow=0.75):
-    h = int(im.height * width / im.width)
-    p = im.resize((int(width), h), Image.LANCZOS)
-    x, y = int(cx - width / 2), int(bottom - h)
-    # Contact shadow: a blurred dark ellipse under the unit.
-    sh = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-    ImageDraw.Draw(sh).ellipse([x + width * 0.04, bottom - h * 0.06, x + width * 0.96, bottom + h * 0.1], fill=(0, 0, 0, int(255 * shadow)))
-    canvas.alpha_composite(sh.filter(ImageFilter.GaussianBlur(max(6, h * 0.08))))
-    # Reflection: flipped, faded, softened.
-    if refl:
-        r = p.transpose(Image.FLIP_TOP_BOTTOM)
-        a = np.array(r).astype(np.float32)
-        fade = np.linspace(refl, 0, a.shape[0]) ** 1.3
-        a[..., 3] *= fade[:, None]
-        r = Image.fromarray(a.astype(np.uint8)).filter(ImageFilter.GaussianBlur(2))
-        canvas.alpha_composite(r, (x, bottom))
-    canvas.alpha_composite(p, (x, y))
+def shade(c, top_frac, top_alpha, bot_frac, bot_alpha):
+    W, H = c.size
+    y = np.linspace(0, 1, H)[:, None]
+    a = np.clip((top_frac - y) / top_frac, 0, 1) ** 1.3 * top_alpha + np.clip((y - bot_frac) / (1 - bot_frac), 0, 1) ** 1.2 * bot_alpha
+    m = Image.fromarray((np.repeat(a, W, 1) * 255).astype(np.uint8))
+    black = Image.new("RGBA", c.size, (6, 5, 8, 255)); black.putalpha(m)
+    c.alpha_composite(black)
 
 
-def rim(canvas, col, strength=0.35):
-    """A coloured rim light across the whole frame edge to tie the lighting together."""
-    W, H = canvas.size
-    g = Image.new("RGBA", canvas.size, col + (0,))
-    a = np.zeros((H, W), np.float32)
-    y, x = np.mgrid[0:H, 0:W]
-    a = np.clip(1 - np.minimum(np.minimum(x, W - x), np.minimum(y, H - y)) / (min(W, H) * 0.08), 0, 1) * strength * 255
-    g.putalpha(Image.fromarray(a.astype(np.uint8)))
-    canvas.alpha_composite(g)
+def text(c, xy, s, font, fill, shadow=8, anchor="la", tracking=0):
+    sh = Image.new("RGBA", c.size, (0, 0, 0, 0))
+    ImageDraw.Draw(sh).text((xy[0] + shadow * 0.3, xy[1] + shadow), s, font=font, fill=(0, 0, 0, 235), anchor=anchor)
+    c.alpha_composite(sh.filter(ImageFilter.GaussianBlur(shadow)))
+    ImageDraw.Draw(c).text(xy, s, font=font, fill=fill, anchor=anchor)
 
 
-def text(canvas, xy, s, font, fill, shadow=8, anchor="la"):
-    d = ImageDraw.Draw(canvas)
-    sh = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
-    ImageDraw.Draw(sh).text((xy[0] + shadow * 0.4, xy[1] + shadow), s, font=font, fill=(0, 0, 0, 230), anchor=anchor)
-    canvas.alpha_composite(sh.filter(ImageFilter.GaussianBlur(shadow * 0.8)))
-    d.text(xy, s, font=font, fill=fill, anchor=anchor)
+def chips(c, cx, y, size, gap):
+    f = ImageFont.truetype(FONT_D, size)
+    d = ImageDraw.Draw(c)
+    items = list(CHIP.items())
+    ws = [d.textlength(t, font=f) + size * 1.5 for t, _ in items]
+    x = cx - (sum(ws) + gap * (len(ws) - 1)) / 2
+    h = size * 1.75
+    for (t, col), w in zip(items, ws):
+        sh = Image.new("RGBA", c.size, (0, 0, 0, 0))
+        ImageDraw.Draw(sh).rounded_rectangle([x, y + size * 0.25, x + w, y + h + size * 0.25], radius=h / 2, fill=(0, 0, 0, 200))
+        c.alpha_composite(sh.filter(ImageFilter.GaussianBlur(size * 0.3)))
+        d.rounded_rectangle([x, y, x + w, y + h], radius=h / 2, fill=col + (255,), outline=(255, 255, 255, 90), width=max(2, size // 18))
+        d.text((x + w / 2, y + h / 2), t, font=f, fill=(255, 255, 255), anchor="mm")
+        x += w + gap
 
 
-def chips(canvas, x, y, items, size, gap, anchor_center=False):
-    f = ImageFont.truetype(os.path.join(PUB, "fonts", "display.ttf"), size)
-    d = ImageDraw.Draw(canvas)
-    widths = [d.textlength(t, font=f) + size * 1.2 for t, _ in items]
-    total = sum(widths) + gap * (len(items) - 1)
-    cx = x - total / 2 if anchor_center else x
-    for (t, col), w in zip(items, widths):
-        h = size * 1.9
-        d.rounded_rectangle([cx, y, cx + w, y + h], radius=h / 2, fill=col + (235,))
-        d.text((cx + w / 2, y + h / 2), t, font=f, fill=(255, 255, 255), anchor="mm")
-        cx += w + gap
+def rule(c, cx, y, w, col):
+    d = ImageDraw.Draw(c)
+    d.rectangle([cx - w / 2, y, cx + w / 2, y + max(3, w // 160)], fill=col + (255,))
 
 
 def landscape():
-    S = 2
-    W, H = 1920 * S, 1080 * S
-    floor = int(H * 0.8)
-    c = backdrop(W, H, floor)
-    # Back: the AVB rack stack (16A, 848, 10pre) with the 828 on top, angled units.
-    stack = [("render-16a-newly-added-3-png", 0), ("render-848-newly-added-3-png", 1), ("render-10pre-newly-added-3-png", 2), ("render-828-2-png", 3)]
-    sw = int(W * 0.46)
-    for slug, k in stack:
-        place(c, img(slug), W * 0.33, floor - int(H * 0.012) - k * int(H * 0.118), sw, refl=0.18 if k == 0 else 0, shadow=0.55 if k == 0 else 0.25)
-    # Front: UltraLite-mk5 and the M-Series.
-    place(c, img("render-ultralite-mk5-6-png"), W * 0.64, floor + int(H * 0.06), int(W * 0.25))
-    place(c, img("panel-m6-1-png"), W * 0.855, floor + int(H * 0.035), int(W * 0.22), refl=0.2)
-    place(c, img("panel-m4-1-png"), W * 0.2, floor + int(H * 0.14), int(W * 0.2))
-    place(c, img("panel-m2-2-png"), W * 0.44, floor + int(H * 0.15), int(W * 0.16))
-    rim(c, INDIGO, 0.18)
-    script = ImageFont.truetype(os.path.join(PUB, "fonts", "script.ttf"), 150 * S)
-    disp = ImageFont.truetype(os.path.join(PUB, "fonts", "display.ttf"), 62 * S)
-    small = ImageFont.truetype(os.path.join(PUB, "fonts", "display.ttf"), 34 * S)
-    text(c, (int(W * 0.62), int(H * 0.08)), "THREE SERIES", disp, (251, 250, 247), anchor="la")
-    text(c, (int(W * 0.6), int(H * 0.15)), "One Family", script, GOLD + (255,), shadow=12, anchor="la")
-    text(c, (int(W * 0.625), int(H * 0.4)), "8 INTERFACES · 2 DSP ENGINES", small, (215, 212, 205), anchor="la")
-    chips(c, int(W * 0.625), int(H * 0.47), [("M-SERIES", (194, 65, 12)), ("ULTRALITE-mk5 · 828", (14, 124, 123)), ("AVB", (52, 70, 201))], 28 * S, 14 * S)
+    c = Image.open(os.path.join(TH, "src", "bg-landscape.png")).convert("RGBA")
+    W, H = c.size
+    shade(c, 0.46, 0.82, 0.86, 0.6)
+    place(c, img("render-signature-plus-22-4-webp"), W * 0.20, H * 0.755, W * 0.28)
+    place(c, img("render-signature-plus-32-3-webp"), W * 0.60, H * 0.765, W * 0.40)
+    place(c, img("render-signature-plus-16-2-webp"), W * 0.37, H * 0.83, W * 0.22)
+    place(c, img("render-signature-plus-12-3-webp"), W * 0.84, H * 0.83, W * 0.19)
+    disp = ImageFont.truetype(FONT_D, int(H * 0.105))
+    script = ImageFont.truetype(FONT_S, int(H * 0.085))
+    small = ImageFont.truetype(FONT_D, int(H * 0.034))
+    text(c, (W // 2, int(H * 0.035)), "SIGNATURE PLUS", disp, CREAM, shadow=14, anchor="ma")
+    text(c, (W // 2, int(H * 0.15)), "Analog, Perfected", script, GOLD, shadow=16, anchor="ma")
+    text(c, (W // 2, int(H * 0.925)), "GHOST PREAMPS  ·  SAPPHYRE EQ  ·  dbx  ·  LEXICON  ·  USB-C", small, (232, 226, 216), shadow=8, anchor="ma")
+    chips(c, W / 2, int(H * 0.30), int(H * 0.042), int(H * 0.02))
     out = c.convert("RGB").resize((1920, 1080), Image.LANCZOS)
-    out.save(os.path.join(OUT, "thumbnail-landscape-1920x1080.jpg"), quality=94)
-    out.save(os.path.join(OUT, "thumbnail-landscape-1920x1080.png"))
+    out.save(os.path.join(TH, "thumbnail-landscape-1920x1080.jpg"), quality=94)
+    out.save(os.path.join(TH, "thumbnail-landscape-1920x1080.png"))
 
 
 def portrait():
-    S = 2
-    W, H = 1080 * S, 1920 * S
-    floor = int(H * 0.74)
-    c = backdrop(W, H, floor)
-    stack = [("render-16a-newly-added-3-png", 0), ("render-848-newly-added-3-png", 1), ("render-10pre-newly-added-3-png", 2), ("render-828-2-png", 3)]
-    sw = int(W * 0.9)
-    for slug, k in stack:
-        place(c, img(slug), W * 0.5, floor - int(H * 0.075) - k * int(H * 0.062), sw, refl=0, shadow=0.55 if k == 0 else 0.25)
-    place(c, img("render-ultralite-mk5-6-png"), W * 0.3, floor + int(H * 0.025), int(W * 0.5))
-    place(c, img("panel-m6-1-png"), W * 0.76, floor - int(H * 0.004), int(W * 0.43), refl=0.2)
-    place(c, img("panel-m4-1-png"), W * 0.3, floor + int(H * 0.105), int(W * 0.44))
-    place(c, img("panel-m2-2-png"), W * 0.75, floor + int(H * 0.105), int(W * 0.36))
-    rim(c, INDIGO, 0.18)
-    script = ImageFont.truetype(os.path.join(PUB, "fonts", "script.ttf"), 190 * S)
-    disp = ImageFont.truetype(os.path.join(PUB, "fonts", "display.ttf"), 76 * S)
-    small = ImageFont.truetype(os.path.join(PUB, "fonts", "display.ttf"), 36 * S)
-    text(c, (W // 2, int(H * 0.075)), "THREE SERIES", disp, (251, 250, 247), anchor="ma")
-    text(c, (W // 2, int(H * 0.115)), "One Family", script, GOLD + (255,), shadow=14, anchor="ma")
-    text(c, (W // 2, int(H * 0.268)), "8 INTERFACES · 2 DSP ENGINES", small, (215, 212, 205), anchor="ma")
-    chips(c, W // 2, int(H * 0.305), [("M-SERIES", (194, 65, 12)), ("ULTRALITE · 828", (14, 124, 123)), ("AVB", (52, 70, 201))], 30 * S, 14 * S, anchor_center=True)
+    c = Image.open(os.path.join(TH, "src", "bg-portrait.png")).convert("RGBA")
+    W, H = c.size
+    shade(c, 0.34, 0.85, 0.80, 0.85)
+    place(c, img("render-signature-plus-32-3-webp"), W * 0.52, H * 0.69, W * 0.84)
+    place(c, img("render-signature-plus-22-4-webp"), W * 0.27, H * 0.745, W * 0.46)
+    place(c, img("render-signature-plus-16-2-webp"), W * 0.74, H * 0.755, W * 0.42)
+    place(c, img("render-signature-plus-12-3-webp"), W * 0.50, H * 0.785, W * 0.38)
+    disp = ImageFont.truetype(FONT_D, int(W * 0.115))
+    script = ImageFont.truetype(FONT_S, int(W * 0.10))
+    small = ImageFont.truetype(FONT_D, int(W * 0.036))
+    text(c, (W // 2, int(H * 0.05)), "SIGNATURE", disp, CREAM, shadow=14, anchor="ma")
+    text(c, (W // 2, int(H * 0.115)), "PLUS", disp, CREAM, shadow=14, anchor="ma")
+    text(c, (W // 2, int(H * 0.18)), "Analog, Perfected", script, GOLD, shadow=16, anchor="ma")
+    chips(c, W / 2, int(H * 0.272), int(W * 0.05), int(W * 0.025))
+    text(c, (W // 2, int(H * 0.86)), "GHOST PREAMPS  ·  SAPPHYRE EQ", small, (232, 226, 216), shadow=8, anchor="ma")
+    text(c, (W // 2, int(H * 0.89)), "dbx  ·  LEXICON  ·  USB-C", small, (232, 226, 216), shadow=8, anchor="ma")
     out = c.convert("RGB").resize((1080, 1920), Image.LANCZOS)
-    out.save(os.path.join(OUT, "thumbnail-portrait-1080x1920.jpg"), quality=94)
-    out.save(os.path.join(OUT, "thumbnail-portrait-1080x1920.png"))
+    out.save(os.path.join(TH, "thumbnail-portrait-1080x1920.jpg"), quality=94)
+    out.save(os.path.join(TH, "thumbnail-portrait-1080x1920.png"))
 
 
 if __name__ == "__main__":
     landscape()
     portrait()
-    print(sorted(os.listdir(OUT)))
+    print(sorted(os.listdir(TH)))
