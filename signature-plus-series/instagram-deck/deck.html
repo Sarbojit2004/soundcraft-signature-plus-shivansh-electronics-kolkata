@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Signature Plus Deck</title>
+<style>
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;src:url(fonts/Archivo-normal-100_900.woff2) format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;src:url(fonts/InstrumentSerif-italic-400.woff2) format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;src:url(fonts/InstrumentSerif-normal-400.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 700;src:url(fonts/JetBrainsMono-normal-400.woff2) format('woff2')}
+
+:root{
+  --bg:#07080A; --ink:#F3F0E9; --mute:#A3A098; --dim:#6B6862;
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.06);
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --serif:'Instrument Serif',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#141518}
+body{display:flex;flex-direction:column;align-items:center;gap:48px;padding:48px 0;-webkit-font-smoothing:antialiased}
+
+/* ───────────── slide frame ───────────── */
+.slide{--a:#FFA95C;--a2:#C0631C;width:1080px;height:1080px;position:relative;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Archivo',sans-serif;font-stretch:100%;isolation:isolate}
+.slide.p12{--a:#FF6B5E;--a2:#B8322B}
+.slide.p16{--a:#FFC94A;--a2:#B7861C}
+.slide.p22{--a:#3FE0D0;--a2:#10857C}
+.slide.p32{--a:#7FA6FF;--a2:#2E5FC9}
+.bgx{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.bgx .glow{position:absolute;inset:0;background:
+  radial-gradient(760px 520px at 88% -8%, color-mix(in srgb,var(--a) 20%,transparent), transparent 62%),
+  radial-gradient(640px 520px at -8% 104%, color-mix(in srgb,var(--a2) 22%,transparent), transparent 64%),
+  radial-gradient(1200px 900px at 50% 50%, #0E1013 0%, #07080A 70%)}
+.bgx .grid{position:absolute;inset:0;background-image:
+  linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px),
+  linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:216px 216px,216px 216px,27px 27px,27px 27px;background-position:-1px -1px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 62% at 50% 46%, #000 30%, transparent 92%)}
+.bgx .noise{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.bgx .reg{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.28);border-style:solid;border-width:0}
+.bgx .reg.tl{left:20px;top:20px;border-left-width:1px;border-top-width:1px}
+.bgx .reg.tr{right:20px;top:20px;border-right-width:1px;border-top-width:1px}
+.bgx .reg.bl{left:20px;bottom:20px;border-left-width:1px;border-bottom-width:1px}
+.bgx .reg.br{right:20px;bottom:20px;border-right-width:1px;border-bottom-width:1px}
+.bgx .ruler{position:absolute;left:0;top:130px;bottom:130px;width:14px;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.22) 0 1px,transparent 1px 27px);-webkit-mask-image:linear-gradient(transparent,#000 20%,#000 80%,transparent)}
+.bgx .ruler.r{left:auto;right:0}
+
+/* ───────────── header / footer ───────────── */
+.hd{position:absolute;left:48px;right:48px;top:36px;height:66px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.lock{height:66px;background:#fff;border-radius:14px;padding:8px 16px;display:flex;align-items:center;gap:14px;box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.5) inset}
+.lock img{height:50px;width:auto;display:block}
+.lock i{width:1px;height:40px;background:#D9D4CA}
+.idx{display:flex;align-items:center;gap:16px;text-align:right}
+.idx .lbl{font:500 11px var(--mono);letter-spacing:.24em;color:var(--mute);text-transform:uppercase;line-height:1.55}
+.idx .lbl b{display:block;color:var(--a);font-weight:500}
+.idx .num{font-weight:800;font-stretch:125%;font-size:34px;line-height:1;letter-spacing:-.01em;padding-left:16px;border-left:1px solid var(--line)}
+.idx .num em{font:500 13px var(--mono);font-style:normal;color:var(--dim);letter-spacing:.08em;margin-left:2px}
+.ft{position:absolute;left:48px;right:48px;bottom:30px;height:60px;border-radius:14px;z-index:5;
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 40px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+  font-size:17px;font-weight:600;font-stretch:108%;letter-spacing:.01em;color:#F7F4EE}
+.ft::before{content:"";position:absolute;left:22px;right:22px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--a),transparent)}
+.ft .c{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.ft .c svg{flex:none}
+.ft .tel span{font-variant-numeric:tabular-nums}
+.ft .tel b{color:var(--a);font-weight:700;margin:0 4px}
+
+/* ───────────── type & parts ───────────── */
+.abs{position:absolute}
+.kick{font:500 13px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--a);display:flex;align-items:center;gap:12px}
+.kick::before{content:"";width:26px;height:2px;background:var(--a);flex:none}
+.h1{font-weight:850;font-stretch:125%;text-transform:uppercase;font-size:70px;line-height:.9;letter-spacing:-.012em;word-spacing:.08em}
+.lc{text-transform:none}
+.h1 .s{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;font-stretch:100%;color:var(--a);font-size:1.16em;letter-spacing:-.015em}
+.lead{font-size:18px;line-height:1.45;color:#CFCBC2;font-weight:400;font-stretch:100%}
+.lead b{color:var(--ink);font-weight:650}
+.mono{font-family:var(--mono)}
+.pill{display:inline-flex;gap:10px;align-items:center;border:1px solid color-mix(in srgb,var(--a) 60%,transparent);color:var(--a);font:600 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;padding:8px 14px 8px 12px;border-radius:999px;background:color-mix(in srgb,var(--a) 11%,transparent)}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--a);box-shadow:0 0 12px var(--a)}
+.fig{position:absolute;border-radius:8px;box-shadow:0 34px 70px rgba(0,0,0,.6)}
+.fig>img{width:100%;height:100%;object-fit:cover;display:block;border-radius:8px;outline:1px solid rgba(255,255,255,.16);outline-offset:-1px}
+.fig::before{content:"";position:absolute;inset:-9px;pointer-events:none;background:
+  linear-gradient(var(--a),var(--a)) 0 0/20px 2px no-repeat,linear-gradient(var(--a),var(--a)) 0 0/2px 20px no-repeat,
+  linear-gradient(var(--a),var(--a)) 100% 0/20px 2px no-repeat,linear-gradient(var(--a),var(--a)) 100% 0/2px 20px no-repeat,
+  linear-gradient(var(--a),var(--a)) 0 100%/20px 2px no-repeat,linear-gradient(var(--a),var(--a)) 0 100%/2px 20px no-repeat,
+  linear-gradient(var(--a),var(--a)) 100% 100%/20px 2px no-repeat,linear-gradient(var(--a),var(--a)) 100% 100%/2px 20px no-repeat}
+.fig .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 11px;border-radius:0 0 8px 8px;background:linear-gradient(transparent,rgba(0,0,0,.82));font:500 10.5px var(--mono);letter-spacing:.2em;color:#E4E0D7;text-transform:uppercase;display:flex;justify-content:space-between}
+.fig .cap b{color:var(--a);font-weight:600}
+.fig.plain::before{display:none}
+.tag{font:600 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.tag b{color:var(--a);font-weight:600}
+.hair{height:1px;background:var(--line)}
+.card{position:absolute;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.11);box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.spec .v{font-weight:850;font-stretch:125%;font-size:60px;line-height:.95;letter-spacing:-.02em}
+.spec .v small{font-size:.42em;color:var(--a);font-weight:700;margin-left:4px;letter-spacing:0}
+.spec .k{font:500 11px var(--mono);letter-spacing:.2em;color:var(--mute);text-transform:uppercase;margin-top:8px;line-height:1.5}
+.num-pin{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--a);color:#0A0A0A;font:700 12px var(--mono);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px color-mix(in srgb,var(--a) 28%,transparent),0 6px 16px rgba(0,0,0,.6)}
+.co{position:absolute}
+.co .ln{position:absolute;width:1px;background:linear-gradient(var(--a),color-mix(in srgb,var(--a) 50%,transparent))}
+.co .dot{position:absolute;width:9px;height:9px;margin-left:-4px;border-radius:50%;background:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 30%,transparent),0 0 14px var(--a)}
+.co .lab{position:absolute;width:200px}
+.co .lab .n{font:600 11px var(--mono);color:var(--a);letter-spacing:.14em}
+.co .lab .t{font-weight:800;font-stretch:118%;font-size:15px;letter-spacing:.02em;text-transform:uppercase;margin-top:3px}
+.co .lab .d{font:400 11.5px var(--mono);color:#BDB9B0;line-height:1.5;margin-top:4px}
+.co .br{position:absolute;height:1px;background:var(--a)}
+.co .br::before,.co .br::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:var(--a)}
+.co .br::before{left:0}.co .br::after{right:0}
+svg text{font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ 01 · COVER ═══════════════════════════ -->
+<section class="slide" data-lbl="Soundcraft|Signature Plus Series">
+  <div class="kick abs" style="left:48px;top:150px">Soundcraft · Signature Plus Series</div>
+  <div class="h1 abs" style="left:46px;top:188px;font-size:72px">One desk.<br>Every <span class="s">real room.</span></div>
+  <div class="lead abs" style="left:48px;top:372px;width:520px">Four analog consoles — <b>12, 16, 22 and 32</b> — sharing one channel strip: <b>Ghost™ preamps, dbx® compression, Sapphyre™ EQ, Lexicon® effects</b> and <b>USB-C 4×4</b>.</div>
+
+  <div class="abs" style="left:736px;top:150px;width:296px">
+    <div class="tag" style="margin-bottom:12px"><b>Index</b> · 9 chapters</div>
+    <div id="toc"></div>
+  </div>
+
+  <div class="abs" style="left:-30px;top:470px;width:1000px;height:540px;background:radial-gradient(closest-side,color-mix(in srgb,var(--a) 26%,transparent),transparent);filter:blur(10px)"></div>
+  <img class="abs" src="assets/r32.webp" style="left:26px;top:505px;width:840px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.7))">
+  <div id="tiles" class="abs" style="right:48px;top:548px;display:flex;flex-direction:column;gap:10px"></div>
+  <div class="tag abs" style="right:48px;top:872px;text-align:right;line-height:1.7">Shown<br><b>Signature Plus 32</b><br>24 mono · 4 stereo</div>
+</section>
+
+<!-- ═══════════════════════════ 02 · THE ENGINE ═══════════════════════════ -->
+<section class="slide" data-lbl="Chapter 01|The Engine">
+  <div class="kick abs" style="left:48px;top:142px">01 · The channel strip</div>
+  <div class="h1 abs" style="left:46px;top:176px;font-size:62px">Inside every<br><span class="s">mono channel.</span></div>
+  <div class="lead abs" style="left:640px;top:188px;width:392px;font-size:16px">The same strip runs through the <b>12, 16, 22 and 32</b> — only the channel count changes.<br><span class="mono" style="font-size:11px;letter-spacing:.16em;color:var(--mute)">SHOWN: SIGNATURE PLUS 32 · CH 1–4 · TOP VIEW</span></div>
+  <div id="engine" class="abs" style="left:0;top:0;width:1080px;height:1080px"></div>
+</section>
+
+<!-- ═══════════════════════════ 03 · LIVE CLUB (32) ═══════════════════════════ -->
+<section class="slide p32" data-lbl="Scenario 01|Live club · FOH">
+  <div class="kick abs" style="left:48px;top:142px">Scenario 01 · Front of house</div>
+  <div class="h1 abs" style="left:46px;top:176px;font-size:64px">Live club,<br><span class="s">full band.</span></div>
+  <div class="abs" style="left:48px;top:340px"><span class="pill">Signature Plus 32</span></div>
+  <div class="fig" style="left:520px;top:140px;width:512px;height:340px"><img src="assets/life-club.jpg" style="object-position:50% 60%"><div class="cap"><span>Fig. 01 — Club stage, FOH</span><b>SP 32</b></div></div>
+
+  <div class="abs" style="left:48px;top:408px;width:430px;display:grid;grid-template-columns:1fr 1fr;gap:18px 26px">
+    <div class="spec"><div class="v">24</div><div class="k">Mono mic channels</div></div>
+    <div class="spec"><div class="v">4</div><div class="k">Stereo channels</div></div>
+    <div class="spec"><div class="v">32</div><div class="k">Total inputs</div></div>
+    <div class="spec"><div class="v">4<small>+FX</small></div><div class="k">Aux sends / ch</div></div>
+  </div>
+
+  <div class="card" style="left:48px;top:640px;width:984px;height:330px;padding:20px 22px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div class="tag"><b>Example stage patch</b> · 5-piece band + horns</div>
+      <div id="legend32" class="tag" style="display:flex;gap:16px"></div>
+    </div>
+    <div id="patch32" style="margin-top:16px;display:grid;grid-template-columns:repeat(12,1fr);gap:6px"></div>
+    <div id="stereo32" style="margin-top:6px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px"></div>
+    <div class="tag" style="margin-top:14px;display:flex;justify-content:space-between"><span>Aux 1 drums · Aux 2 bass &amp; guitars · Aux 3 vocals · Aux 4 in-ears</span><span><b>CH 21–24</b> Hi-Z — no DI box</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 04 · STUDIO (22) ═══════════════════════════ -->
+<section class="slide p22" data-lbl="Scenario 02|Studio tracking">
+  <div class="kick abs" style="left:48px;top:142px">Scenario 02 · Recording</div>
+  <div class="h1 abs" style="left:46px;top:176px">Studio<br><span class="s">tracking day.</span></div>
+  <div class="abs" style="left:48px;top:340px"><span class="pill">Signature Plus 22</span></div>
+  <div class="lead abs" style="left:48px;top:394px;width:420px">Mic the band through Ghost preamps, print <b>four channels</b> to the laptop over one USB-C cable and bring <b>four</b> back for playback.</div>
+  <div class="fig" style="left:520px;top:140px;width:512px;height:340px"><img src="assets/life-studio.jpg" style="object-position:50% 40%"><div class="cap"><span>Fig. 02 — Tracking session</span><b>SP 22</b></div></div>
+
+  <div id="usb" class="abs" style="left:48px;top:520px;width:984px;height:250px"></div>
+
+  <div class="abs" style="left:48px;top:790px;width:984px;height:182px;display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px">
+    <div class="card" style="position:relative;overflow:hidden;display:flex"><img src="assets/d32-io.jpg" style="width:130px;height:100%;object-fit:cover;object-position:50% 72%"><div style="padding:16px 16px"><div class="tag"><b>01</b> · Connectivity</div><div style="font-weight:800;font-stretch:118%;font-size:19px;margin-top:8px;text-transform:uppercase">USB-C 4×4</div><div class="mono" style="font-size:11.5px;color:#BDB9B0;line-height:1.55;margin-top:6px">Multitrack record &amp; playback. No extra interface.</div></div></div>
+    <div class="card" style="position:relative;overflow:hidden;display:flex"><img src="assets/d32-meter.jpg" style="width:84px;height:100%;object-fit:cover"><div style="padding:16px 14px"><div class="tag"><b>02</b> · Metering</div><div style="font-weight:800;font-stretch:118%;font-size:19px;margin-top:8px;">dBu | dBFS</div><div class="mono" style="font-size:11.5px;color:#BDB9B0;line-height:1.55;margin-top:6px">Analog and digital scales side by side.</div></div></div>
+    <div class="card" style="position:relative;overflow:hidden;display:flex"><img src="assets/d32-hiz.jpg" style="width:104px;height:100%;object-fit:cover;object-position:60% 50%"><div style="padding:16px 14px"><div class="tag"><b>03</b> · Instruments</div><div style="font-weight:800;font-stretch:118%;font-size:19px;margin-top:8px;text-transform:uppercase">4 × Hi-Z</div><div class="mono" style="font-size:11.5px;color:#BDB9B0;line-height:1.55;margin-top:6px">Guitar &amp; bass straight in.</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 05 · ACOUSTIC (16) ═══════════════════════════ -->
+<section class="slide p16" data-lbl="Scenario 03|Acoustic session">
+  <div class="kick abs" style="left:48px;top:142px">Scenario 03 · Café &amp; lounge</div>
+  <div class="h1 abs" style="left:46px;top:176px">Acoustic<br><span class="s">session.</span></div>
+  <div class="abs" style="left:48px;top:340px"><span class="pill">Signature Plus 16</span></div>
+  <div class="fig" style="left:48px;top:400px;width:560px;height:372px"><img src="assets/life-duo.jpg" style="object-position:50% 50%"><div class="cap"><span>Fig. 03 — Duo, lounge set</span><b>SP 16</b></div></div>
+
+  <div class="card" style="left:640px;top:140px;width:392px;height:632px;padding:22px">
+    <div class="tag"><b>Lexicon®</b> hardware effects</div>
+    <div style="display:flex;gap:16px;margin-top:16px;align-items:stretch">
+      <img src="assets/d32-lexicon.jpg" style="width:224px;height:193px;object-fit:cover;border-radius:6px;outline:1px solid rgba(255,255,255,.14)">
+      <div style="display:flex;flex-direction:column;justify-content:space-between">
+        <div class="spec"><div class="v" style="font-size:54px">32</div><div class="k">Presets</div></div>
+        <div class="spec"><div class="v" style="font-size:32px">2×16</div><div class="k">Banks A / B</div></div>
+      </div>
+    </div>
+    <div id="lexbank" style="margin-top:18px"></div>
+    <div class="hair" style="margin:18px 0 14px"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap" id="lexfeat"></div>
+  </div>
+
+  <div class="card" style="left:48px;top:800px;width:984px;height:172px;padding:24px 22px 26px;display:flex;flex-direction:column;justify-content:space-between">
+    <div class="tag"><b>Signal map</b> · two voices, two instruments, one wedge</div>
+    <div id="duomap" style="margin-top:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 06 · PODCAST (22) ═══════════════════════════ -->
+<section class="slide p22" data-lbl="Scenario 04|Podcast room">
+  <div class="kick abs" style="left:48px;top:142px">Scenario 04 · Talk &amp; stream</div>
+  <div class="h1 abs" style="left:46px;top:176px">Podcast<br><span class="s">&amp; talk room.</span></div>
+  <div class="abs" style="left:48px;top:340px"><span class="pill">Signature Plus 22</span></div>
+  <div class="fig" style="left:520px;top:140px;width:512px;height:340px"><img src="assets/life-podcast.jpg" style="object-position:50% 50%"><div class="cap"><span>Fig. 04 — Three-host podcast</span><b>SP 22</b></div></div>
+  <div class="lead abs" style="left:48px;top:394px;width:430px">Every mono channel carries a <b>dbx® compressor</b> — one knob, one switch — so voices sit level without riding faders all episode.</div>
+
+  <div class="card" style="left:48px;top:512px;width:984px;height:120px;overflow:hidden">
+    <img src="assets/d32-comp.jpg" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:.95">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,8,10,.0) 55%,rgba(7,8,10,.92) 80%)"></div>
+    <div style="position:absolute;right:22px;top:26px;text-align:right"><div class="tag"><b class="lc">dbx®</b> OverEasy®</div><div style="font-weight:800;font-stretch:120%;font-size:22px;text-transform:uppercase;margin-top:6px">Comp · On</div><div class="tag" style="margin-top:4px">CH 1–8 · top view</div></div>
+  </div>
+
+  <div class="card" style="left:48px;top:652px;width:470px;height:320px;padding:18px 20px">
+    <div class="tag"><b>Soft-knee compression</b> · illustrative</div>
+    <div id="knee" style="margin-top:6px"></div>
+  </div>
+  <div class="card" style="left:538px;top:652px;width:494px;height:320px;padding:18px 20px">
+    <div class="tag"><b>Signal path</b> · per host</div>
+    <div id="podflow" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 07 · PANEL (16) ═══════════════════════════ -->
+<section class="slide p16" data-lbl="Scenario 05|Panels &amp; conference">
+  <div class="fig" style="left:48px;top:128px;width:984px;height:380px"><img src="assets/life-panel.jpg" style="object-position:50% 58%"><div class="cap"><span>Fig. 05 — Panel discussion</span><b>SP 16</b></div></div>
+  <div class="kick abs" style="left:48px;top:540px">Scenario 05 · Speech</div>
+  <div class="h1 abs" style="left:46px;top:572px;font-size:58px">Panels &amp;<br><span class="s">conferences.</span></div>
+  <div class="abs" style="left:48px;top:716px"><span class="pill">Signature Plus 16</span></div>
+  <div class="abs" style="left:48px;top:878px;width:410px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="panspec"></div>
+  <div class="lead abs" style="left:48px;top:768px;width:410px;font-size:16px">Roll off rumble with the <b>100 Hz filter</b>, sweep the Sapphyre mid to clear boomy voices, and cue the room over <b>talkback</b>.</div>
+
+  <div class="card" style="left:486px;top:540px;width:546px;height:432px;padding:18px 20px">
+    <div style="display:flex;justify-content:space-between"><div class="tag"><b>Sapphyre™ EQ</b> · control map</div><div class="tag">Illustrative</div></div>
+    <div id="eqplot" style="margin-top:8px"></div>
+    <div style="display:flex;gap:14px;margin-top:12px;align-items:center">
+      <img src="assets/d32-talkback.jpg" style="width:66px;height:104px;object-fit:cover;border-radius:6px;outline:1px solid rgba(255,255,255,.14)">
+      <div><div class="tag"><b>Talkback</b></div><div style="font-weight:800;font-stretch:118%;font-size:18px;text-transform:uppercase;margin-top:5px">Own XLR &amp; preamp</div><div class="mono" style="font-size:11.5px;color:#BDB9B0;margin-top:4px">Cue the room or the stage — to any output.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 08 · OUTDOOR ═══════════════════════════ -->
+<section class="slide" data-lbl="Scenario 06|Outdoor stage">
+  <div class="fig" style="left:48px;top:128px;width:984px;height:470px"><img src="assets/still-outdoor.jpg" style="object-position:50% 40%"><div class="cap"><span>Fig. 06 — Courtyard stage · still from Soundcraft film</span><b>Monitors</b></div></div>
+  <div class="abs" style="left:48px;top:128px;width:984px;height:470px;border-radius:8px;background:linear-gradient(180deg,rgba(7,8,10,.75) 0%,rgba(7,8,10,0) 42%)"></div>
+  <div class="kick abs" style="left:76px;top:156px">Scenario 06 · Open air</div>
+  <div class="h1 abs" style="left:74px;top:190px;font-size:60px">Outdoor stage,<br><span class="s">four monitor mixes.</span></div>
+
+  <div class="card" style="left:48px;top:624px;width:330px;height:348px;overflow:hidden">
+    <img src="assets/d32-auxmaster.jpg" style="width:100%;height:230px;object-fit:cover;display:block">
+    <div style="padding:14px 18px"><div class="tag"><b>Aux masters</b> · top view</div><div style="font-weight:800;font-stretch:118%;font-size:17px;text-transform:uppercase;margin-top:6px">Pre / post · Mix→Aux</div><div class="mono" style="font-size:11px;color:#BDB9B0;margin-top:4px">Each bus with its own level &amp; mute.</div></div>
+  </div>
+  <div class="card" style="left:398px;top:624px;width:634px;height:348px;padding:18px 20px">
+    <div class="tag"><b>Monitor routing</b> · 4 aux buses</div>
+    <div id="auxmap" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 09 · COMPACT (12) ═══════════════════════════ -->
+<section class="slide p12" data-lbl="Scenario 07|Compact production">
+  <div class="kick abs" style="left:48px;top:142px">Scenario 07 · Desk &amp; home</div>
+  <div class="h1 abs" style="left:46px;top:176px;font-size:62px">Compact,<br><span class="s">fully loaded.</span></div>
+  <div class="abs" style="left:560px;top:150px;width:472px"><span class="pill">Signature Plus 12</span><div class="lead" style="margin-top:16px;font-size:16px">The smallest desk keeps the <b>whole toolset</b>: six Ghost channels with dbx and Sapphyre, stereo inputs, Lexicon, USB-C 4×4 and talkback.</div></div>
+
+  <div class="abs" id="plan12" style="left:48px;top:330px;width:420px;height:645px">
+    <img src="assets/plan12.webp" style="width:420px;height:645px;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.7))">
+  </div>
+  <div class="fig" style="left:520px;top:330px;width:512px;height:288px"><img src="assets/still-engineer.jpg" style="object-position:50% 30%"><div class="cap"><span>Fig. 07 — Daylight mix · Soundcraft film</span><b>Desk</b></div></div>
+  <div class="abs" id="legend12" style="left:520px;top:640px;width:512px;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px"></div>
+</section>
+
+<!-- ═══════════════════════════ 10 · PICK YOUR SIZE ═══════════════════════════ -->
+<section class="slide" data-lbl="Chapter 09|Pick your size">
+  <div class="kick abs" style="left:48px;top:142px">09 · Choose</div>
+  <div class="h1 abs" style="left:46px;top:176px;font-size:64px">Pick your <span class="s">size.</span></div>
+  <div class="lead abs" style="left:664px;top:140px;width:368px;font-size:16px">Count the inputs you plug in on your <b>busiest night</b> — then add four for growth. Every model shares the same channel strip.</div>
+  <div id="models" class="abs" style="left:48px;top:268px;width:984px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px"></div>
+
+  <div class="card" style="left:48px;top:694px;width:984px;height:278px;padding:26px 30px;overflow:hidden;background:linear-gradient(120deg,rgba(255,169,92,.16),rgba(255,255,255,.03) 55%);border-color:rgba(255,169,92,.35)">
+    <div class="kick">Exclusive partner</div>
+    <div style="font-weight:850;font-stretch:125%;font-size:40px;line-height:1;text-transform:uppercase;margin-top:16px">Shivansh Electronics</div>
+    <div style="font-family:var(--serif);font-style:italic;font-size:30px;color:var(--a);margin-top:8px">is the Exclusive Partner of the Soundcraft Signature Plus Mixer Series.</div>
+    <div class="tag" style="margin-top:18px;color:#D8D4CB">Call or WhatsApp · visit the website below</div>
+    <img src="assets/r22b.webp" style="position:absolute;right:-60px;bottom:-70px;width:360px;opacity:.9;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))">
+  </div>
+</section>
+
+<script>
+/* ───────────── shared header / footer / background ───────────── */
+const TOTAL = document.querySelectorAll('.slide').length;
+const GLOBE = '<svg width="22" height="22" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12.4" stroke="currentColor" stroke-width="2.2"/><ellipse cx="16" cy="16" rx="5.1" ry="12.4" stroke="currentColor" stroke-width="2.2"/><path d="M4.3 12.1h23.4M4.3 19.9h23.4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const WA = '<svg width="23" height="23" viewBox="0 0 32 32"><path fill="#25D366" d="M16.02 3.2C8.96 3.2 3.23 8.93 3.23 15.99c0 2.26.59 4.46 1.72 6.4L3.14 28.8l6.57-1.72a12.74 12.74 0 0 0 6.31 1.66h.01c7.05 0 12.79-5.73 12.79-12.79 0-3.42-1.33-6.63-3.75-9.05a12.7 12.7 0 0 0-9.05-3.7Zm0 23.34h-.01c-1.9 0-3.77-.51-5.4-1.48l-.39-.23-4.02 1.05 1.07-3.92-.25-.4a10.6 10.6 0 0 1-1.63-5.67c0-5.86 4.77-10.63 10.64-10.63 2.84 0 5.51 1.11 7.52 3.12a10.56 10.56 0 0 1 3.11 7.52c0 5.87-4.77 10.64-10.64 10.64Z"/><path fill="#25D366" d="M21.85 18.66c-.32-.16-1.89-.93-2.18-1.04-.29-.11-.5-.16-.71.16-.21.32-.82 1.04-1.01 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.890-1.78-2.21-.19-.32-.02-.5.14-.66.15-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.71-1.72-.98-2.35-.26-.62-.52-.53-.71-.54l-.61-.01c-.21 0-.56.08-.85.4-.29.32-1.11 1.09-1.11 2.65 0 1.56 1.14 3.070 1.3 3.28.16.21 2.25 3.43 5.44 4.81.76.33 1.35.52 1.81.67.76.24 1.46.21 2.01.13.61-.09 1.89-.77 2.15-1.52.27-.74.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37Z"/></svg>';
+document.querySelectorAll('.slide').forEach((s, i) => {
+  const [l1, l2] = s.dataset.lbl.split('|');
+  s.insertAdjacentHTML('afterbegin', `<div class="bgx"><div class="glow"></div><div class="grid"></div><div class="noise"></div><div class="ruler"></div><div class="ruler r"></div><i class="reg tl"></i><i class="reg tr"></i><i class="reg bl"></i><i class="reg br"></i></div>
+  <header class="hd"><div class="lock"><img src="assets/logo-shivansh.png" alt="Shivansh Electronics"><i></i><img src="assets/logo-soundcraft.png" alt="Soundcraft"></div>
+  <div class="idx"><div class="lbl">${l1}<b>${l2}</b></div><div class="num">${String(i + 1).padStart(2, '0')}<em>/${TOTAL}</em></div></div></header>`);
+  s.insertAdjacentHTML('beforeend', `<footer class="ft"><div class="c site">${GLOBE}www.shivanshelectronics.in</div><div class="c tel">${WA}<span>+91 98316 62458</span><b>·</b><span>+91 89818 07755</span><b>·</b><span>+91 91477 00677</span></div></footer>`);
+});
+
+/* ───────────── 01 cover index ───────────── */
+const TOC = [['01','The channel strip','ALL'],['02','Live club · FOH','32'],['03','Studio tracking','22'],['04','Acoustic session','16'],['05','Podcast room','22'],['06','Panels & conference','16'],['07','Outdoor stage','ALL'],['08','Compact production','12'],['09','Pick your size','ALL']];
+const MC = {'12':'#FF6B5E','16':'#FFC94A','22':'#3FE0D0','32':'#7FA6FF','ALL':'#FFA95C'};
+document.getElementById('toc').innerHTML = TOC.map(([n,t,m]) => `<div style="display:flex;align-items:center;gap:12px;padding:7px 0;border-top:1px solid rgba(255,255,255,.08)"><span class="mono" style="font-size:11px;color:var(--dim);width:20px">${n}</span><span style="flex:1;font-weight:650;font-size:14.5px;letter-spacing:.01em">${t}</span><span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:${MC[m]};border:1px solid ${MC[m]}66;border-radius:4px;padding:2px 6px">${m}</span></div>`).join('');
+
+/* ───────────── 02 engine: rotated channel strip + callouts ───────────── */
+(() => {
+  const L = 48, W = 984, TOP = 508, H = Math.round(W * 427 / 2000);
+  const X = f => L + f * W;           // f: position along the strip (0 = input end, 1 = fader end)
+  const Y = y => (y - 0.108) / 0.867; // plan-32 vertical fraction → strip fraction
+  let html = `<div class="fig plain" style="left:${L}px;top:${TOP}px;width:${W}px;height:${H}px"><img src="assets/d32-strip.jpg"></div>
+`;
+  const C = [
+    {a:Y(.14), side:'t', tier:0, n:'01', t:'Combo input', d:'XLR / ¼″ jack<br>+ insert point'},
+    {a:Y(.28), side:'t', tier:1, n:'02', t:'Ghost™ preamp', d:'+6 to +65 dB gain<br>Pad · 100 Hz filter'},
+    {a:Y(.335), side:'b', tier:1, n:'03', t:'<span class="lc">dbx®</span> compressor', d:'One knob + ON switch<br>OverEasy® curve'},
+    {a:Y(.375), b:Y(.515), side:'t', tier:0, n:'04', t:'Sapphyre™ EQ', d:'HF + LF shelving<br>Swept MF 150 Hz–3 kHz'},
+    {a:Y(.525), b:Y(.705), side:'b', tier:0, n:'05', t:'4 aux + FX send', d:'Monitor mixes, pre / post<br>FX feeds the Lexicon®'},
+    {a:Y(.71), b:Y(.80), side:'t', tier:1, n:'06', t:'Pan & routing', d:'Mix · groups 1-2 / 3-4<br>Mute'},
+    {a:Y(.825), b:Y(.965), side:'b', tier:1, n:'07', t:'Channel fader', d:'Smooth long-throw fader<br>per channel', right:true},
+  ];
+  for (const c of C) {
+    const x1 = X(c.a), x2 = c.b ? X(c.b) : x1, xm = (x1 + x2) / 2;
+    const gap = 26 + c.tier * (c.side === 't' ? 92 : 86);
+    if (c.side === 't') {
+      const yl = TOP - gap; // label bottom
+      html += `<div class="co">${c.b ? `<div class="br" style="left:${x1}px;width:${x2 - x1}px;top:${TOP - 12}px"></div>` : ''}
+        <div class="ln" style="left:${xm}px;top:${yl}px;height:${TOP - yl - (c.b ? 12 : -8)}px"></div>
+        ${c.b ? '' : `<div class="dot" style="left:${xm}px;top:${TOP + 4}px"></div>`}
+        <div class="lab" style="left:${xm + 10}px;top:${yl - 70}px;height:70px;display:flex;flex-direction:column;justify-content:flex-end"><div class="n">${c.n}</div><div class="t">${c.t}</div><div class="d">${c.d}</div></div></div>`;
+    } else {
+      const yb = TOP + H, yl = yb + gap;
+      html += `<div class="co">${c.b ? `<div class="br" style="left:${x1}px;width:${x2 - x1}px;top:${yb + 12}px"></div>` : ''}
+        <div class="ln" style="left:${xm}px;top:${yb + (c.b ? 12 : -8)}px;height:${yl - yb - (c.b ? 12 : -8)}px"></div>
+        ${c.b ? '' : `<div class="dot" style="left:${xm}px;top:${yb - 13}px"></div>`}
+        <div class="lab" style="${c.right ? `left:${xm - 210}px;text-align:right` : `left:${xm + 10}px`};top:${yl - 2}px"><div class="n">${c.n}</div><div class="t">${c.t}</div><div class="d">${c.d}</div></div></div>`;
+    }
+  }
+  // signal flow rail
+  const F = ['Mic / line','Ghost pre','<span class="lc">dbx</span> comp','Sapphyre EQ','Aux · FX','Pan · fader','Mix · USB-C'];
+  html += `<div class="abs" style="left:48px;top:912px;width:984px;display:flex;align-items:center;gap:0">` + F.map((f, i) => `<div style="flex:1;height:48px;border:1px solid ${i === F.length - 1 ? 'var(--a)' : 'rgba(255,255,255,.14)'};background:${i === F.length - 1 ? 'color-mix(in srgb,var(--a) 18%,transparent)' : 'rgba(255,255,255,.035)'};border-radius:8px;display:flex;flex-direction:column;justify-content:center;padding:0 10px"><span class="mono" style="font-size:9.5px;color:var(--a);letter-spacing:.14em">${String(i + 1).padStart(2, '0')}</span><span style="font-weight:750;font-stretch:112%;font-size:12.5px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap">${f}</span></div>${i < F.length - 1 ? '<svg width="16" height="12" viewBox="0 0 16 12" style="flex:none"><path d="M0 6h12M8 1l5 5-5 5" stroke="#FFA95C" stroke-width="1.5" fill="none"/></svg>' : ''}`).join('') + `</div>`;
+  document.getElementById('engine').innerHTML = html;
+})();
+
+/* ───────────── 03 live club patch ───────────── */
+(() => {
+  const G = {DR:['Drums','#7FA6FF'], BG:['Bass & guitar','#3FE0D0'], VX:['Vocals','#FFA95C'], HP:['Horns & perc','#FFC94A'], HZ:['Hi-Z','#FF6B5E']};
+  const P = [['Kick','DR'],['Snare','DR'],['Hi-hat','DR'],['Tom 1','DR'],['Tom 2','DR'],['Floor','DR'],['OH L','DR'],['OH R','DR'],['Bass mic','BG'],['Gtr amp 1','BG'],['Gtr amp 2','BG'],['Lead vox','VX'],
+             ['BV 1','VX'],['BV 2','VX'],['BV 3','VX'],['Sax','HP'],['Trumpet','HP'],['Perc','HP'],['Ac. mic','BG'],['MC','VX'],['Bass DI','HZ'],['Gtr DI','HZ'],['Ac. gtr','HZ'],['Violin','HZ']];
+  const cell = (n, name, c, st) => `<div style="height:${st ? 50 : 76}px;border-radius:6px;background:linear-gradient(180deg,${c}26,${c}0d);border:1px solid ${c}55;padding:7px 8px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden"><span class="mono" style="font-size:10px;color:${c};letter-spacing:.06em">${n}</span><span style="font-weight:700;font-size:${st ? 13 : 12}px;line-height:1.1;letter-spacing:.01em">${name}</span><i style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${c}"></i></div>`;
+  document.getElementById('patch32').innerHTML = P.map((p, i) => cell(String(i + 1).padStart(2, '0'), p[0], G[p[1]][1])).join('');
+  document.getElementById('stereo32').innerHTML = [['25–26','Keys (stereo)'],['27–28','Sampler'],['29–30','Playback'],['31–32','Break music']].map(([n, t]) => cell(n, t, '#B9B5AC', true)).join('');
+  document.getElementById('legend32').innerHTML = Object.values(G).map(([t, c]) => `<span style="display:flex;align-items:center;gap:6px"><i style="width:9px;height:9px;border-radius:2px;background:${c}"></i>${t}</span>`).join('');
+})();
+
+/* ───────────── 04 studio: USB-C 4×4 diagram ───────────── */
+(() => {
+  const a = '#3FE0D0';
+  const lanes = [['USB 1','Kick + snare bus'],['USB 2','Guitars'],['USB 3','Vocal'],['USB 4','Room']];
+  const back = ['Click / guide','Backing L','Backing R','Talkback cue'];
+  let s = `<svg width="984" height="250" viewBox="0 0 984 250">
+  <defs><linearGradient id="u1" gradientUnits="userSpaceOnUse" x1="254" y1="0" x2="730" y2="0"><stop offset="0" stop-color="${a}" stop-opacity=".9"/><stop offset="1" stop-color="${a}" stop-opacity=".25"/></linearGradient>
+  <linearGradient id="u2" gradientUnits="userSpaceOnUse" x1="730" y1="0" x2="254" y2="0"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".8"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".15"/></linearGradient></defs>
+  <text x="0" y="12" font-size="11" letter-spacing="2.2" fill="${a}">USB-C · 4 IN / 4 OUT</text>
+  <text x="984" y="12" font-size="11" letter-spacing="2.2" fill="#A3A098" text-anchor="end">ONE CABLE · NO EXTRA INTERFACE · EXAMPLE ROUTING</text>`;
+  // console node
+  s += `<rect x="0" y="34" width="250" height="200" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)"/>
+        <image href="assets/r22.webp" x="12" y="60" width="226" height="148" preserveAspectRatio="xMidYMid meet"/>
+        <text x="16" y="56" font-size="10.5" letter-spacing="2" fill="#A3A098">CONSOLE · SP 22</text>`;
+  // computer node
+  s += `<rect x="734" y="34" width="250" height="200" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)"/>
+        <text x="750" y="56" font-size="10.5" letter-spacing="2" fill="#A3A098">COMPUTER · DAW</text>
+        <rect x="785" y="80" width="148" height="92" rx="6" fill="#0C0E11" stroke="#D9D5CC" stroke-width="1.5"/>
+        <rect x="793" y="88" width="132" height="76" rx="2" fill="${a}" fill-opacity=".10"/>
+        ${[0,1,2,3].map(i => `<rect x="799" y="${94 + i * 17}" width="${60 + (i * 23) % 60}" height="9" rx="2" fill="${a}" fill-opacity="${.75 - i * .12}"/>`).join('')}
+        <path d="M770 178h178l-12 12H782Z" fill="#D9D5CC" fill-opacity=".85"/>
+        <text x="859" y="220" font-size="10" letter-spacing="1.6" fill="#A3A098" text-anchor="middle">RECORD · PLAYBACK</text>`;
+  // lanes
+  for (let i = 0; i < 4; i++) {
+    const y = 52 + i * 24;
+    s += `<path d="M254 ${y}H730" stroke="url(#u1)" stroke-width="2"/><path d="M722 ${y - 4}l8 4-8 4" fill="${a}"/>
+          <text x="268" y="${y - 5}" font-size="10" fill="${a}" letter-spacing="1.4">${lanes[i][0]}</text><text x="330" y="${y - 5}" font-size="10" fill="#CFCBC2">${lanes[i][1]}</text>`;
+    const y2 = 150 + i * 24;
+    s += `<path d="M730 ${y2}H254" stroke="url(#u2)" stroke-width="2" stroke-dasharray="6 5"/><path d="M262 ${y2 - 4}l-8 4 8 4" fill="#FFFFFF" fill-opacity=".8"/>
+          <text x="716" y="${y2 - 5}" font-size="10" fill="#FFFFFF" fill-opacity=".85" letter-spacing="1.4" text-anchor="end">RETURN ${i + 1}</text><text x="630" y="${y2 - 5}" font-size="10" fill="#A3A098" text-anchor="end">${back[i]}</text>`;
+  }
+  s += `<rect x="440" y="116" width="104" height="22" rx="11" fill="#07080A" stroke="${a}"/><text x="492" y="131" font-size="10.5" fill="${a}" text-anchor="middle" letter-spacing="1.6">USB-C</text></svg>`;
+  document.getElementById('usb').innerHTML = s;
+})();
+
+/* ───────────── 05 acoustic: Lexicon bank + duo map ───────────── */
+(() => {
+  const A = ['S.HALL','L.HALL','V.HALL','D.HALL','S.PLT','L.PLT','V.PLT','D.PLT','ROOM','STUDIO','CHMBR','AMB','ARENA','GATED','REV','K.RAOKE'];
+  const pick = 9; // STUDIO
+  let h = `<div class="tag" style="margin-bottom:8px">Bank A · as printed on the panel</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px">`;
+  A.forEach((n, i) => { const on = i === pick; h += `<div style="height:30px;border-radius:5px;border:1px solid ${on ? 'var(--a)' : 'rgba(255,255,255,.1)'};background:${on ? 'color-mix(in srgb,var(--a) 22%,transparent)' : 'rgba(255,255,255,.03)'};display:flex;align-items:center;gap:6px;padding:0 7px"><span class="mono" style="font-size:9px;color:${on ? 'var(--a)' : 'var(--dim)'}">${i + 1}</span><span class="mono" style="font-size:10px;letter-spacing:.04em;color:${on ? '#fff' : '#CFCBC2'}">${n}</span></div>`; });
+  h += `</div><div class="tag" style="margin-top:10px">Bank B · springs, delays &amp; modulation</div>`;
+  document.getElementById('lexbank').innerHTML = h;
+  document.getElementById('lexfeat').innerHTML = ['Store', 'Tap tempo', 'FX return fader', 'FX mute'].map(t => `<span class="mono" style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:6px 10px;color:#DCD8CF">${t}</span>`).join('');
+  const M = [['CH 1','Vocal 1','Ghost + dbx'],['CH 2','Vocal 2','Ghost + dbx'],['CH 7','Guitar','Hi-Z · no DI'],['CH 8','Mandolin','Hi-Z · no DI'],['AUX 1','Wedge','Pre-fade mix']];
+  document.getElementById('duomap').innerHTML = M.map(([c, t, d], i) => `<div style="border-left:2px solid ${i === 4 ? '#fff' : 'var(--a)'};padding:4px 0 4px 12px"><div class="mono" style="font-size:10.5px;color:${i === 4 ? '#fff' : 'var(--a)'};letter-spacing:.14em">${c}</div><div style="font-weight:800;font-stretch:118%;font-size:19px;text-transform:uppercase;margin-top:4px">${t}</div><div class="mono" style="font-size:11px;color:#BDB9B0;margin-top:3px">${d}</div></div>`).join('');
+})();
+
+/* ───────────── 06 podcast: soft knee + flow ───────────── */
+(() => {
+  const a = '#3FE0D0', w = 430, h = 250, p = 34;
+  const sx = v => p + v * (w - p - 8), sy = v => h - p - v * (h - p - 10);
+  let hard = [], soft = [];
+  for (let i = 0; i <= 100; i++) {
+    const x = i / 100, t = .5, r = 1 / 4, k = .16;
+    let y;
+    if (x < t - k / 2) y = x; else if (x > t + k / 2) y = t + (x - t) * r; else { const d = x - t + k / 2; y = x + (r - 1) * d * d / (2 * k); }
+    soft.push(`${sx(x).toFixed(1)},${sy(y).toFixed(1)}`);
+  }
+  let s = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+  for (let i = 0; i <= 8; i++) { s += `<line x1="${sx(i / 8)}" y1="${sy(0)}" x2="${sx(i / 8)}" y2="${sy(1)}" stroke="rgba(255,255,255,.06)"/><line x1="${sx(0)}" y1="${sy(i / 8)}" x2="${sx(1)}" y2="${sy(i / 8)}" stroke="rgba(255,255,255,.06)"/>`; }
+  s += `<rect x="${sx(.42)}" y="${sy(1)}" width="${sx(.58) - sx(.42)}" height="${sy(0) - sy(1)}" fill="${a}" fill-opacity=".08"/>
+    <line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(1)}" y2="${sy(1)}" stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5"/>
+    <polyline points="${soft.join(' ')}" fill="none" stroke="${a}" stroke-width="3" stroke-linecap="round"/>
+    <line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(1)}" y2="${sy(0)}" stroke="rgba(255,255,255,.4)"/><line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(0)}" y2="${sy(1)}" stroke="rgba(255,255,255,.4)"/>
+    <text x="${sx(1)}" y="${h - 10}" font-size="10" fill="#A3A098" text-anchor="end" letter-spacing="1.6">INPUT LEVEL →</text>
+    <text x="12" y="${sy(1) + 4}" font-size="10" fill="#A3A098" letter-spacing="1.6" transform="rotate(-90 12 ${sy(1) + 4}) translate(-96 0)">OUTPUT →</text>
+    <text x="${sx(.5)}" y="${sy(1) + 14}" font-size="10" fill="${a}" text-anchor="middle" letter-spacing="1.6">OVEREASY® KNEE</text>
+    <text x="${sx(.95)}" y="${sy(.95) + 2}" font-size="10" fill="rgba(255,255,255,.55)" text-anchor="end">1:1</text>
+    <text x="${sx(.96)}" y="${sy(.62) - 8}" font-size="10" fill="${a}" text-anchor="end">COMPRESSED</text></svg>`;
+  document.getElementById('knee').innerHTML = s;
+  const F = [['Mic','Three hosts, CH 1–3'],['Ghost™ preamp','Clean, quiet gain'],['<span class="lc">dbx®</span> comp','Evens out laughs & whispers'],['Sapphyre™ EQ','Warmth, clarity'],['USB-C','Record & stream'],['Phones · C/RM','Hosts hear the mix']];
+  document.getElementById('podflow').innerHTML = F.map(([t, d], i) => `<div style="display:flex;align-items:center;gap:14px;padding:7px 0;${i ? 'border-top:1px dashed rgba(255,255,255,.1)' : ''}"><span style="width:26px;height:26px;border-radius:50%;border:1px solid var(--a);color:var(--a);display:flex;align-items:center;justify-content:center;font:600 11px var(--mono);flex:none">${i + 1}</span><span style="font-weight:800;font-stretch:115%;font-size:15px;text-transform:uppercase;width:170px">${t}</span><span class="mono" style="font-size:11.5px;color:#BDB9B0">${d}</span></div>`).join('');
+})();
+
+/* ───────────── 07 panel: EQ control map ───────────── */
+(() => {
+  const a = '#FFC94A', w = 506, h = 214, pl = 30, pr = 8, pt = 10, pb = 26;
+  const fx = f => pl + (Math.log10(f) - Math.log10(20)) / (Math.log10(20000) - Math.log10(20)) * (w - pl - pr);
+  const gy = g => pt + (1 - (g + 1) / 2) * (h - pt - pb);
+  let s = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+  [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000].forEach(f => { s += `<line x1="${fx(f)}" y1="${pt}" x2="${fx(f)}" y2="${h - pb}" stroke="rgba(255,255,255,.07)"/><text x="${fx(f)}" y="${h - 9}" font-size="9" fill="#8C8982" text-anchor="middle">${f >= 1000 ? f / 1000 + 'k' : f}</text>`; });
+  s += `<line x1="${pl}" y1="${gy(0)}" x2="${w - pr}" y2="${gy(0)}" stroke="rgba(255,255,255,.3)"/>`;
+  s += `<rect x="${fx(150)}" y="${pt}" width="${fx(3000) - fx(150)}" height="${h - pt - pb}" fill="${a}" fill-opacity=".08"/>
+        <line x1="${fx(150)}" y1="${pt}" x2="${fx(150)}" y2="${h - pb}" stroke="${a}" stroke-opacity=".6" stroke-dasharray="3 4"/>
+        <line x1="${fx(3000)}" y1="${pt}" x2="${fx(3000)}" y2="${h - pb}" stroke="${a}" stroke-opacity=".6" stroke-dasharray="3 4"/>
+        <text x="${(fx(150) + fx(3000)) / 2}" y="${pt + 14}" font-size="10" fill="${a}" text-anchor="middle" letter-spacing="1.4">MF SWEEP 150 Hz – 3 kHz</text>`;
+  // curves (illustrative shapes)
+  const pts = fn => { let o = []; for (let i = 0; i <= 160; i++) { const f = 20 * Math.pow(1000, i / 160); o.push(`${fx(f).toFixed(1)},${gy(fn(f)).toFixed(1)}`); } return o.join(' '); };
+  const hpf = f => -Math.min(1, Math.max(0, Math.pow(100 / f, 2) - .02) * .55);
+  const bell = f => -.45 * Math.exp(-Math.pow(Math.log2(f / 350) / .8, 2));
+  const hf = f => .32 / (1 + Math.pow(9000 / f, 2));
+  s += `<polyline points="${pts(hpf)}" fill="none" stroke="#FF6B5E" stroke-width="2" stroke-dasharray="6 4"/>
+        <polyline points="${pts(f => bell(f) + hf(f) + hpf(f))}" fill="none" stroke="${a}" stroke-width="3" stroke-linecap="round"/>
+        <text x="${fx(23)}" y="${gy(-.42)}" font-size="10" fill="#FF6B5E" letter-spacing="1.2">100 Hz</text><text x="${fx(23)}" y="${gy(-.42) + 13}" font-size="10" fill="#FF6B5E" letter-spacing="1.2">FILTER</text>
+        <text x="${fx(360)}" y="${gy(-.58)}" font-size="10" fill="${a}" text-anchor="middle" letter-spacing="1.2">CUT THE BOOM</text>
+        <text x="${fx(12000)}" y="${gy(.44)}" font-size="10" fill="${a}" text-anchor="end" letter-spacing="1.2">HF · AIR</text>
+        <text x="${pl - 6}" y="${gy(.8)}" font-size="9" fill="#8C8982" text-anchor="end">+</text><text x="${pl - 6}" y="${gy(-.8)}" font-size="9" fill="#8C8982" text-anchor="end">−</text></svg>`;
+  document.getElementById('eqplot').innerHTML = s;
+})();
+
+/* ───────────── 08 outdoor: aux map ───────────── */
+(() => {
+  const A = [['AUX 1','Drum fill','PRE','#7FA6FF'],['AUX 2','Bass & guitar wedge','PRE','#3FE0D0'],['AUX 3','Vocal wedges','PRE','#FFA95C'],['AUX 4','In-ear · Mix→Aux','MIX','#FFC94A']];
+  let s = `<svg width="594" height="290" viewBox="0 0 594 290">
+    <rect x="0" y="20" width="150" height="250" rx="10" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.14)"/>
+    <text x="75" y="48" font-size="10" fill="#A3A098" text-anchor="middle" letter-spacing="1.8">CHANNELS</text>`;
+  for (let i = 0; i < 8; i++) s += `<rect x="${18 + i * 15}" y="64" width="9" height="170" rx="3" fill="rgba(255,255,255,.08)"/><rect x="${18 + i * 15}" y="${140 + (i * 37) % 60}" width="9" height="12" rx="2" fill="#E9E5DC"/>`;
+  s += `<text x="75" y="256" font-size="9.5" fill="#8C8982" text-anchor="middle" letter-spacing="1.4">4 SENDS / CH</text>`;
+  A.forEach(([n, t, m, c], i) => {
+    const y = 40 + i * 62;
+    s += `<path d="M150 ${145} C 210 ${145}, 200 ${y + 20}, 250 ${y + 20}" stroke="${c}" stroke-width="2" fill="none" stroke-opacity=".85"/>
+      <rect x="250" y="${y}" width="200" height="40" rx="8" fill="${c}" fill-opacity=".12" stroke="${c}" stroke-opacity=".6"/>
+      <text x="264" y="${y + 17}" font-size="10.5" fill="${c}" letter-spacing="1.6">${n}</text>
+      <text x="264" y="${y + 32}" font-size="11" fill="#EDE9E0" font-family="Archivo" font-weight="700">${t}</text>
+      <rect x="400" y="${y + 11}" width="40" height="18" rx="4" fill="#07080A" stroke="${c}" stroke-opacity=".7"/><text x="420" y="${y + 24}" font-size="9" fill="${c}" text-anchor="middle">${m}</text>
+      <path d="M450 ${y + 20}H500" stroke="${c}" stroke-width="2" stroke-dasharray="4 4"/>`;
+    // wedge / IEM icon
+    if (i < 3) s += `<path d="M506 ${y + 34}l14-28h50l10 28Z" fill="none" stroke="#EDE9E0" stroke-width="1.6"/><circle cx="545" cy="${y + 22}" r="7" fill="none" stroke="${c}" stroke-width="1.6"/>`;
+    else s += `<path d="M522 ${y + 8}c-8 0-12 8-12 14s4 12 10 12" fill="none" stroke="#EDE9E0" stroke-width="1.8"/><circle cx="524" cy="${y + 22}" r="6" fill="${c}"/><path d="M530 ${y + 22}h30" stroke="${c}" stroke-width="1.6" stroke-dasharray="2 3"/>`;
+  });
+  s += `</svg>`;
+  document.getElementById('auxmap').innerHTML = s + `<div class="tag" style="margin-top:0">Talkback reaches any aux — <b>talk to the stage</b> between songs</div>`;
+})();
+
+/* ───────────── 09 compact: pins on the real 12 top view ───────────── */
+(() => {
+  const box = document.getElementById('plan12'), W = 420, H = 645, iw = 1543, ih = 2370;
+  const sc = Math.min(W / iw, H / ih), dw = iw * sc, dh = ih * sc, ox = (W - dw) / 2, oy = (H - dh) / 2;
+  const P = [
+    [.25, .145, '6 mono channels', 'Ghost pre · dbx · Sapphyre'],
+    [.285, .236, '4 × Hi-Z', 'Channels 3–6'],
+    [.54, .155, 'Stereo inputs', '7-8 · 9-10 · 11-12'],
+    [.615, .245, 'USB-C 4×4', 'Record & playback'],
+    [.495, .336, 'QR code', 'Manual & training'],
+    [.925, .336, 'Talkback', 'Own XLR + preamp'],
+    [.775, .455, 'Lexicon® FX', '32 presets · tap tempo'],
+    [.915, .47, 'Dual meters', 'dBu | dBFS'],
+    [.83, .905, 'Groups + mix', '1-2 · 3-4 · main'],
+  ];
+  box.insertAdjacentHTML('beforeend', P.map((p, i) => `<div class="num-pin" style="left:${ox + p[0] * dw}px;top:${oy + p[1] * dh}px">${i + 1}</div>`).join(''));
+  document.getElementById('legend12').innerHTML = P.map((p, i) => `<div style="display:flex;gap:12px;align-items:flex-start;padding-top:9px;border-top:1px solid rgba(255,255,255,.09)"><span class="mono" style="font-size:11px;font-weight:700;color:#0A0A0A;background:var(--a);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex:none">${i + 1}</span><div><div style="font-weight:800;font-stretch:115%;font-size:14px;text-transform:uppercase;letter-spacing:.02em">${p[2]}</div><div class="mono" style="font-size:11px;color:#BDB9B0;margin-top:2px">${p[3]}</div></div></div>`).join('');
+})();
+
+/* ───────────── 10 model picker ───────────── */
+(() => {
+  const M = [['12','#FF6B5E','r12.webp',6,12,'Podcasts · duos · chapels · home'],['16','#FFC94A','r16.webp',10,16,'Bands with a laptop · cafés · panels'],['22','#3FE0D0','r22.webp',14,22,'Full stage + monitors · studios'],['32','#7FA6FF','r32.webp',24,32,'Clubs · festivals · galas · worship']];
+  document.getElementById('models').innerHTML = M.map(([m, c, img, mono, tot, best]) => `
+    <div style="border-radius:12px;border:1px solid ${c}55;background:linear-gradient(180deg,${c}1f,rgba(255,255,255,.02) 60%);padding:16px 16px 18px;position:relative;overflow:hidden;height:404px">
+      <div style="position:absolute;left:0;right:0;top:0;height:3px;background:${c}"></div>
+      <div class="mono" style="font-size:10.5px;letter-spacing:.2em;color:${c}">SIGNATURE PLUS</div>
+      <div style="font-weight:850;font-stretch:125%;font-size:66px;line-height:1;margin-top:4px">${m}</div>
+      <div style="height:128px;display:flex;align-items:center;justify-content:center;margin:6px -6px 4px"><img src="assets/${img}" style="max-width:100%;max-height:128px;filter:drop-shadow(0 16px 18px rgba(0,0,0,.6))"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(255,255,255,.1);padding-top:10px"><span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:#A3A098">MONO</span><span style="font-weight:800;font-size:22px;font-stretch:120%">${mono}</span></div>
+      <div style="height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:6px"><div style="height:100%;width:${mono / 24 * 100}%;border-radius:3px;background:${c}"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px"><span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:#A3A098">INPUTS</span><span style="font-weight:800;font-size:22px;font-stretch:120%">${tot}</span></div>
+      <div style="height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin-top:6px"><div style="height:100%;width:${tot / 32 * 100}%;border-radius:3px;background:${c};opacity:.7"></div></div>
+      <div class="mono" style="font-size:11px;color:#D2CEC5;line-height:1.5;margin-top:14px">${best}</div>
+    </div>`).join('');
+})();
+
+/* cover model tiles */
+document.getElementById('tiles').innerHTML = [['12','#FF6B5E','6 mono'],['16','#FFC94A','10 mono'],['22','#3FE0D0','14 mono'],['32','#7FA6FF','24 mono']].map(([m, c, d]) => `<div style="width:124px;height:66px;border-radius:10px;border:1px solid ${c}66;background:linear-gradient(135deg,${c}26,rgba(255,255,255,.02));display:flex;align-items:center;justify-content:space-between;padding:0 12px;box-shadow:0 12px 26px rgba(0,0,0,.45)"><span style="font-weight:850;font-stretch:125%;font-size:30px">${m}</span><span class="mono" style="font-size:9.5px;letter-spacing:.12em;color:${c};text-align:right;line-height:1.35">SP<br>${d.toUpperCase()}</span></div>`).join('');
+/* panel spec cells */
+document.getElementById('panspec').innerHTML = [['100 Hz','High-pass'],['150–3k','MF sweep'],['T/B','Any output']].map(([v, k]) => `<div style="border-top:2px solid var(--a);padding-top:10px"><div style="font-weight:850;font-stretch:120%;font-size:22px">${v}</div><div class="mono" style="font-size:10px;letter-spacing:.16em;color:#A3A098;text-transform:uppercase;margin-top:4px">${k}</div></div>`).join('');
+</script>
+</body>
+</html>
