@@ -23,14 +23,16 @@ const hq = (n: string) => staticFile("loop/hq/" + n);
 const DISP = "'LoopArchivo', 'Archivo Black', sans-serif";
 const SERIF = "'LoopSerif', Georgia, serif";
 const MONO = "'LoopMono', ui-monospace, monospace";
-const fontHandle = delayRender("loop fonts");
-Promise.all(([
-  ["LoopArchivo", "Archivo-normal-100_900.woff2", { weight: "100 900", stretch: "62% 125%" }],
-  ["LoopSerif", "InstrumentSerif-italic-400.woff2", { style: "italic" }],
-  ["LoopMono", "JetBrainsMono-normal-400.woff2", { weight: "400 700" }],
-] as [string, string, FontFaceDescriptors][]).map(([fam, file, d]) =>
-  new FontFace(fam, `url(${staticFile("loop/fonts/" + file)}) format('woff2')`, d).load().then((f) => { (document.fonts as unknown as { add: (x: FontFace) => void }).add(f); })))
-  .then(() => continueRender(fontHandle), () => continueRender(fontHandle));
+let fontsReady: Promise<unknown> | null = null;
+const loadFonts = () => {
+  fontsReady ??= Promise.all(([
+    ["LoopArchivo", "Archivo-normal-100_900.woff2", { weight: "100 900", stretch: "62% 125%" }],
+    ["LoopSerif", "InstrumentSerif-italic-400.woff2", { style: "italic" }],
+    ["LoopMono", "JetBrainsMono-normal-400.woff2", { weight: "400 700" }],
+  ] as [string, string, FontFaceDescriptors][]).map(([fam, file, d]) =>
+    new FontFace(fam, `url(${staticFile("loop/fonts/" + file)}) format('woff2')`, d).load().then((f) => { (document.fonts as unknown as { add: (x: FontFace) => void }).add(f); })));
+  return fontsReady;
+};
 
 /** 0→1→0 visibility for a scene living in [a, b] with `fi`/`fo` fades. */
 const win = (t: number, a: number, b: number, fi = 0.9, fo = 0.9) =>
@@ -552,6 +554,11 @@ export const Loop: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
+  // Hold the frame until the self-hosted type is ready (Remotion's documented delayRender pattern).
+  const [fontHandle] = React.useState(() => delayRender("loop fonts"));
+  React.useEffect(() => {
+    loadFonts().then(() => continueRender(fontHandle), () => continueRender(fontHandle));
+  }, [fontHandle]);
   return (
     <AbsoluteFill style={{ background: "#050506", overflow: "hidden" }}>
       <Room t={t} />
