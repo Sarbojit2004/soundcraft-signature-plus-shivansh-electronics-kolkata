@@ -3,7 +3,7 @@ import { Composition } from "remotion";
 import { REEL, VIDEO } from "./theme.ts";
 import { REEL_PLAN, VIDEO_PLAN } from "./plan.ts";
 import { Film } from "./Film.tsx";
-import { Loop } from "./Loop.tsx";
+import { Loop, LoopThumb } from "./Loop.tsx";
 import { FONT_FACE_CSS } from "./fonts.ts";
 
 const style = document.createElement("style");
@@ -16,6 +16,7 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={{ canvas: REEL, plan: REEL_PLAN, mix: "mix-reel.wav" }} />
     <Composition id="Video" component={Film} durationInFrames={VIDEO.durationInFrames} fps={VIDEO.fps} width={VIDEO.width} height={VIDEO.height}
       defaultProps={{ canvas: VIDEO, plan: VIDEO_PLAN, mix: "mix-video.wav" }} />
+    <Composition id="LoopThumb" component={LoopThumb} durationInFrames={1} fps={30} width={1080} height={1920} />
     <Composition id="Loop" component={Loop} durationInFrames={1800} fps={60} width={1080} height={1080} />
   </>
 );

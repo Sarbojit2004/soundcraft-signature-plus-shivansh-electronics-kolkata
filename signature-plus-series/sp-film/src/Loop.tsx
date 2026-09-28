@@ -577,3 +577,94 @@ export const Loop: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// THUMBNAIL · 1080×1920 portrait (rendered at 2x → 2160×3840)
+// The loop's poster frame: the family, the three signature technologies as
+// live graphics, and the two logos.
+// ─────────────────────────────────────────────────────────────────────────────
+const MiniCard: React.FC<{ c: string; label: string; x: number; y: number; w: number; children: React.ReactNode }> = ({ c, label, x, y, w, children }) => {
+  const h = (w * 262) / 416;
+  return (
+    <div style={{ position: "absolute", left: x, top: y, width: w, height: h, borderRadius: 18, overflow: "hidden",
+      background: "linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.025))", border: "1px solid rgba(255,255,255,.14)", boxShadow: "0 30px 60px rgba(0,0,0,.55)" }}>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 2, background: `linear-gradient(90deg, transparent, ${c}, transparent)` }} />
+      <div style={{ position: "absolute", left: 14, top: 12, fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", color: "#B5B0A6" }}><span style={{ color: c }}>●</span>&nbsp; {label}</div>
+      <svg width={w} height={h} viewBox="0 0 416 262" style={{ position: "absolute", left: 0, top: 0 }}>{children}</svg>
+    </div>
+  );
+};
+
+export const LoopThumb: React.FC = () => {
+  const [fontHandle] = React.useState(() => delayRender("thumb fonts"));
+  React.useEffect(() => { loadFonts().then(() => continueRender(fontHandle), () => continueRender(fontHandle)); }, [fontHandle]);
+  const W = 1080, H = 1920;
+  const fam: [string, string, number, number, number][] = [
+    ["h22", "22", 285, 1000, 540], ["h16", "16", 800, 975, 500], ["h32", "32", 650, 1235, 700], ["h12", "12", 245, 1375, 440],
+  ];
+  return (
+    <AbsoluteFill style={{ background: "#050506", overflow: "hidden" }}>
+      <AbsoluteFill style={{ background: "radial-gradient(130% 90% at 50% 45%, #111217 0%, #07080A 60%, #030304 100%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(700px 520px at 78% 22%, rgba(255,169,92,.22), transparent 70%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(760px 620px at 18% 62%, rgba(110,150,255,.16), transparent 70%)" }} />
+      <AbsoluteFill style={{ background: "radial-gradient(620px 360px at 55% 74%, rgba(255,169,92,.20), transparent 72%)" }} />
+      <AbsoluteFill style={{ opacity: 0.6, mixBlendMode: "screen",
+        background: "repeating-conic-gradient(from 12deg at 50% -18%, rgba(255,210,160,0.06) 0deg 3deg, transparent 3deg 14deg)",
+        maskImage: "linear-gradient(180deg, #000 0%, transparent 60%)", WebkitMaskImage: "linear-gradient(180deg, #000 0%, transparent 60%)" }} />
+      <AbsoluteFill style={{ opacity: 0.55,
+        backgroundImage: "linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px)", backgroundSize: "54px 54px",
+        maskImage: "radial-gradient(ellipse 70% 45% at 50% 55%, #000 20%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 70% 45% at 50% 55%, #000 20%, transparent 85%)" }} />
+      {Array.from({ length: 90 }).map((_, i) => {
+        const r = random(`td${i}`), s = 1.5 + r * 4;
+        return <div key={i} style={{ position: "absolute", left: random(`tx${i}`) * W, top: random(`ty${i}`) * H, width: s, height: s, borderRadius: "50%",
+          background: i % 5 === 0 ? "rgba(140,170,255,.8)" : "rgba(255,220,180,.8)", opacity: 0.1 + 0.35 * r, filter: s > 4 ? "blur(1px)" : undefined }} />;
+      })}
+      {/* dial rings behind the hero */}
+      <svg width={1500} height={1500} viewBox="-100 -100 200 200" style={{ position: "absolute", left: W / 2 - 750, top: 1150 - 750, opacity: 0.55 }}>
+        <circle r="96" fill="none" stroke="rgba(255,255,255,.08)" strokeWidth=".3" />
+        <circle r="96" fill="none" stroke={AMBER} strokeWidth=".6" strokeDasharray="60 543" transform="rotate(200)" />
+        <circle r="84" fill="none" stroke="rgba(255,255,255,.1)" strokeWidth=".25" strokeDasharray="1 3" />
+        {Array.from({ length: 60 }).map((_, i) => { const a = (i / 60) * TAU, long = i % 5 === 0;
+          return <line key={i} x1={Math.cos(a) * 88} y1={Math.sin(a) * 88} x2={Math.cos(a) * (long ? 92 : 90)} y2={Math.sin(a) * (long ? 92 : 90)} stroke={long ? AMBER : "rgba(255,255,255,.3)"} strokeWidth={long ? 0.5 : 0.25} />; })}
+      </svg>
+
+      {/* logos + title */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 96, display: "flex", justifyContent: "center" }}><Lockup t={9} w={470} glow={1} /></div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 300, textAlign: "center" }}>
+        <div style={{ fontFamily: MONO, fontSize: 19, letterSpacing: "0.46em", color: AMBER, paddingLeft: "0.46em" }}>SIGNATURE PLUS SERIES</div>
+        <div style={{ fontFamily: DISP, fontWeight: 850, fontStretch: "125%", fontSize: 132, lineHeight: 0.95, letterSpacing: "-0.015em", color: "#F5F1EA", marginTop: 26, textTransform: "uppercase" }}>Four sizes.</div>
+        <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 150, lineHeight: 0.9, color: AMBER, marginTop: 4, textShadow: "0 0 40px rgba(255,169,92,.35)" }}>one desk.</div>
+        <div style={{ fontFamily: DISP, fontWeight: 500, fontSize: 30, color: "#EAE4DA", marginTop: 22 }}>Professional analog mixing, perfected.</div>
+      </div>
+
+      {/* the family */}
+      {fam.map(([src, m, x, y, w]) => {
+        const h = w / AR[src];
+        return (
+          <div key={src} style={{ position: "absolute", left: x - w / 2, top: y - h / 2, width: w }}>
+            <div style={{ position: "absolute", left: "8%", right: "8%", top: "35%", bottom: "-14%", background: `radial-gradient(closest-side, ${MC[m]}50, transparent)`, filter: "blur(26px)" }} />
+            <Img src={hq(src + ".webp")} style={{ position: "relative", width: "100%", display: "block", filter: "drop-shadow(0 40px 44px rgba(0,0,0,.8))" }} />
+            <div style={{ position: "absolute", left: "20%", right: "20%", bottom: -12, height: 2, background: `linear-gradient(90deg, transparent, ${MC[m]}, transparent)`, boxShadow: `0 0 18px ${MC[m]}` }} />
+          </div>
+        );
+      })}
+      {/* model badges */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 1535, display: "flex", justifyContent: "center", gap: 34 }}>
+        {["12", "16", "22", "32"].map((m) => (
+          <div key={m} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 22px", borderRadius: 999, border: `1px solid ${MC[m]}77`, background: `${MC[m]}1a` }}>
+            <i style={{ width: 10, height: 10, borderRadius: 5, background: MC[m], boxShadow: `0 0 12px ${MC[m]}` }} />
+            <span style={{ fontFamily: DISP, fontWeight: 850, fontStretch: "125%", fontSize: 34, color: "#F5F1EA" }}>{m}</span>
+          </div>
+        ))}
+      </div>
+      {/* the three signature technologies, as live graphics */}
+      <MiniCard c={MC["12"]} label="GHOST™ PREAMPS" x={40} y={1640} w={318}><GainViz t={3.1} c={MC["12"]} k={0.62} /></MiniCard>
+      <MiniCard c={MC["16"]} label="SAPPHYRE™ EQ" x={381} y={1640} w={318}><EqViz t={0} c={MC["16"]} k={0.55} /></MiniCard>
+      <MiniCard c={MC["22"]} label="dbx® COMPRESSION" x={722} y={1640} w={318}><CompViz t={2.4} c={MC["22"]} k={0.6} /></MiniCard>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 1862, textAlign: "center", fontFamily: MONO, fontSize: 16, letterSpacing: "0.22em", color: "#B9B4AA" }}>
+        LEXICON® EFFECTS · USB-C 4 × 4 · 4 AUX SENDS
+      </div>
+      <AbsoluteFill style={{ background: "radial-gradient(ellipse 85% 75% at 50% 50%, transparent 60%, rgba(0,0,0,.55) 100%)" }} />
+    </AbsoluteFill>
+  );
+};
